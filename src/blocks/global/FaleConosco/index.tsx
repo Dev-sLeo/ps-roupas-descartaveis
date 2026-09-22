@@ -1,5 +1,5 @@
 import styles from './style.module.scss';
-import { linkProps } from '../../../utils';
+import { linkProps, htmlTitle } from '../../../utils';
 import { FaleConoscoProps } from './types';
 
 export default function FaleConosco({ eyebrow, titulo, descricao, cta1, cta2, patternLeft, patternRight }: FaleConoscoProps) {
@@ -14,7 +14,7 @@ export default function FaleConosco({ eyebrow, titulo, descricao, cta1, cta2, pa
       <div className={styles.faleConosco__container} data-animate="fade-up">
         {eyebrow && <p className={styles.faleConosco__eyebrow}>{eyebrow}</p>}
         {titulo && <h2 className={styles.faleConosco__title}>{titulo}</h2>}
-        {descricao && <p className={styles.faleConosco__description}>{descricao}</p>}
+        {descricao && <p className={styles.faleConosco__description} {...htmlTitle(descricao)} />}
 
         {(primary || secondary) && (
           <div className={styles.faleConosco__actions}>

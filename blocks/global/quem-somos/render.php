@@ -6,7 +6,7 @@ $group = get_field('quem_somos') ?: [];
 block_render('quem-somos', [
     'eyebrow'        => $group['eyebrow'] ?? '',
     'titulo'         => $group['titulo'] ?? '',
-    'descricao'      => $group['descricao'] ?? '',
+    'descricao'      => acf_wysiwyg($group['descricao'] ?? ''),
     'badge1'         => $group['badge_1'] ?? '',
     'badge2'         => $group['badge_2'] ?? '',
     'botao'          => acf_link($group['botao'] ?? null),

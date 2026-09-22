@@ -33,16 +33,21 @@ export default function Listagem({ categorias = [], posts = [], paginacao = [] }
 
         {paginacao.length > 1 && (
           <nav className={styles.listagem__pagination} aria-label="Paginação do blog">
-            {paginacao.map((pagina) => (
-              <a
-                key={pagina.numero}
-                href={pagina.url}
-                className={`${styles.listagem__pageLink} ${pagina.ativa ? styles['listagem__pageLink--active'] : ''}`}
-                aria-current={pagina.ativa ? 'page' : undefined}
-              >
-                {String(pagina.numero).padStart(2, '0')}
-              </a>
-            ))}
+            {paginacao.map((pagina) =>
+              pagina.ativa ? (
+                <span
+                  key={pagina.numero}
+                  className={`${styles.listagem__pageLink} ${styles['listagem__pageLink--active']}`}
+                  aria-current="page"
+                >
+                  {String(pagina.numero).padStart(2, '0')}
+                </span>
+              ) : (
+                <a key={pagina.numero} href={pagina.url} className={styles.listagem__pageLink}>
+                  {String(pagina.numero).padStart(2, '0')}
+                </a>
+              )
+            )}
           </nav>
         )}
       </div>

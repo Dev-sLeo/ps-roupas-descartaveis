@@ -29,6 +29,42 @@ const REVEAL_VARS: gsap.TweenVars = {
 
 const DESKTOP_MQ = '(min-width: 1024px)';
 
+/**
+ * Scrolla até um elemento por id, respeitando o ScrollSmoother quando ativo
+ * (scroll nativo/`scrollIntoView` não funciona com ele: o scroll real é
+ * simulado via transform no `#smooth-content`, ver `_reset.scss`/`lockScroll`).
+ */
+export function scrollToTarget(id: string): void {
+  const target = document.getElementById(id);
+  if (!target) return;
+
+  const smoother = ScrollSmoother.get();
+  if (smoother) {
+    smoother.scrollTo(target, true, 'top top');
+  } else {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+/**
+ * Intercepta cliques em links de âncora pra mesma página (ex: CTA do hero
+ * "Vagas disponíveis" → `#vagas`) e usa `scrollToTarget` em vez do jump nativo
+ * do navegador, que não respeita o ScrollSmoother.
+ */
+export function bindAnchorScroll(): void {
+  document.addEventListener('click', (event) => {
+    const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"]');
+    if (!link) return;
+
+    const id = link.getAttribute('href')?.slice(1);
+    if (!id || !document.getElementById(id)) return;
+
+    event.preventDefault();
+    history.pushState(null, '', `#${id}`);
+    scrollToTarget(id);
+  });
+}
+
 export function initAnimations(): void {
   // Filtros das pages Estoque/Vídeos/Notícias trocam o conteúdo via AJAX, mudando a
   // altura da página — reavalia os triggers existentes depois que o novo conteúdo

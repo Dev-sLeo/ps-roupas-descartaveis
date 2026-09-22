@@ -1,11 +1,13 @@
 @use '../../../../styles/tokens' as *;
 
 .contato {
-  padding: 0 0 $space-12;
+  // Espaço até o hero (fixo, não editar) — 100px no Figma entre o fim do hero
+  // e o início deste bloco.
+  padding: $space-10 0 $space-12;
   background-color: $color-bg-primary;
 
   @include respond-to($bp-lg) {
-    padding: 0 0 $space-16;
+    padding: 6.25rem 0 $space-16; // 100px
   }
 }
 
@@ -20,7 +22,7 @@
 
   @include respond-to($bp-lg) {
     gap: $space-14;
-    padding-bottom: $space-14;
+    padding-bottom: 7.5rem; // 120px — gap até a linha divisória, valor do Figma
   }
 }
 
@@ -31,6 +33,10 @@
   gap: $space-4;
   max-width: 550px;
   text-align: center;
+
+  @include respond-to($bp-lg) {
+    gap: $space-8; // 32px no Figma
+  }
 }
 
 .contato__title {
@@ -64,7 +70,7 @@
 
   @include respond-to($bp-lg) {
     flex-direction: row;
-    gap: $space-8;
+    gap: 2.4375rem; // 39px no Figma
   }
 }
 

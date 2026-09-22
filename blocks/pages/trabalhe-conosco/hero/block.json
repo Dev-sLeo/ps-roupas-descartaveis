@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/trabalhe-conosco-hero",
+  "title": "Trabalhe Conosco — Hero",
+  "category": "theme",
+  "description": "Hero centralizado sobre fundo gradiente decorativo (mesma base de Contato/Ouvidoria), com eyebrow/título/descrição + 2 CTAs.",
+  "keywords": ["trabalhe conosco", "hero", "vagas"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}

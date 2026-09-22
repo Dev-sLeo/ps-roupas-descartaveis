@@ -7,15 +7,46 @@ import { InstrucoesProps } from './types';
 
 export default function Instrucoes({ videoUrl, capa }: InstrucoesProps) {
   const [aberto, setAberto] = useState(false);
+  const [copiado, setCopiado] = useState(false);
 
   if (!videoUrl) return null;
 
-  function compartilhar() {
+  async function compartilhar() {
     const url = window.location.href;
+
+    // Share nativo (mobile/Safari) — se o usuário cancelar o dialog, o próprio
+    // navigator.share rejeita a Promise; não é erro, só não faz nada depois.
     if (navigator.share) {
-      navigator.share({ url }).catch(() => {});
-    } else {
-      navigator.clipboard?.writeText(url);
+      try {
+        await navigator.share({ url });
+      } catch {
+        /* usuário cancelou o compartilhamento nativo */
+      }
+      return;
+    }
+
+    // Fallback (desktop): copia o link. `navigator.clipboard` só existe em
+    // contexto seguro (https) — em http (comum em ambiente local) o botão
+    // clicava e não fazia nada, sem erro nenhum e sem feedback. O
+    // `document.execCommand` cobre esse caso; o try/catch final é só rede de
+    // segurança pra nunca quebrar o clique.
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(url);
+      } else {
+        const input = document.createElement('textarea');
+        input.value = url;
+        input.style.position = 'fixed';
+        input.style.opacity = '0';
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+      }
+      setCopiado(true);
+      setTimeout(() => setCopiado(false), 2000);
+    } catch {
+      /* nada a fazer — sem clipboard disponível */
     }
   }
 
@@ -26,7 +57,7 @@ export default function Instrucoes({ videoUrl, capa }: InstrucoesProps) {
           <h2 className={styles.instrucoes__title}>Instruções de uso</h2>
           <button type="button" className={styles.instrucoes__share} onClick={compartilhar}>
             <IconShare />
-            <span>Compartilhar</span>
+            <span>{copiado ? 'Link copiado!' : 'Compartilhar'}</span>
           </button>
         </div>
 

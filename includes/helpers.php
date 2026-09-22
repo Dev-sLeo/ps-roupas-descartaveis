@@ -196,13 +196,17 @@ function wc_category_card(WP_Term $term): array {
 }
 
 /**
- * Monta o `tax_query` do arquivo de produtos a partir dos valores brutos das
- * query vars `produto_categoria` (slugs separados por vírgula) e
- * `produto_destaque` ("1" = só produtos marcados como destaque no WooCommerce).
+ * Monta o `tax_query` do arquivo de produtos a partir do valor bruto da
+ * query var `produto_categoria` (slugs separados por vírgula).
  * Usado tanto pelo `pre_get_posts` (query principal) quanto pelo handler AJAX
  * (includes/ajax.php) — mesma lógica dos dois lados pra sempre bater.
  *
- * @param array{produto_categoria?: mixed, produto_destaque?: mixed} $vars
+ * "Em destaque" não filtra mais pela taxonomia `product_visibility` (destaque
+ * manual do WooCommerce) — os "produtos em destaque" do catálogo são os
+ * últimos adicionados, então não precisam de tax_query própria: já é o
+ * `orderby: date DESC` padrão de `proseg_produtos_query()`.
+ *
+ * @param array{produto_categoria?: mixed} $vars
  */
 function proseg_produtos_tax_query(array $vars): array {
     $tax_query = [];
@@ -214,18 +218,6 @@ function proseg_produtos_tax_query(array $vars): array {
             'field'    => 'slug',
             'terms'    => array_values($categorias),
         ];
-    }
-
-    if (!empty($vars['produto_destaque'])) {
-        $tax_query[] = [
-            'taxonomy' => 'product_visibility',
-            'field'    => 'name',
-            'terms'    => 'featured',
-        ];
-    }
-
-    if (count($tax_query) > 1) {
-        $tax_query['relation'] = 'AND';
     }
 
     return $tax_query;
@@ -252,6 +244,10 @@ function proseg_produtos_filtros(array $get): array {
  * (ver proseg_produtos_filtros()) e devolve o payload pronto pro React
  * (produtos[] + paginacao[]) — mesmo shape usado no SSR e na resposta AJAX.
  *
+ * "Em destaque" (`$filtros['destaque']`) não filtra a query — os produtos em
+ * destaque são os últimos adicionados, e `orderby: date DESC` já traz isso
+ * por padrão. O valor só volta no payload pra manter o checkbox marcado na UI.
+ *
  * @param array{categoria: string, busca: string, destaque: bool, pagina: int} $filtros
  */
 function proseg_produtos_query(array $filtros): array {
@@ -261,9 +257,10 @@ function proseg_produtos_query(array $filtros): array {
         'posts_per_page' => 9,
         'paged'          => $filtros['pagina'],
         's'              => $filtros['busca'],
+        'orderby'        => 'date',
+        'order'          => 'DESC',
         'tax_query'      => proseg_produtos_tax_query([
             'produto_categoria' => $filtros['categoria'],
-            'produto_destaque'  => $filtros['destaque'],
         ]),
     ]);
 

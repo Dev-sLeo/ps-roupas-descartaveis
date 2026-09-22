@@ -103,6 +103,7 @@
 // As classes `.wpcf7-*` continuam existindo (geradas pelo próprio CF7 dentro
 // de cada campo), então ainda miramos elas para o estado de erro/resposta.
 .candidatura__form {
+
   // O espaçamento real precisa estar aqui: `.custom-cf7-form` é quem envolve
   // os `.field-wrap` de fato — `.wpcf7-form` é só a tag <form> em volta dele,
   // um nível acima, então um gap nela não chega nos campos. Sem os `<p>`/`<br>`
@@ -208,6 +209,7 @@
     flex-shrink: 0;
     background-color: $color-accent;
     border-radius: $radius-sm;
+    order: 2;
 
     svg {
       width: 22px;
@@ -235,12 +237,12 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    padding: $space-4 $space-6;
-    background-color: $color-primary;
+    width: max-content !important;
+    padding: $space-4 $space-6 !important;
+    background-color: $color-primary !important;
     border: none;
     border-radius: $radius-lg;
-    color: $color-white;
+    color: $color-white !important;
     font-family: $font-heading;
     font-size: $font-size-md;
     font-weight: $font-weight-semibold;

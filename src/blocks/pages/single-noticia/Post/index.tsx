@@ -4,10 +4,13 @@ import { IconMail, IconLinkedin, IconShareWhatsapp, IconShareFacebook } from '..
 import { htmlContent } from '../../../../utils';
 import { SinglePostProps } from './types';
 
-export default function Post({ data, categoria, titulo, imagem, conteudo, compartilhar }: SinglePostProps) {
+export default function Post({ data, categoria, titulo, imagem, conteudo, compartilhar, patternLeft, patternRight }: SinglePostProps) {
   return (
     <article className={styles.post}>
       <header className={styles.post__header}>
+        {patternLeft && <img src={patternLeft} alt="" aria-hidden="true" className={`${styles.post__headerPattern} ${styles['post__headerPattern--left']}`} loading="lazy" />}
+        {patternRight && <img src={patternRight} alt="" aria-hidden="true" className={`${styles.post__headerPattern} ${styles['post__headerPattern--right']}`} loading="lazy" />}
+
         <div className={styles.post__headerContainer} data-animate="fade-up">
           {(data || categoria) && (
             <p className={styles.post__meta}>

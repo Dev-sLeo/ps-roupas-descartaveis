@@ -22,4 +22,7 @@ block_render('single-post', [
         'whatsapp' => 'https://wa.me/?text=' . rawurlencode($titulo . ' ' . $url),
         'facebook' => 'https://www.facebook.com/sharer/sharer.php?u=' . rawurlencode($url),
     ],
+    // Decorativos fixos do tema (não são campo ACF) — mesmos de Contato/Ouvidoria.
+    'patternLeft'  => THEME_URI . '/images/pattern-left-header-alternative.webp',
+    'patternRight' => THEME_URI . '/images/pattern-right-header-alternative.webp',
 ]);

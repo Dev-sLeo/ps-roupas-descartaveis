@@ -51,10 +51,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: $color-primary;
+  transition: color 150ms ease;
 
   svg {
     width: 34.714px;
     height: 34.714px;
+  }
+
+  &:hover {
+    color: $color-accent;
   }
 }
 
@@ -72,7 +78,7 @@
   transition: color 150ms ease;
 
   &:hover {
-    color: $color-text-primary;
+    color: $color-primary;
   }
 }
 
@@ -95,6 +101,7 @@
   font-size: $font-size-sm;
   font-weight: $font-weight-semibold;
   text-decoration: none;
+  transition: color 150ms ease;
 
   svg {
     width: 20px;
@@ -103,6 +110,10 @@
     path {
       stroke: $color-primary;
     }
+  }
+
+  &:hover {
+    color: $color-primary;
   }
 }
 
@@ -135,9 +146,10 @@
 .footer__creditLink {
   color: $color-text-secondary;
   text-decoration: underline;
+  transition: color 150ms ease;
 
   &:hover {
-    color: $color-text-primary;
+    color: $color-primary;
   }
 }
 
@@ -146,8 +158,10 @@
   font-family: $font-body;
   font-size: $font-size-sm;
   text-decoration: none;
+  transition: color 150ms ease;
 
   &:hover {
-    color: $color-text-primary;
+    color: $color-primary;
+    text-decoration: underline;
   }
 }

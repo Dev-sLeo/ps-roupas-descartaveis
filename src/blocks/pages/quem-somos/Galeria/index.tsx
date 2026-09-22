@@ -17,6 +17,8 @@ export default function Galeria({ titulo, descricao, imagens = [] }: GaleriaProp
   return (
     <section className={styles.galeria}>
       <div className={styles.galeria__container}>
+        <div className={styles.galeria__divider} />
+
         <div className={styles.galeria__heading} data-animate="fade-up">
           {titulo && <h2 className={styles.galeria__title}>{titulo}</h2>}
           {descricao && <p className={styles.galeria__description}>{descricao}</p>}

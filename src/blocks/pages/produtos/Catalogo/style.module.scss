@@ -68,17 +68,29 @@
 
 .catalogo__checkboxMark {
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
   width: 15px;
   height: 15px;
   border: 1px solid $color-verde-200;
   border-radius: 3px;
+  color: $color-white;
   transition: background-color 150ms ease, border-color 150ms ease;
+
+  svg {
+    opacity: 0;
+    transition: opacity 150ms ease;
+  }
 }
 
 .catalogo__checkbox input:checked + .catalogo__checkboxMark {
   background-color: $color-accent;
   border-color: $color-accent;
+
+  svg {
+    opacity: 1;
+  }
 }
 
 .catalogo__checkbox input:focus-visible + .catalogo__checkboxMark {
@@ -132,40 +144,34 @@
   color: $color-text-secondary;
 }
 
-.catalogo__total {
-  font-family: $font-body;
-  font-size: $font-size-sm;
-  color: $color-text-muted;
-}
-
 .catalogo__pagination {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   gap: $space-4;
+  width: 100%;
 }
 
+// Padding/cores exatos do Figma (node 45:3524) — #9ad3d5/#027477 (default) e
+// #f36911 (ativo, sem token correspondente no tema). Hover tem o mesmo visual
+// do ativo. O item da página atual é um <span> (não clicável — ver index.tsx).
 .catalogo__pageLink {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  padding: 0;
+  padding: $space-4 $space-6;
   background: none;
-  border: 1px solid $color-verde-200;
+  border: 1px solid #9ad3d5;
   border-radius: $radius-pill;
   font-family: $font-body;
   font-size: $font-size-lg;
   letter-spacing: 0.18px;
-  color: $color-verde-700;
+  color: #027477;
   cursor: pointer;
-  transition: opacity 150ms ease;
+  transition: border-color 150ms ease, color 150ms ease;
 
-  &:hover {
-    opacity: 0.8;
-  }
-
+  &:hover,
   &--active {
     border-color: $color-primary;
     color: $color-primary;

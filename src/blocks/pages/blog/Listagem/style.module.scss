@@ -64,6 +64,14 @@
   border-radius: $radius-pill;
 }
 
+// Font própria do filtro do blog (Manrope 400) — sobrescreve o padrão do PillTabs
+// (Montserrat 600). Mesmo motivo do ancestral prefixado explicado acima: garante
+// especificidade maior que `.pillTabs__item` independente da ordem de bundling.
+.listagem__container .listagem__tabItem {
+  font-family: $font-body;
+  font-weight: $font-weight-regular;
+}
+
 .listagem__tabs .listagem__tabItem:hover,
 .listagem__tabs .listagem__tabItemActive {
   background-color: $color-verde-200;
@@ -92,28 +100,30 @@
 .listagem__pagination {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: $space-4;
+  width: 100%;
 }
 
+// Padding/cores exatos do Figma (node 45:3524) — #9ad3d5/#027477 (default) e
+// #f36911 (ativo, sem token correspondente no tema). Hover tem o mesmo visual
+// do ativo. O item da página atual é um <span> sem link (ver index.tsx).
 .listagem__pageLink {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
-  border: 1px solid $color-verde-200;
+  padding: $space-4 $space-6;
+  border: 1px solid #9ad3d5;
   border-radius: $radius-pill;
   font-family: $font-body;
   font-size: $font-size-lg;
   letter-spacing: 0.18px;
-  color: $color-verde-700;
+  color: #027477;
   text-decoration: none;
-  transition: opacity 150ms ease;
+  transition: border-color 150ms ease, color 150ms ease;
 
-  &:hover {
-    opacity: 0.8;
-  }
-
+  &:hover,
   &--active {
     border-color: $color-primary;
     color: $color-primary;

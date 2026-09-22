@@ -7,5 +7,7 @@ export interface BeneficioItem {
 }
 
 export interface BeneficiosProps {
+  titulo?: string;
+  descricao?: string;
   items?: BeneficioItem[];
 }

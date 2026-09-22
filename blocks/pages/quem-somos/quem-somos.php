@@ -7,12 +7,13 @@ $page = $tpl->scope('pages/quem-somos');
 $tpl->wrap('page-quem-somos', function (Tpl $t) use ($page) {
     $t->scope('global')
         ->partial('hero-estatico')
-        ->partial('quem-somos')
-        ->partial('beneficios');
+        ->partial('quem-somos');
 
-    $page
-        ->partial('galeria')
-        ->partial('certificados');
+    $page->partial('galeria');
+
+    $t->scope('global')->partial('beneficios');
+
+    $page->partial('certificados');
 
     // "Fale conosco" é o mesmo bloco global da Home (mesma estrutura visual),
     // mas com texto próprio desta página — por isso o override via 2º argumento

@@ -1,5 +1,5 @@
 import styles from './style.module.scss';
-import { IconPhone, IconWhatsappOutline, IconMail, IconClock } from '../../../../icons';
+import { IconPhoneCheck, IconWhatsappOutline, IconMail, IconClock } from '../../../../icons';
 import { whatsappHref } from '../../../../utils';
 import { ContatoProps } from './types';
 
@@ -18,7 +18,7 @@ export default function Contato({ titulo, descricao, telefone, whatsapp, email, 
           <div className={styles.contato__cards} data-animate="fade-up" data-animate-delay="0.1">
             {telefone && (
               <a href={`tel:${telefone.replace(/\D/g, '')}`} className={styles.contato__card}>
-                <IconPhone />
+                <IconPhoneCheck />
                 <span>{telefone}</span>
               </a>
             )}

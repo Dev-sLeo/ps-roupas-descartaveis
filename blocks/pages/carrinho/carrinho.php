@@ -15,19 +15,12 @@ $tpl->wrap('page-carrinho', function (Tpl $t) use ($page) {
         <?php
 
         $page->partial('itens');
-
-        $faleConosco = get_field('fale_conosco_secao') ?: [];
-
         $page->partial('formulario');
         ?>
     </div>
     <?php
 
-    $t->scope('global')->partial('fale-conosco', [
-        'eyebrow'   => $faleConosco['eyebrow'] ?? '',
-        'titulo'    => $faleConosco['titulo'] ?? '',
-        'descricao' => $faleConosco['descricao'] ?? '',
-        'cta1'      => acf_link($faleConosco['cta_1'] ?? null),
-        'cta2'      => acf_link($faleConosco['cta_2'] ?? null),
-    ]);
+    // Sem override — usa direto o texto/CTAs da aba "Fale conosco" da options
+    // page "Tema" (mesmo módulo global de todas as outras páginas).
+    $t->scope('global')->partial('fale-conosco');
 });

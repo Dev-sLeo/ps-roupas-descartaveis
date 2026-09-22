@@ -10,7 +10,7 @@ function SocialIcon({ network }: { network: string }) {
   return network === 'linkedin' ? <IconLinkedinOutline /> : <IconInstagramOutline />;
 }
 
-export default function Header({ logo, homeUrl = '/', phone = '', whatsapp = '', email = '', cartUrl, social = [], menu = [] }: HeaderProps) {
+export default function Header({ logo, homeUrl = '/', phone = '', whatsapp = '', email = '', cartUrl, cartCount = 0, social = [], menu = [] }: HeaderProps) {
   const [open, setOpen] = useState(false);
   const [topStripHidden, setTopStripHidden] = useState(false);
   const cart = linkProps(cartUrl);
@@ -133,6 +133,7 @@ export default function Header({ logo, homeUrl = '/', phone = '', whatsapp = '',
             <a {...cart} className={styles.header__cart}>
               <IconShoppingCart />
               <span>{cartUrl!.label || 'Meu carrinho'}</span>
+              {cartCount > 0 && <span className={styles.header__cartCount}>{cartCount}</span>}
             </a>
           )}
         </div>
@@ -140,6 +141,7 @@ export default function Header({ logo, homeUrl = '/', phone = '', whatsapp = '',
         <div className={styles.header__actionsMobile}>
           <button type="button" className={styles.header__cartMobile} aria-label="Carrinho">
             <IconShoppingCart />
+            {cartCount > 0 && <span className={styles.header__cartCount}>{cartCount}</span>}
           </button>
 
           <button

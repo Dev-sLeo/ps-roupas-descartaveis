@@ -9,11 +9,23 @@
   border-radius: $radius-lg;
 }
 
+// Wrapper só pra recortar o zoom da imagem no hover — link redundante ao "Saiba
+// mais" (mesmo destino), por isso `aria-hidden`/`tabIndex=-1` no componente.
+.postCard__imageLink {
+  display: block;
+  overflow: hidden;
+  border-radius: $radius-sm;
+}
+
 .postCard__image {
   width: 100%;
   aspect-ratio: 315 / 170;
   object-fit: cover;
-  border-radius: $radius-sm;
+  transition: transform 300ms ease;
+}
+
+.postCard:hover .postCard__image {
+  transform: scale(1.06);
 }
 
 .postCard__body {
@@ -22,7 +34,15 @@
   gap: $space-4;
 }
 
+// Título/descrição truncados em N linhas com `min-height` fixo (em vez de só
+// `-webkit-line-clamp`, que só limita o máximo): garante altura igual em todo
+// card do grid mesmo quando o texto é mais curto que o limite de linhas.
 .postCard__title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  min-height: 2.8em; // 2 linhas × line-height 1.4
   font-family: $font-heading;
   font-size: $font-size-xl;
   font-weight: $font-weight-semibold;
@@ -31,6 +51,11 @@
 }
 
 .postCard__excerpt {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  min-height: 4.8em; // 3 linhas × line-height 1.6
   font-family: $font-body;
   font-size: $font-size-md;
   line-height: $line-height-relaxed;

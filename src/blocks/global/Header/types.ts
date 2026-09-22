@@ -20,6 +20,7 @@ export interface HeaderProps {
   // Mesmo campo do repeater `footer.email` — reaproveitado aqui no topo do Header (ver render.php).
   email?: string;
   cartUrl?: AcfLink | null;
+  cartCount?: number;
   // Mesmo shape do repeater `footer.redes_sociais` — reaproveitado aqui no topo do Header (ver render.php).
   social?: HeaderSocial[];
   menu?: HeaderMenuItem[];

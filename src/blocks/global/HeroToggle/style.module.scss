@@ -1,0 +1,121 @@
+@use '../../../styles/tokens' as *;
+
+// Hero compartilhado por Contato e Ouvidoria (páginas idênticas visualmente,
+// só o switcher "Fale Conosco"/"Ouvidoria" inverte qual aba fica ativa — ver
+// blocks/pages/contato/hero/render.php e blocks/pages/ouvidoria/hero/render.php).
+//
+// No desktop a section tem altura fixa (477px, igual ao Figma) e SEM
+// overflow:hidden — o PillTabs fica posicionado fora do fluxo, com o centro
+// vertical dele exatamente em cima da borda inferior do hero (metade dentro,
+// metade fora), por isso o overflow precisa ficar visível. `z-index:1` no
+// `.hero` garante que essa metade "de fora" pinte por cima da próxima section
+// (que vem depois no DOM e senão cobriria o pill).
+.hero {
+  position: relative;
+  z-index: 1;
+  padding: $space-12 0;
+  background: linear-gradient(47deg, #e2feff -93.71%, #ecf5f5 91.49%);
+
+  @include respond-to($bp-lg) {
+    height: 477px;
+    padding: 0;
+  }
+}
+
+// Decorativos — só aparecem no desktop, um em cada ponta. Altura igual à da
+// section (477px) pra nunca ficarem "pra fora" dela, já que o overflow agora
+// fica visível (precisa pro PillTabs flutuante abaixo).
+.hero__pattern {
+  display: none;
+  position: absolute;
+  top: 50%;
+  z-index: 0;
+  width: auto;
+  height: auto;
+  transform: translateY(-50%);
+  pointer-events: none;
+
+  @include respond-to($bp-lg) {
+    display: block;
+    height: 477px;
+  }
+}
+
+.hero__pattern--left {
+  left: 0;
+}
+
+.hero__pattern--right {
+  right: 0;
+}
+
+.hero__container {
+  @include container;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  @include respond-to($bp-lg) {
+    height: 100%;
+    justify-content: center;
+  }
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-4;
+  max-width: 564px;
+}
+
+.hero__eyebrow {
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-primary;
+}
+
+.hero__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h2;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: 2.875rem; // 46px — display do Figma
+    max-width: 439px;
+  }
+}
+
+.hero__description {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-lg;
+  }
+}
+
+// Switcher "Fale Conosco"/"Ouvidoria" — mesmo componente compartilhado usado
+// no filtro do blog (src/components/PillTabs). No mobile fica no fluxo normal,
+// abaixo do texto; no desktop sai do fluxo e flutua com o centro vertical
+// exatamente em cima da borda inferior do hero.
+.hero__tabs {
+  margin: $space-9 auto 0;
+
+  @include respond-to($bp-lg) {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    z-index: 2;
+    margin: 0;
+    transform: translate(-50%, 50%);
+  }
+}

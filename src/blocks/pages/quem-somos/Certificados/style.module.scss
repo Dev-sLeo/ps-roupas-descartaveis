@@ -81,28 +81,29 @@
 
 .certificados__gallery {
   display: flex;
-  gap: $space-4;
+  gap: $space-5;
   flex-shrink: 0;
 }
 
 .certificados__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 152px;
   height: 158px;
+  padding: $space-4;
+  background-color: $color-bg-card;
   border-radius: $radius-lg;
-  overflow: hidden;
 
   @include respond-to($bp-lg) {
     width: 304px;
     height: 317px;
-  }
-
-  &:nth-child(2) {
-    margin-top: $space-8;
+    padding: $space-8;
   }
 }
 
 .certificados__image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }

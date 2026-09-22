@@ -5,4 +5,6 @@ export interface ProdutosHeroProps {
   buscaPlaceholder?: string;
   buscaValue?: string;
   arquivoUrl?: string;
+  patternLeft?: string;
+  patternRight?: string;
 }

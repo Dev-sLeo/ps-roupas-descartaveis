@@ -99,9 +99,10 @@ add_action('pre_get_posts', function (WP_Query $query): void {
     }
 
     $query->set('posts_per_page', 9);
+    $query->set('orderby', 'date');
+    $query->set('order', 'DESC');
     $query->set('tax_query', proseg_produtos_tax_query([
         'produto_categoria' => $query->get('produto_categoria'),
-        'produto_destaque'  => $query->get('produto_destaque'),
     ]));
 
     $busca = sanitize_text_field((string) $query->get('produto_busca'));

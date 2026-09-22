@@ -146,11 +146,18 @@
   color: $color-brand-dark;
 }
 
+// `bottom` precisa de `!important`: o Swiper aplica as próprias classes
+// (`.swiper-pagination-bullets.swiper-pagination-horizontal`, duas classes)
+// no MESMO elemento do nosso `.hero__pagination` (não é um ancestral — é
+// `el` passado direto pro Swiper), e essa regra base tem mais especificidade
+// (0,2,0) que a nossa classe única (0,1,0), então sempre vencia e prendia o
+// bottom em 8px (var(--swiper-pagination-bottom)) mesmo com a media query
+// depois no arquivo. Mesmo problema do `!important` de width em Clientes.
 .hero__pagination {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 2.313rem;
+  bottom: 2.313rem !important;
   z-index: 2;
   display: flex;
   align-items: center;
@@ -158,7 +165,7 @@
   gap: $space-2;
 
   @include respond-to($bp-lg) {
-    bottom: 3.75rem;
+    bottom: 3.75rem !important;
   }
 
   :global(.swiper-pagination-bullet) {

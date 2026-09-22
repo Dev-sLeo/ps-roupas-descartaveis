@@ -11,15 +11,42 @@
   }
 }
 
+// Decorativos — só aparecem no desktop, um em cada ponta, sem sobrepor o texto
+// (que fica limitado a `post__headerContainer`, longe das bordas). Mesmos
+// patterns/tratamento de Contato/Ouvidoria (src/blocks/global/HeroToggle).
+.post__headerPattern {
+  display: none;
+  position: absolute;
+  top: 50%;
+  z-index: 0;
+  width: auto;
+  height: auto;
+  transform: translateY(-50%);
+  pointer-events: none;
+
+  @include respond-to($bp-lg) {
+    display: block;
+  }
+}
+
+.post__headerPattern--left {
+  left: 0;
+}
+
+.post__headerPattern--right {
+  right: 0;
+}
+
 .post__headerContainer {
   @include container;
   position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: $space-6;
   max-width: 791px;
-  text-align: center;
+  text-align: left;
 }
 
 .post__meta {
@@ -63,11 +90,11 @@
 
   a {
     display: flex;
-    color: $color-text-secondary;
+    color: $color-primary;
     transition: color 150ms ease;
 
     &:hover {
-      color: $color-primary;
+      color: $color-white;
     }
   }
 
@@ -91,6 +118,8 @@
 }
 
 .post__media {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 800px;
   margin-top: -$space-24;

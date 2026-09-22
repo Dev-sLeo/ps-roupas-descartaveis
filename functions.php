@@ -13,6 +13,7 @@ require_once THEME_DIR . '/includes/blocks.php';
 require_once THEME_DIR . '/includes/setup.php';
 require_once THEME_DIR . '/includes/woocommerce.php';
 require_once THEME_DIR . '/includes/ajax.php';
+require_once THEME_DIR . '/includes/cpt-vagas.php';
 
 global $tpl;
 $tpl = new Tpl();

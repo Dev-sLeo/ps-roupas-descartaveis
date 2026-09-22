@@ -12,4 +12,7 @@ block_render('blog-hero', [
     'titulo'      => $hero['titulo'] ?? '',
     'searchValue' => get_search_query(),
     'searchUrl'   => home_url('/'),
+    // Decorativos fixos do tema (não são campo ACF) — mesmos de Contato/Ouvidoria.
+    'patternLeft'  => THEME_URI . '/images/pattern-left-header-alternative.webp',
+    'patternRight' => THEME_URI . '/images/pattern-right-header-alternative.webp',
 ]);

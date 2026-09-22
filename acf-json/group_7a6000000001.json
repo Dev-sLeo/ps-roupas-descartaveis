@@ -100,32 +100,15 @@
                 },
                 {
                     "key": "field_7a600000015",
-                    "label": "Botão primário",
-                    "name": "cta_1",
+                    "label": "Link — Ouvidoria",
+                    "name": "ouvidoria_url",
                     "aria-label": "",
                     "type": "link",
-                    "instructions": "",
+                    "instructions": "Aba do switcher que leva pra página Ouvidoria.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "allow_in_bindings": 0
-                },
-                {
-                    "key": "field_7a600000016",
-                    "label": "Botão secundário",
-                    "name": "cta_2",
-                    "aria-label": "",
-                    "type": "link",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
+                        "width": "",
                         "class": "",
                         "id": ""
                     },
@@ -680,5 +663,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1789673943
+    "modified": 1790096200
 }

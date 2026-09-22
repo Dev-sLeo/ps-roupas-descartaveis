@@ -2,7 +2,20 @@
 defined('ABSPATH') || exit;
 
 $filtros = proseg_produtos_filtros($_GET);
-$dados   = proseg_produtos_query($filtros);
+
+// Chegando direto numa categoria (ex: /produto-categoria/aventais/, sem passar
+// pelo filtro AJAX da página /produtos/), essa categoria já entra marcada no
+// filtro. Sem categoria nem busca nenhuma na URL (primeiro acesso à página
+// /produtos/), o padrão é "Em destaque" já ativo.
+$categoriaAtual = is_tax('product_cat') ? get_queried_object() : null;
+
+if ($categoriaAtual instanceof WP_Term) {
+    $filtros['categoria'] = $categoriaAtual->slug;
+} elseif ($filtros['categoria'] === '' && $filtros['busca'] === '' && !isset($_GET['produto_destaque'])) {
+    $filtros['destaque'] = true;
+}
+
+$dados = proseg_produtos_query($filtros);
 
 $categorias = [];
 

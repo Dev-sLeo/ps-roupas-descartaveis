@@ -14,4 +14,6 @@ export interface SinglePostProps {
   imagem?: AcfImage | null;
   conteudo?: string;
   compartilhar?: Compartilhar;
+  patternLeft?: string;
+  patternRight?: string;
 }

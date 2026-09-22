@@ -27,6 +27,18 @@
   }
 }
 
+.galeria__divider {
+  order: 0;
+  flex: 0 0 100%;
+  height: 1px;
+  background-color: $color-divider;
+  margin-bottom: $space-6;
+
+  @include respond-to($bp-lg) {
+    margin-bottom: $space-9;
+  }
+}
+
 .galeria__heading {
   display: flex;
   flex-direction: column;

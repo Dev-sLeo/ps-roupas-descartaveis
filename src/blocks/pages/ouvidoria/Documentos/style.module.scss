@@ -5,7 +5,9 @@
   background-color: $color-bg-primary;
 
   @include respond-to($bp-lg) {
-    padding: 0 0 $space-16;
+    // 120px no Figma — mesmo gap (simétrico) do lado do bloco Contato até a
+    // linha divisória entre as duas seções.
+    padding: 7.5rem 0 $space-16;
   }
 }
 
@@ -14,7 +16,11 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: $space-8;
+  gap: $space-6;
+
+  @include respond-to($bp-lg) {
+    gap: $space-12; // 48px no Figma
+  }
 }
 
 .documentos__heading {
@@ -71,7 +77,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: $space-6;
+  // 16px no Figma (ícone→título fica 24px via margin-bottom no ícone, abaixo).
+  gap: $space-4;
   padding: $space-8;
   background-color: $color-bg-primary;
   border: 1px solid alpha($color-verde-700, 0.2);
@@ -80,6 +87,7 @@
   svg {
     width: 32px;
     height: 32px;
+    margin-bottom: $space-2; // completa os 24px (16 do gap + 8) até o título
     color: $color-accent;
     flex-shrink: 0;
   }
@@ -101,6 +109,7 @@
 }
 
 .documentos__cardDownload {
+  margin-top: $space-5; // completa os 36px (16 do gap + 20) até a descrição
   font-family: $font-heading;
   font-size: $font-size-md;
   font-weight: $font-weight-semibold;

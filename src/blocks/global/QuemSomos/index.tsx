@@ -2,7 +2,7 @@ import styles from './style.module.scss';
 import SmartImage from '../../../components/SmartImage';
 import DestaqueCard from '../../../components/DestaqueCard';
 import { IconFavourite, IconUserGroup03, IconPlaySquare } from '../../../icons';
-import { linkProps } from '../../../utils';
+import { linkProps, htmlContent } from '../../../utils';
 import { QuemSomosProps } from './types';
 
 export default function QuemSomos({
@@ -23,9 +23,11 @@ export default function QuemSomos({
     <section className={styles.quemSomos}>
       <div className={styles.quemSomos__container}>
         <div className={styles.quemSomos__content} data-animate="fade-right">
-          {eyebrow && <p className={styles.quemSomos__eyebrow}>{eyebrow}</p>}
-          {titulo && <h2 className={styles.quemSomos__title}>{titulo}</h2>}
-          {descricao && <p className={styles.quemSomos__description}>{descricao}</p>}
+          <div className={styles.quemSomos__heading}>
+            {eyebrow && <p className={styles.quemSomos__eyebrow}>{eyebrow}</p>}
+            {titulo && <h2 className={styles.quemSomos__title}>{titulo}</h2>}
+          </div>
+          {descricao && <div className={styles.quemSomos__description} {...htmlContent(descricao)} />}
 
           {(badge1 || badge2) && (
             <div className={styles.quemSomos__badges}>

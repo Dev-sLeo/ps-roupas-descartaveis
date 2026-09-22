@@ -49,9 +49,12 @@
 
 // ─── Formulário do Contact Form 7 ───────────────────────────────────────────────
 // Markup customizado no conteúdo do form (wp-admin): pares de campo lado a lado
-// (Nome+E-mail, Telefone+Empresa) ficam dentro de `<div class="form-row">`, os
-// demais campos (Regime, Notas) são `<p>` soltos, largura cheia — mesma
-// estrutura de rótulo `<label>Rótulo<br />[tag]</label>` em ambos os casos.
+// (Nome+E-mail, Telefone+Empresa) ficam dentro de `<div class="cotacao-row">`
+// — NUNCA usar o nome genérico "form-row": é o nome que o WooCommerce usa pra
+// estilizar o próprio checkout nativo dele (`.woocommerce-page form .form-row`,
+// woocommerce-layout.css), com `::before`/`::after` que viram itens fantasmas
+// do flex (`display:table`, `content:" "`) e encolhem as colunas — foi
+// exatamente esse bug que apareceu aqui antes de renomear a classe.
 .formulario__form {
   :global(.wpcf7-form) {
     display: flex;
@@ -60,14 +63,13 @@
   }
 
   :global(.wpcf7-form) > p,
-  :global(.form-row) > p {
+  :global(.cotacao-row) > p {
     display: flex;
     flex-direction: column;
-    gap: $space-2;
     margin: 0;
   }
 
-  :global(.form-row) {
+  :global(.cotacao-row) {
     display: flex;
     gap: $space-6;
     width: 100%;
@@ -78,12 +80,23 @@
     }
   }
 
+  // O texto do rótulo e o campo ficam dentro do MESMO <label> (padrão CF7:
+  // `<label>Rótulo<br />[tag]</label>`), separados só por um <br /> — não são
+  // irmãos flex, então `gap`/`margin-bottom` no <label> não criam espaço
+  // nenhum entre eles. O espaçamento de 8px vem do próprio <br />, via o
+  // truque `display:block` + margin nele.
   label {
     font-family: $font-body;
     font-size: $font-size-sm;
     font-weight: $font-weight-semibold;
     letter-spacing: 0.14px;
     color: $color-text-secondary;
+
+    br {
+      display: block;
+      content: '';
+      margin-bottom: $space-2;
+    }
   }
 
   :global(.wpcf7-form-control-wrap) {
@@ -127,6 +140,7 @@
     align-items: center;
     justify-content: center;
     align-self: flex-start;
+    width: max-content;
     padding: 18px 32px;
     margin-top: 12px;
     background-color: $color-primary;

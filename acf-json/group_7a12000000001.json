@@ -1,0 +1,59 @@
+{
+    "key": "group_7a12000000001",
+    "title": "Vaga",
+    "fields": [
+        {
+            "key": "field_7a12000000001",
+            "label": "Descrição",
+            "name": "descricao",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Descrição breve da vaga (uso interno, opcional).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": "",
+            "allow_in_bindings": 0
+        },
+        {
+            "key": "field_7a12000000002",
+            "label": "Vaga ativa",
+            "name": "ativa",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Desmarque para deixar de exibir esta vaga no select do formulário de candidatura, sem excluí-la.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "message": "",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "allow_in_bindings": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "vaga"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [],
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1789669143
+}

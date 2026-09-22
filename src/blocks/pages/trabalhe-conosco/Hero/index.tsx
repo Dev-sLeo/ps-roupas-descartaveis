@@ -1,15 +1,15 @@
 import styles from './style.module.scss';
 import { linkProps } from '../../../../utils';
-import { ContatoHeroProps } from './types';
+import { TrabalheConoscoHeroProps } from './types';
 
-export default function Hero({ eyebrow, titulo, descricao, cta1, cta2 }: ContatoHeroProps) {
+export default function Hero({ eyebrow, titulo, descricao, cta1, cta2, patternLeft, patternRight }: TrabalheConoscoHeroProps) {
   const primary = linkProps(cta1);
   const secondary = linkProps(cta2);
 
   return (
     <section className={styles.hero}>
-      <div className={styles.hero__shapeLeft} aria-hidden="true" />
-      <div className={styles.hero__shapeRight} aria-hidden="true" />
+      {patternLeft && <img src={patternLeft} alt="" aria-hidden="true" className={`${styles.hero__pattern} ${styles['hero__pattern--left']}`} loading="lazy" />}
+      {patternRight && <img src={patternRight} alt="" aria-hidden="true" className={`${styles.hero__pattern} ${styles['hero__pattern--right']}`} loading="lazy" />}
 
       <div className={styles.hero__container}>
         <div className={styles.hero__content} data-animate="fade-up">

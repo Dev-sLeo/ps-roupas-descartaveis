@@ -57,6 +57,7 @@ block_render('header', [
     // E-mail: campo pertence ao grupo "footer" no ACF, reaproveitado aqui no topo do Header desktop.
     'email'    => $footer['email'] ?? '',
     'cartUrl'  => acf_link($header['cart_url'] ?? null),
+    'cartCount' => function_exists('WC') && WC()->cart ? WC()->cart->get_cart_contents_count() : 0,
     'social'   => acf_repeater($footer['redes_sociais'] ?? null, fn($item) => [
         'network' => $item['rede'] ?? '',
         'url'     => $item['link'] ?? '',

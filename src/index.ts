@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { createElement } from 'react';
 
 import './styles/global.scss';
-import { initAnimations } from './animations';
+import { initAnimations, bindAnchorScroll, scrollToTarget } from './animations';
 
 /**
  * Contrato de um bloco registrável.
@@ -38,17 +38,18 @@ const blockRegistry: Record<string, () => Promise<BlockModule>> = {
   'quem-somos-galeria': () => import(/* webpackChunkName: "blocks/quem-somos/Galeria" */ './blocks/pages/quem-somos/Galeria'),
   'quem-somos-certificados': () => import(/* webpackChunkName: "blocks/quem-somos/Certificados" */ './blocks/pages/quem-somos/Certificados'),
   // Trabalhe Conosco (página)
+  'trabalhe-conosco-hero': () => import(/* webpackChunkName: "blocks/trabalhe-conosco/Hero" */ './blocks/pages/trabalhe-conosco/Hero'),
   'trabalhe-conosco-vagas': () => import(/* webpackChunkName: "blocks/trabalhe-conosco/Vagas" */ './blocks/pages/trabalhe-conosco/Vagas'),
   'trabalhe-conosco-candidatura': () => import(/* webpackChunkName: "blocks/trabalhe-conosco/Candidatura" */ './blocks/pages/trabalhe-conosco/Candidatura'),
   // Carrinho (página)
   'carrinho-itens': () => import(/* webpackChunkName: "blocks/carrinho/Itens" */ './blocks/pages/carrinho/Itens'),
   'carrinho-formulario': () => import(/* webpackChunkName: "blocks/carrinho/Formulario" */ './blocks/pages/carrinho/Formulario'),
   // Contato (página)
-  'contato-hero': () => import(/* webpackChunkName: "blocks/contato/Hero" */ './blocks/pages/contato/Hero'),
+  'contato-hero': () => import(/* webpackChunkName: "blocks/global/HeroToggle" */ './blocks/global/HeroToggle'),
   'contato-formulario': () => import(/* webpackChunkName: "blocks/contato/Formulario" */ './blocks/pages/contato/Formulario'),
   'contato-certificados': () => import(/* webpackChunkName: "blocks/contato/Certificados" */ './blocks/pages/contato/Certificados'),
   // Ouvidoria (página)
-  'ouvidoria-hero': () => import(/* webpackChunkName: "blocks/ouvidoria/Hero" */ './blocks/pages/ouvidoria/Hero'),
+  'ouvidoria-hero': () => import(/* webpackChunkName: "blocks/global/HeroToggle" */ './blocks/global/HeroToggle'),
   'ouvidoria-contato': () => import(/* webpackChunkName: "blocks/ouvidoria/Contato" */ './blocks/pages/ouvidoria/Contato'),
   'ouvidoria-documentos': () => import(/* webpackChunkName: "blocks/ouvidoria/Documentos" */ './blocks/pages/ouvidoria/Documentos'),
   // Blog (posts page)
@@ -144,9 +145,8 @@ function scrollToHash(): void {
 
   let attempts = 0;
   const tryScroll = () => {
-    const target = document.getElementById( id );
-    if ( target ) {
-      target.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+    if ( document.getElementById( id ) ) {
+      scrollToTarget( id );
       return;
     }
     if ( ++attempts < 30 ) requestAnimationFrame( tryScroll );
@@ -156,6 +156,7 @@ function scrollToHash(): void {
 
 async function boot(): Promise<void> {
   await mountBlocks();
+  bindAnchorScroll();
   scrollToHash();
   observer.observe( document.body, { childList: true, subtree: true } );
   // Aguarda todas as imagens carregarem para o layout estabilizar antes do GSAP medir posições
