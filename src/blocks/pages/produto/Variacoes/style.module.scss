@@ -1,0 +1,163 @@
+@use '../../../../styles/tokens' as *;
+
+.variacoes {
+  display: flex;
+  flex-direction: column;
+  gap: $space-8;
+  width: 100%;
+}
+
+.variacoes__divider {
+  height: 1px;
+  width: 100%;
+  background-color: $color-divider;
+}
+
+.variacoes__fields {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+  width: 100%;
+}
+
+.variacoes__label {
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.14px;
+  color: $color-text-secondary;
+}
+
+.variacoes__swatchRow {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+}
+
+.variacoes__swatches {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+}
+
+.variacoes__swatch {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color 150ms ease;
+
+  &--active {
+    border-color: $color-primary;
+  }
+}
+
+.variacoes__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: $space-4;
+}
+
+.variacoes__field {
+  display: flex;
+  flex: 1 1 160px;
+  flex-direction: column;
+  gap: $space-2;
+  min-width: 0;
+}
+
+// Cores/tamanho não são tokens do tema — vêm direto do Figma (node 45:2015),
+// específicos deste card de seleção de variação.
+.variacoes__selectWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  svg {
+    position: absolute;
+    right: $space-4;
+    width: 12px;
+    height: 12px;
+    color: #5e5e5e;
+    pointer-events: none;
+  }
+}
+
+.variacoes__select {
+  width: 100%;
+  padding: $space-3 $space-4;
+  background-color: #f9fbfb;
+  border: 1px solid $color-verde-200;
+  border-radius: 8px;
+  font-family: $font-body;
+  font-size: $font-size-md;
+  letter-spacing: 0.16px;
+  color: #5e5e5e;
+  appearance: none;
+
+  &:focus {
+    outline: none;
+    border-color: $color-accent;
+  }
+}
+
+.variacoes__pecas {
+  font-family: $font-body;
+  font-size: $font-size-xs;
+  line-height: $line-height-tight;
+  color: #5e5e5e;
+
+  span {
+    color: $color-text-primary;
+  }
+}
+
+.variacoes__acoes {
+  display: flex;
+  gap: $space-3;
+  width: 100%;
+}
+
+.variacoes__ctaPrimary,
+.variacoes__ctaSecondary {
+  display: inline-flex;
+  flex: 1 0 0;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  padding: 0 $space-6;
+  border-radius: $radius-lg;
+  font-family: $font-heading;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: opacity 150ms ease;
+  white-space: nowrap;
+
+  &:hover {
+    opacity: 0.88;
+  }
+}
+
+.variacoes__ctaPrimary {
+  background-color: $color-primary;
+  border: none;
+  color: $color-white;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.variacoes__ctaSecondary {
+  background-color: transparent;
+  border: 1px solid $color-primary;
+  color: $color-text-primary;
+}

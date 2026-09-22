@@ -1,0 +1,170 @@
+@use '../../../../styles/tokens' as *;
+
+.galeria {
+  padding: $space-12 0;
+  background-color: $color-bg-primary;
+
+  @include respond-to($bp-lg) {
+    padding: $space-16 0;
+  }
+}
+
+// Mesmo layout via flexbox `order` + `flex-basis` de `pages/home/Clientes`
+// (heading, botões de navegação, bullets e swiper como irmãos diretos do
+// container) — aqui com bg branco e 3/2/1 itens por breakpoint em vez de 5/3/1.
+.galeria__container {
+  @include container;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  row-gap: $space-6;
+  column-gap: $space-3;
+
+  @include respond-to($bp-lg) {
+    align-items: center;
+    row-gap: $space-9;
+  }
+}
+
+.galeria__heading {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  max-width: 632px;
+  order: 1;
+  flex: 0 0 100%;
+
+  @include respond-to($bp-lg) {
+    flex: 0 1 auto;
+  }
+}
+
+.galeria__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h2;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-3xl;
+  }
+}
+
+.galeria__description {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-lg;
+  }
+}
+
+.galeria__navBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: $color-primary;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 150ms ease;
+
+  @include respond-to($bp-lg) {
+    display: flex;
+  }
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:global(.swiper-button-disabled) {
+    opacity: 0.35;
+    cursor: default;
+  }
+}
+
+.galeria__navPrev {
+  order: 2;
+
+  @include respond-to($bp-lg) {
+    order: 2;
+    margin-left: auto;
+  }
+}
+
+.galeria__navNext {
+  order: 3;
+
+  @include respond-to($bp-lg) {
+    order: 4;
+  }
+}
+
+.galeria__pagination {
+  order: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  width: 100% !important;
+
+  @include respond-to($bp-lg) {
+    order: 3;
+    width: auto !important;
+    margin: 0 $space-4;
+  }
+
+  :global(.swiper-pagination-bullet) {
+    width: 8px;
+    height: 8px;
+    border-radius: $radius-pill;
+    background-color: $color-verde-200;
+    opacity: 1;
+    margin: 0;
+    transition: background-color 150ms ease, width 150ms ease;
+  }
+
+  :global(.swiper-pagination-bullet-active) {
+    width: 20px;
+    background-color: $color-primary;
+  }
+}
+
+.galeria__swiper {
+  order: 4;
+  flex: 0 0 100%;
+
+  @include respond-to($bp-lg) {
+    order: 5;
+  }
+}
+
+.galeria__item {
+  display: block;
+  width: 100%;
+  aspect-ratio: 536 / 452;
+  padding: 0;
+  border: none;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  background: none;
+  cursor: pointer;
+}
+
+.galeria__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 200ms ease;
+}
+
+.galeria__item:hover .galeria__image {
+  transform: scale(1.04);
+}

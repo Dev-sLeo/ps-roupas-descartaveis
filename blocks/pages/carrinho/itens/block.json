@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/carrinho-itens",
+  "title": "Carrinho — Itens",
+  "category": "theme",
+  "description": "Lista de itens do carrinho de cotação (imagem+nome+variação, quantidade de pacotes com +/-/remover via AJAX, cálculo de peças). Sem preço/total — carrinho é só pra montar a solicitação de cotação.",
+  "keywords": ["carrinho", "cotacao", "woocommerce"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}

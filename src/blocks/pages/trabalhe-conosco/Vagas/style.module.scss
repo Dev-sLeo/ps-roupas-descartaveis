@@ -1,0 +1,107 @@
+@use '../../../../styles/tokens' as *;
+
+.vagas {
+  padding: $space-12 0;
+
+  @include respond-to($bp-lg) {
+    padding: $space-16 0;
+  }
+}
+
+.vagas__container {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  gap: $space-9;
+}
+
+.vagas__heading {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  max-width: 504px;
+}
+
+.vagas__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h2;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-3xl;
+  }
+}
+
+.vagas__description {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-lg;
+  }
+}
+
+.vagas__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-4;
+
+  @include respond-to($bp-lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.vagas__card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+  padding: $space-8;
+  background-color: $color-bg-primary;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+}
+
+.vagas__icon {
+  display: flex;
+  color: $color-accent;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.vagas__cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.vagas__cardTitle {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h3;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.vagas__cardText {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+}
+
+.vagas__cardLink {
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-primary;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,72 @@
+@use 'tokens' as *;
+
+// ─── Página Carrinho de Compras (breadcrumb + H1 + itens + formulário) ─────────
+// Markup direto em blocks/pages/carrinho/carrinho.php (breadcrumb/H1 não são
+// blocos ACF — mesmo padrão de .produto__breadcrumb-wrap em _woocommerce.scss).
+// Container único (gap 48px = Figma node 64:919 "Content Wrapper") envolvendo
+// breadcrumb, título, itens e formulário — Itens/Formulario NÃO chamam
+// `@include container` na própria raiz (ficaria aninhado, duplicando o
+// padding mobile) — só este wrapper aqui faz isso.
+
+// padding-top extra: o header é `position: fixed` (ver global.scss) — sem esse
+// extra o breadcrumb fica escondido atrás dele (mesmo motivo de .produto__breadcrumb-wrap).
+// 40px/80px (topo/base) são os valores exatos do Figma; o offset do header
+// fixo (44/56px) soma em cima disso.
+.carrinho__container {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  gap: $space-12;
+  padding-top: calc(40px + 44px);
+  padding-bottom: 80px;
+
+  @include respond-to($bp-lg) {
+    padding-top: calc(40px + 56px);
+  }
+}
+
+.carrinho__breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-2;
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  letter-spacing: 0.14px;
+}
+
+.carrinho__breadcrumb-item {
+  color: #027477;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.carrinho__breadcrumb-item--current {
+  color: $color-text-primary;
+  font-weight: $font-weight-semibold;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    margin-right: $space-2;
+    border-radius: 50%;
+    background-color: #027477;
+    vertical-align: middle;
+  }
+}
+
+.carrinho__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h1;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}

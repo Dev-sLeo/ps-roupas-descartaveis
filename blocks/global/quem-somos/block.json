@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/quem-somos",
+  "title": "Quem somos",
+  "category": "theme",
+  "description": "Texto institucional + badges + botão + imagem + vídeo teaser — global, campos no post/página atual.",
+  "keywords": ["quem somos", "sobre"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../build/index.js",
+  "editorStyle": "file:../../build/index.css",
+  "style": "file:../../build/index.css"
+}

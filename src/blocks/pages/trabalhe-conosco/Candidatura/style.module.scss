@@ -1,0 +1,276 @@
+@use '../../../../styles/tokens' as *;
+
+.candidatura {
+  padding: $space-12 0;
+  background: linear-gradient(180deg, #e2feff 0%, $color-bg-secondary 100%);
+
+  @include respond-to($bp-lg) {
+    padding: $space-16 0;
+  }
+}
+
+.candidatura__container {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  gap: $space-9;
+
+  @include respond-to($bp-lg) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $space-12;
+  }
+}
+
+.candidatura__intro {
+  display: flex;
+  flex-direction: column;
+  gap: $space-9;
+
+  @include respond-to($bp-lg) {
+    flex: 1;
+    max-width: 440px;
+  }
+}
+
+.candidatura__introText {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.candidatura__title {
+  font-family: $font-heading;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.candidatura__description {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-lg;
+  }
+}
+
+.candidatura__media {
+  display: none;
+
+  @include respond-to($bp-lg) {
+    display: block;
+  }
+}
+
+.candidatura__image {
+  width: 100%;
+  max-width: 313px;
+  aspect-ratio: 313 / 333;
+  border-radius: $radius-lg;
+  object-fit: cover;
+}
+
+// ─── Card do formulário CF7 ─────────────────────────────────────────────────────
+.candidatura__formCard {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+  width: 100%;
+  padding: $space-8 $space-6;
+  background-color: $color-bg-primary;
+  border-radius: $radius-lg;
+
+  @include respond-to($bp-lg) {
+    max-width: 542px;
+    padding: $space-14;
+  }
+}
+
+.candidatura__formTitle {
+  font-family: $font-heading;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+// Formulário CF7 com markup customizado (não o output padrão do plugin) — o
+// conteúdo do formulário no wp-admin usa `.custom-cf7-form` > `.field-wrap`
+// (+ `.select-wrap`/`.file-wrap`/`.submit-wrap`) envolvendo cada tag do CF7.
+// As classes `.wpcf7-*` continuam existindo (geradas pelo próprio CF7 dentro
+// de cada campo), então ainda miramos elas para o estado de erro/resposta.
+.candidatura__form {
+  // O espaçamento real precisa estar aqui: `.custom-cf7-form` é quem envolve
+  // os `.field-wrap` de fato — `.wpcf7-form` é só a tag <form> em volta dele,
+  // um nível acima, então um gap nela não chega nos campos. Sem os `<p>`/`<br>`
+  // que o CF7 usa por padrão (removidos do conteúdo do formulário), não sobra
+  // nenhum espaçamento nativo entre os campos além deste gap.
+  :global(.custom-cf7-form) {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+
+  :global(.field-wrap) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 $space-2 0 $space-4;
+    background-color: $color-bg-primary;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    transition: border-color 150ms ease;
+
+    &:focus-within {
+      border-color: $color-primary;
+    }
+  }
+
+  :global(.wpcf7-form-control-wrap) {
+    display: block;
+    flex: 1;
+  }
+
+  :global(input.wpcf7-form-control),
+  :global(select.wpcf7-form-control) {
+    width: 100%;
+    padding: $space-3 0;
+    background-color: transparent;
+    border: none;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+
+    &::placeholder {
+      color: $color-text-muted;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  // Select nativo — remove a seta padrão do navegador (o CF7 não usa placeholder
+  // real em select, o rótulo "Qual vaga deseja?" vem de `first_as_label`).
+  :global(.select-wrap select.wpcf7-form-control) {
+    appearance: none;
+    padding-right: $space-6;
+    cursor: pointer;
+  }
+
+  :global(.select-wrap) {
+    &::after {
+      content: '';
+      position: absolute;
+      right: $space-4;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      border-right: 1.5px solid $color-text-muted;
+      border-bottom: 1.5px solid $color-text-muted;
+      transform: translateY(-70%) rotate(45deg);
+      pointer-events: none;
+    }
+  }
+
+  // Upload de arquivo — [file ...] fica dentro de <label class="custom-file-upload">;
+  // o <input type="file"> nativo do CF7 é escondido, o clique na label já o aciona.
+  :global(.file-wrap) {
+    padding: 0;
+    justify-content: space-between;
+  }
+
+  :global(.custom-file-upload) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: $space-3 $space-2 $space-3 $space-4;
+    cursor: pointer;
+  }
+
+  :global(.file-label-text) {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+  }
+
+  :global(.file-btn) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    background-color: $color-accent;
+    border-radius: $radius-sm;
+
+    svg {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  :global(.custom-file-upload input[type='file'].wpcf7-form-control) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+  }
+
+  // Separação maior antes do botão (24px no Figma vs 8px entre os campos).
+  :global(.submit-wrap) {
+    margin-top: $space-4;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  :global(.btn-submit) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: $space-4 $space-6;
+    background-color: $color-primary;
+    border: none;
+    border-radius: $radius-lg;
+    color: $color-white;
+    font-family: $font-heading;
+    font-size: $font-size-md;
+    font-weight: $font-weight-semibold;
+    cursor: pointer;
+    transition: opacity 150ms ease;
+
+    &:hover {
+      opacity: 0.88;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+  }
+
+  :global(.wpcf7-not-valid-tip) {
+    display: block;
+    margin-top: $space-1;
+    color: $color-error;
+    font-family: $font-body;
+    font-size: $font-size-xs;
+  }
+
+  :global(.wpcf7-response-output) {
+    margin: 0;
+    padding: $space-3 $space-4;
+    border-radius: $radius-sm;
+    border: 1px solid $color-border;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+  }
+}

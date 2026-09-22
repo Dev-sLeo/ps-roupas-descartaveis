@@ -1,0 +1,72 @@
+@use '../../styles/tokens' as *;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-4 $space-8;
+  font-family: $font-base;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-normal;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: $radius-md;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 150ms ease, background-color 150ms ease, color 150ms ease;
+
+  &--primary {
+    background-color: #f00;
+    border-color: #f00;
+    color: $color-white;
+
+    &:hover {
+      opacity: 0.88;
+    }
+  }
+
+  &--dark {
+    background-color: $color-brand-200;
+    border-color: alpha($color-white, 0.2);
+    color: $color-white;
+
+    &:hover {
+      opacity: 0.88;
+    }
+  }
+
+  &--outline {
+    background-color: transparent;
+    border-color: $color-primary;
+    color: $color-brand-200;
+
+    &:hover {
+      background-color: alpha($color-primary, 0.05);
+    }
+  }
+
+  // Translúcido sobre imagem — CTA do Hero (fundo escuro semi-transparente + borda vermelha)
+  &--translucent {
+    padding: $space-4 $space-8;
+    background-color: alpha($color-bg-overlay, 0.5);
+    border-width: 0.5px;
+    border-color: $color-primary;
+    border-radius: $radius-lg;
+    color: $color-white;
+    font-family: $font-body;
+    font-size: $font-size-label-tag;
+    font-weight: $font-weight-semibold;
+    line-height: $line-height-label-tag;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+
+    @include respond-to($bp-lg) {
+      padding: $space-5 $space-8;
+    }
+
+    &:hover {
+      opacity: 0.88;
+    }
+  }
+}

@@ -1,0 +1,271 @@
+@use 'tokens' as *;
+
+// ─── Restilização das classes padrão do WooCommerce na single product ─────────
+// O summary/form de variações continua sendo o template nativo do WC (JS de
+// variações e AJAX dependem disso) — aqui só aplicamos os tokens visuais do
+// tema por cima do markup gerado pelo plugin. A galeria (topo) NÃO é mais
+// nativa — foi trocada por um slider Swiper próprio (ver includes/woocommerce.php
+// e blocks/pages/produto/galeria-principal), com seu próprio CSS Module.
+
+// padding-top extra: o header é `position: fixed` e o offset global
+// (#smooth-content, ver global.scss) só compensa a altura da barra principal,
+// não a do top strip (que ainda está visível no topo da página, antes do
+// usuário rolar) — sem esse extra o breadcrumb fica escondido atrás do header.
+.produto__breadcrumb-wrap {
+  @include container;
+  padding-top: calc(#{$space-6} + 44px);
+
+  @include respond-to($bp-lg) {
+    padding-top: calc(#{$space-6} + 56px);
+  }
+}
+
+.produto__breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 26px;
+  font-family: $font-body;
+  font-size: $font-size-sm;
+}
+
+.produto__breadcrumb-item {
+  color: #027477;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.produto__breadcrumb-item--current {
+  color: #001d1e;
+  font-weight: $font-weight-semibold;
+}
+
+.produto__topo {
+  @include container;
+  padding: $space-8 0 $space-9;
+
+  // Sem `.woocommerce` como ancestral — este tema nunca chama
+  // `woocommerce_output_content_wrapper()` (só `wc_get_template_part()` direto),
+  // então o layout de 2 colunas não pode depender do CSS float padrão do WC
+  // (`.woocommerce-product-gallery{width:38%}`/`.summary{width:60%}`) — ele
+  // nunca existiu de verdade aqui; quem cria as 2 colunas é este grid.
+  div.product {
+    display: flex;
+    flex-direction: column;
+    gap: $space-8;
+
+    @include respond-to($bp-lg) {
+      display: grid;
+      grid-template-columns: minmax(0, 620px) 1fr;
+      gap: $space-16;
+      align-items: start;
+    }
+  }
+
+  .summary.entry-summary {
+    display: flex;
+    flex-direction: column;
+    gap: $space-6;
+    // !important: o CSS padrão do WooCommerce (woocommerce.css) seta
+    // `float`/`width` na mesma especificidade (duas classes) — sem isso a
+    // ordem de carregamento dos dois arquivos decide quem vence.
+    float: none !important;
+    width: auto !important;
+    margin: 0 !important;
+    clear: none !important;
+  }
+
+  .product_title {
+    font-family: $font-heading;
+    font-size: $font-size-heading-h2;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+
+    @include respond-to($bp-lg) {
+      font-size: $font-size-3xl;
+    }
+  }
+
+  .woocommerce-product-details__short-description {
+    font-family: $font-body;
+    font-size: $font-size-md;
+    line-height: $line-height-relaxed;
+    letter-spacing: 0.16px;
+    color: $color-text-secondary;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .price {
+    font-family: $font-heading;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $color-primary;
+  }
+
+  form.cart {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+    padding-top: $space-4;
+    border-top: 1px solid $color-divider;
+
+    .variations {
+      width: 100%;
+
+      td,
+      th {
+        padding: $space-2 0;
+      }
+
+      label {
+        font-family: $font-body;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-semibold;
+        color: $color-text-primary;
+      }
+
+      select {
+        width: 100%;
+        padding: $space-3 $space-4;
+        border: 1px solid $color-verde-200;
+        border-radius: $radius-md;
+        font-family: $font-body;
+        color: $color-text-secondary;
+      }
+    }
+  }
+
+  // Linha com os dois botões de ação (orçamento + WhatsApp) — ver
+  // `.produto__acoes` (wrapper universal, hooks em includes/woocommerce.php)
+  // logo abaixo. Cada botão ocupa metade da largura (Figma node 45:2032).
+  .produto__acoes {
+    display: flex;
+    gap: $space-3;
+    width: 100%;
+
+    > * {
+      flex: 1 0 0;
+      min-width: 0;
+    }
+  }
+
+  .produto__falar-btn,
+  .single_add_to_cart_button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    padding: 0 $space-6;
+    border-radius: $radius-lg;
+    font-family: $font-heading;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: opacity 150ms ease;
+    white-space: nowrap;
+
+    &:hover {
+      opacity: 0.88;
+    }
+  }
+
+  .single_add_to_cart_button {
+    background-color: $color-primary;
+    border: none;
+    color: $color-white;
+  }
+
+  // Botão outline — bg transparente, borda laranja, texto escuro (Figma node
+  // 45:2035/45:2036). Antes estava preenchido com laranja-100, cor errada.
+  .produto__falar-btn {
+    background-color: transparent;
+    border: 1px solid $color-primary;
+    color: $color-text-primary;
+  }
+
+  .quantity {
+    display: inline-flex;
+
+    .qty {
+      width: 100%;
+      padding: $space-3 $space-4;
+      border: 1px solid $color-verde-200;
+      border-radius: $radius-md;
+      font-family: $font-body;
+    }
+  }
+}
+
+// ─── Produtos relacionados (nativo do WC) ──────────────────────────────────────
+.related.products {
+  @include container;
+  padding: $space-9 0 $space-16;
+
+  > h2 {
+    font-family: $font-heading;
+    font-size: $font-size-heading-h2;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin-bottom: $space-8;
+
+    @include respond-to($bp-lg) {
+      font-size: $font-size-3xl;
+    }
+  }
+
+  ul.products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-4;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    @include respond-to($bp-lg) {
+      grid-template-columns: repeat(4, 1fr);
+      gap: $space-6;
+    }
+  }
+
+  li.product {
+    a {
+      display: flex;
+      flex-direction: column;
+      gap: $space-4;
+      text-decoration: none;
+    }
+
+    img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: $radius-lg;
+    }
+
+    .woocommerce-loop-product__title {
+      font-family: $font-heading;
+      font-size: $font-size-md;
+      font-weight: $font-weight-semibold;
+      color: $color-text-primary;
+    }
+
+    .price {
+      font-family: $font-heading;
+      font-size: $font-size-md;
+      font-weight: $font-weight-semibold;
+      color: $color-primary;
+    }
+  }
+}

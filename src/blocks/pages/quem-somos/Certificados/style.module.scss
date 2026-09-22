@@ -1,0 +1,108 @@
+@use '../../../../styles/tokens' as *;
+
+.certificados {
+  position: relative;
+  overflow: hidden;
+  padding: $space-12 0;
+  background: var(--Gradient, linear-gradient(47deg, #e2feff -93.71%, #ecf5f5 91.49%));
+
+  @include respond-to($bp-lg) {
+    padding: $space-16 0;
+  }
+}
+
+// Decorativo fixo do tema — só aparece no desktop.
+.certificados__background {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+
+  @include respond-to($bp-lg) {
+    display: block;
+  }
+}
+
+.certificados__container {
+  @include container;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $space-9;
+
+  @include respond-to($bp-lg) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-12;
+  }
+}
+
+.certificados__heading {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  max-width: 440px;
+}
+
+.certificados__eyebrow {
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-primary;
+}
+
+.certificados__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h2;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-3xl;
+  }
+}
+
+.certificados__description {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-lg;
+  }
+}
+
+.certificados__gallery {
+  display: flex;
+  gap: $space-4;
+  flex-shrink: 0;
+}
+
+.certificados__item {
+  width: 152px;
+  height: 158px;
+  border-radius: $radius-lg;
+  overflow: hidden;
+
+  @include respond-to($bp-lg) {
+    width: 304px;
+    height: 317px;
+  }
+
+  &:nth-child(2) {
+    margin-top: $space-8;
+  }
+}
+
+.certificados__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

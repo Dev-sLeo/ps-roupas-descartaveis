@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/produto-instrucoes",
+  "title": "Produto — Instruções de uso",
+  "category": "theme",
+  "description": "Vídeo de instruções de uso do produto, com lightbox e botão de compartilhar.",
+  "keywords": ["produto", "video", "instrucoes"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}

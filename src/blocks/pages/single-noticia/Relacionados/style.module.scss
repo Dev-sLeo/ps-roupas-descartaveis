@@ -1,0 +1,37 @@
+@use '../../../../styles/tokens' as *;
+
+.relacionados {
+  padding: 0 0 $space-12;
+
+  @include respond-to($bp-lg) {
+    padding-bottom: $space-16;
+  }
+}
+
+.relacionados__container {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  gap: $space-9;
+}
+
+.relacionados__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h2;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-3xl;
+  }
+}
+
+.relacionados__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-8;
+
+  @include respond-to($bp-lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

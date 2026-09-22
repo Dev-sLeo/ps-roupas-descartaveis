@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/produto-galeria",
+  "title": "Produto — Galeria",
+  "category": "theme",
+  "description": "Carrossel com as imagens extras da galeria do produto (WooCommerce), com lightbox.",
+  "keywords": ["produto", "galeria", "woocommerce"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}

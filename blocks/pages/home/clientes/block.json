@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/home-clientes",
+  "title": "Home — Clientes",
+  "category": "theme",
+  "description": "Grid de logos de marcas/clientes.",
+  "keywords": ["clientes", "logos", "home"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}

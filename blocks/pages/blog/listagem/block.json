@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/blog-listagem",
+  "title": "Blog — Listagem",
+  "category": "theme",
+  "description": "Filtro de categorias (pills) + grid de posts (3 col) + paginação.",
+  "keywords": ["blog", "listagem", "posts"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}

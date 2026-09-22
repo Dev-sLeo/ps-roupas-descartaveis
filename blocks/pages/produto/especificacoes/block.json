@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/produto-especificacoes",
+  "title": "Produto — Especificações",
+  "category": "theme",
+  "description": "Abas Especificações/Característica do produto + botão de download da ficha técnica.",
+  "keywords": ["produto", "especificacoes", "woocommerce"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}

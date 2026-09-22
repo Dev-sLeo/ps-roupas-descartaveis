@@ -1,0 +1,114 @@
+@use '../../../../styles/tokens' as *;
+
+.embalagens {
+  padding: $space-12 0;
+
+  @include respond-to($bp-lg) {
+    padding: $space-16 0;
+  }
+}
+
+.embalagens__container {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  gap: $space-9;
+
+  @include respond-to($bp-lg) {
+    flex-direction: row;
+    align-items: center;
+    gap: $space-12;
+  }
+}
+
+.embalagens__media {
+  @include respond-to($bp-lg) {
+    flex: 1;
+  }
+}
+
+.embalagens__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  border-radius: $radius-lg;
+  object-fit: cover;
+}
+
+.embalagens__content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-9;
+
+  @include respond-to($bp-lg) {
+    flex: 1;
+    max-width: 548px;
+  }
+}
+
+.embalagens__heading {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.embalagens__eyebrow {
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-primary;
+}
+
+.embalagens__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h2;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-snug;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-4xl;
+  }
+}
+
+.embalagens__description {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-lg;
+  }
+}
+
+.embalagens__destaques {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+
+  @include respond-to($bp-lg) {
+    flex-direction: row;
+  }
+}
+
+.embalagens__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  padding: $space-4 $space-6;
+  background-color: $color-primary;
+  border-radius: $radius-md;
+  color: $color-white;
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+  transition: opacity 150ms ease;
+
+  &:hover {
+    opacity: 0.88;
+  }
+}

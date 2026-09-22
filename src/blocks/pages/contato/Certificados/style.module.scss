@@ -1,0 +1,137 @@
+@use '../../../../styles/tokens' as *;
+
+.certificados {
+  padding: $space-12 0;
+
+  @include respond-to($bp-lg) {
+    padding: $space-16 0;
+  }
+}
+
+.certificados__container {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  gap: $space-8;
+}
+
+.certificados__heading {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  max-width: 504px;
+}
+
+.certificados__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h2;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-3xl;
+  }
+}
+
+.certificados__description {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-lg;
+  }
+}
+
+.certificados__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  padding: $space-2;
+  background-color: $color-verde-200;
+  border-radius: $radius-pill-btn;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.certificados__tab {
+  padding: $space-btn-y $space-btn-x;
+  background-color: $color-white;
+  border: none;
+  border-radius: $radius-lg;
+  font-family: $font-heading;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-accent;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+
+  &--active {
+    background-color: $color-accent;
+    color: $color-white;
+  }
+}
+
+.certificados__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-4;
+
+  @include respond-to($bp-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to($bp-lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.certificados__card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+  padding: $space-8;
+  background-color: $color-bg-primary;
+  border: 1px solid alpha($color-verde-700, 0.2);
+  border-radius: $radius-lg;
+
+  svg {
+    width: 32px;
+    height: 32px;
+    color: $color-accent;
+  }
+}
+
+.certificados__cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.certificados__cardTitle {
+  font-family: $font-heading;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.certificados__cardText {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+}
+
+.certificados__cardDownload {
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-primary;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

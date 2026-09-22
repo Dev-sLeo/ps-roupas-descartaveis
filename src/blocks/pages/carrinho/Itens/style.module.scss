@@ -1,0 +1,190 @@
+@use '../../../../styles/tokens' as *;
+
+.itens {
+  width: 100%;
+}
+
+// Sem `@include container` aqui — já vive dentro de `.carrinho__container`
+// (ver src/styles/_carrinho.scss), que já aplica o max-width/padding.
+.itens__container {
+  width: 100%;
+}
+
+.itens__lista {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.itens__cabecalho {
+  display: none;
+  align-items: center;
+  gap: $space-6;
+  padding-bottom: $space-4;
+  border-bottom: 1px solid $color-divider;
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.14px;
+  color: $color-text-secondary;
+
+  @include respond-to($bp-lg) {
+    display: flex;
+  }
+}
+
+.itens__cabecalhoProduto {
+  flex: 1 0 0;
+}
+
+.itens__cabecalhoPacotes {
+  width: 150px;
+}
+
+// Spacer vazio do tamanho do botão de remover (24px) — alinha "Pacotes" com o
+// stepper de quantidade das linhas abaixo (que tem a lixeira logo depois).
+.itens__cabecalhoSpacer {
+  flex-shrink: 0;
+  width: 24px;
+}
+
+.itens__vazio {
+  padding: $space-8 0;
+  font-family: $font-body;
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+}
+
+.itens__linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-4 0;
+  border-bottom: 1px solid $color-divider;
+
+  @include respond-to($bp-lg) {
+    flex-wrap: nowrap;
+    gap: $space-6;
+  }
+}
+
+// radius 8px exato do Figma (node 64:932) — não bate com $radius-sm (6px).
+.itens__imagem {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  background-color: $color-bg-secondary;
+}
+
+.itens__info {
+  display: flex;
+  flex: 1 0 200px;
+  flex-direction: column;
+  gap: $space-1;
+  min-width: 0;
+
+  @include respond-to($bp-lg) {
+    flex: 1 0 0;
+  }
+}
+
+.itens__nome {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.itens__variacao {
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  letter-spacing: 0.14px;
+  color: #5e5e5e;
+}
+
+.itens__acoes {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  align-items: flex-start;
+  flex-shrink: 0;
+  width: 100%;
+
+  @include respond-to($bp-lg) {
+    width: auto;
+  }
+}
+
+.itens__acoesTopo {
+  display: flex;
+  align-items: center;
+  gap: $space-6;
+}
+
+.itens__qty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-3;
+  width: 150px;
+  padding: $space-2 $space-3;
+  background-color: #f4f9f9;
+  border-radius: $radius-sm;
+}
+
+.itens__qtyBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: $color-accent;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.itens__qtyValue {
+  width: 80px;
+  font-family: $font-body;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  text-align: center;
+  color: $color-text-primary;
+}
+
+.itens__remover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #ff5c5c;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+.itens__pecas {
+  font-family: $font-body;
+  font-size: $font-size-xs;
+  line-height: $line-height-tight;
+  color: #5e5e5e;
+
+  span {
+    color: $color-text-primary;
+  }
+}

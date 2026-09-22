@@ -1,0 +1,429 @@
+@use '../../../styles/tokens' as *;
+
+// `position: sticky` não funciona aqui: o header fica FORA do #smooth-wrapper
+// (ver header.php) e o GSAP ScrollSmoother (src/animations/index.ts) deixa o
+// wrapper com `position: fixed` e simula o scroll via transform — o scroll real
+// do documento não corresponde 1:1 à posição visual, então um elemento sticky
+// fora do wrapper não consegue "grudar". Precisa ser fixed mesmo (como já era
+// antes, ver o padding-top de compensação em #smooth-content no global.scss).
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  background-color: $color-bg-primary;
+  border-bottom: 1px solid $color-divider;
+}
+
+// A admin bar do WP é fixed com z-index 99999 (maior que o nosso .header, z-index:50) e
+// fica sobre o topo do viewport — sem esse offset, ela cobre o header__topStrip inteiro
+// quando logado. Mesmo offset de 32px/46px já aplicado em #smooth-wrapper (global.scss).
+:global(body.admin-bar) .header {
+  top: 32px;
+
+  @media (max-width: 782px) {
+    top: 46px;
+  }
+}
+
+// ─── Top strip — contatos sobre fundo verde ────────────────────────────────────
+// Recolhe (max-height 0) ao rolar pra baixo, some junto com a borda/padding pra
+// não deixar um respiro vazio; volta ao rolar pra cima (ver lógica no index.tsx).
+.header__topStrip {
+  max-height: 44px;
+  overflow: hidden;
+  background-color: $color-brand-green;
+  padding: $space-2 $space-4;
+  transition: max-height 220ms ease, padding 220ms ease;
+
+  @include respond-to($bp-lg) {
+    max-height: 56px;
+    padding: $space-4 0;
+  }
+
+  &--hidden {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+.header__topStripInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+
+  @include respond-to($bp-lg) {
+    @include container;
+  }
+}
+
+// Ícones de rede social só aparecem no top strip do desktop (Figma não os mostra no mobile).
+.header__topStripSocial {
+  display: none;
+
+  @include respond-to($bp-lg) {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+  }
+}
+
+.header__topStripSocialLink {
+  display: flex;
+  color: $color-white;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.header__topStripContacts {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+  width: 100%;
+
+  @include respond-to($bp-lg) {
+    width: auto;
+    justify-content: flex-start;
+    gap: $space-9;
+  }
+}
+
+// E-mail só aparece no top strip do desktop (Figma não mostra no mobile).
+.header__topStripItem--emailDesktop {
+  display: none;
+
+  @include respond-to($bp-lg) {
+    display: inline-flex;
+  }
+}
+
+.header__topStripItem {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  color: $color-verde-200;
+  font-family: $font-body;
+  font-size: 11px;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-sm;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// ─── Barra principal ────────────────────────────────────────────────────────────
+.header__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-3 $space-4;
+
+  @include respond-to($bp-lg) {
+    // Equivalente à mixin `container`, mas sem chamá-la aqui dentro: ela tem uma
+    // `@media` própria (zera o padding horizontal em `$bp-lg`) que, aninhada
+    // dentro deste `respond-to`, é "achatada" pelo Sass e acaba compilada DEPOIS
+    // do `padding-block` abaixo — vencendo a cascata e zerando o vertical junto.
+    width: 100%;
+    max-width: $container-width;
+    margin-left: auto;
+    margin-right: auto;
+    padding-inline: 0;
+    padding-block: $space-4;
+    gap: $space-8;
+  }
+}
+
+.header__logoLink {
+  display: inline-flex;
+}
+
+.header__logo {
+  height: 36px;
+  width: auto;
+
+  @include respond-to($bp-lg) {
+    width: 197.015px;
+    height: 67px;
+  }
+}
+
+.header__navDesktop {
+  display: none;
+
+  @include respond-to($bp-lg) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 47.5px;
+    min-width: 0;
+  }
+}
+
+.header__navItem {
+  position: relative;
+
+  .header__nav & {
+    width: 100%;
+  }
+}
+
+.header__navLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-2;
+  width: 100%;
+  padding: $space-2 $space-3;
+  border-radius: $radius-sm;
+  font-family: $font-body;
+  font-size: $font-size-body-lg;
+  color: $color-text-secondary;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 150ms ease;
+
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  &:hover {
+    color: $color-text-primary;
+  }
+
+  &--active {
+    color: $color-primary;
+    font-weight: $font-weight-semibold;
+  }
+
+  .header__navDesktop & {
+    display: inline-flex;
+    width: auto;
+    padding: $space-2 0;
+    font-size: $font-size-body-md;
+
+    // Bullet animado embaixo do item — some/aparece com fade + escala.
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: currentColor;
+      opacity: 0;
+      transform: translate(-50%, -4px) scale(0.5);
+      transition: opacity 150ms ease, transform 150ms ease;
+      pointer-events: none;
+    }
+
+    &:hover::after,
+    &--active::after {
+      opacity: 1;
+      transform: translate(-50%, 0) scale(1);
+    }
+  }
+}
+
+// ─── Submenu — mobile (indentado, sempre visível) ──────────────────────────────
+.header__navChildren {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-1;
+  padding-left: $space-4;
+}
+
+.header__navChildLink {
+  padding: $space-1 $space-3;
+  color: $color-text-muted;
+  font-family: $font-body;
+  font-size: $font-size-body-sm;
+  text-decoration: none;
+  transition: color 150ms ease;
+
+  &:hover {
+    color: $color-text-primary;
+  }
+}
+
+// ─── Submenu — desktop (dropdown ao passar o mouse) ────────────────────────────
+.header__navDesktop .header__navItem {
+
+  &:hover,
+  &:focus-within {
+    .header__navChildren {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+
+  .header__navChildren {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    flex-direction: column;
+    min-width: 180px;
+    margin-top: $space-2;
+    padding: $space-2;
+    background-color: $color-bg-card;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 150ms ease, visibility 150ms ease, transform 150ms ease;
+    z-index: 10;
+  }
+
+  .header__navChildLink {
+    width: 100%;
+    padding: $space-2 $space-3;
+    border-radius: $radius-sm;
+
+    &:hover {
+      background-color: alpha($color-text-primary, 0.06);
+    }
+  }
+}
+
+// ─── Ações — desktop (carrinho) ────────────────────────────────────────────────
+.header__actionsDesktop {
+  display: none;
+
+  @include respond-to($bp-lg) {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+}
+
+.header__cart {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-3 $space-4;
+  background-color: $color-laranja-100;
+  border: 1px solid $color-laranja-200;
+  border-radius: $radius-md;
+  color: $color-brand-dark;
+  font-family: $font-heading;
+  font-size: $font-size-body-md;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 150ms ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+// ─── Ações — mobile (carrinho + hambúrguer) ────────────────────────────────────
+.header__actionsMobile {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+
+  @include respond-to($bp-lg) {
+    display: none;
+  }
+}
+
+.header__cartMobile,
+.header__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: $color-bg-secondary;
+  border: none;
+  border-radius: $radius-sm;
+  color: $color-text-secondary;
+  cursor: pointer;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.header__cartMobile {
+  background-color: $color-laranja-100;
+  border: 1px solid $color-laranja-200;
+  color: $color-brand-dark;
+}
+
+// ─── Menu — painel mobile ───────────────────────────────────────────────────────
+.header__panel {
+  position: fixed;
+  inset: 0;
+  top: 94px;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  padding: $space-6 $space-4;
+  background-color: $color-bg-primary;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 200ms ease, visibility 200ms ease, transform 200ms ease;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  z-index: 40;
+
+  @include respond-to($bp-lg) {
+    display: none;
+  }
+
+  &--open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+:global(body.admin-bar) .header__panel {
+  top: calc(94px + 32px);
+
+  @media (max-width: 782px) {
+    top: calc(94px + 46px);
+  }
+}
+
+.header__nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: $space-4;
+}

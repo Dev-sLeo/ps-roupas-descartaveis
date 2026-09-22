@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/produtos-hero",
+  "title": "Produtos (arquivo) — Hero",
+  "category": "theme",
+  "description": "Hero centralizado sobre fundo gradiente decorativo, com busca de produtos (GET, mesmo padrão de filtro do catálogo).",
+  "keywords": ["produtos", "hero", "busca", "woocommerce"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}

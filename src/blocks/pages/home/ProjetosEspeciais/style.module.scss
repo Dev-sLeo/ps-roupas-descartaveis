@@ -1,0 +1,79 @@
+@use '../../../../styles/tokens' as *;
+
+.projetos {
+  padding: $space-12 0;
+  background: linear-gradient(180deg, #e2feff 0%, $color-bg-secondary 100%);
+
+  @include respond-to($bp-lg) {
+    padding: $space-16 0;
+  }
+}
+
+.projetos__container {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-9;
+}
+
+.projetos__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-2;
+  max-width: 904px;
+  text-align: center;
+}
+
+.projetos__eyebrow {
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-primary;
+}
+
+.projetos__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h2;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-3xl;
+  }
+}
+
+.projetos__description {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-lg;
+  }
+}
+
+.projetos__gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-4;
+  width: 100%;
+
+  @include respond-to($bp-lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.projetos__galleryItem {
+  aspect-ratio: 373 / 284;
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+.projetos__galleryImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/home-hero",
+  "title": "Home — Hero",
+  "category": "theme",
+  "description": "Hero da Home com imagem de fundo, título, descrição e 2 CTAs.",
+  "keywords": ["hero", "banner", "home"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}

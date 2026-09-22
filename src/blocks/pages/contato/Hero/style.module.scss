@@ -1,0 +1,119 @@
+@use '../../../../styles/tokens' as *;
+
+.hero {
+  position: relative;
+  padding: $space-16 0;
+  overflow: hidden;
+  background: linear-gradient(47deg, #e2feff -93.71%, #ecf5f5 91.49%);
+
+  @include respond-to($bp-lg) {
+    padding: $space-24 0;
+  }
+}
+
+.hero__shapeLeft,
+.hero__shapeRight {
+  position: absolute;
+  top: 50%;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background-color: alpha($color-accent, 0.08);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.hero__shapeLeft {
+  left: -130px;
+}
+
+.hero__shapeRight {
+  right: -130px;
+  background-color: alpha($color-laranja-100, 0.6);
+}
+
+.hero__container {
+  @include container;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-14;
+  text-align: center;
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-4;
+  max-width: 564px;
+}
+
+.hero__eyebrow {
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-primary;
+}
+
+.hero__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h2;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: 2.875rem; // 46px — display do Figma para este hero específico
+  }
+}
+
+.hero__description {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-lg;
+  }
+}
+
+.hero__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-2;
+  background-color: $color-verde-200;
+  border-radius: $radius-pill-btn;
+}
+
+.hero__ctaPrimary,
+.hero__ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-btn-y $space-btn-x;
+  border-radius: $radius-lg;
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 150ms ease;
+
+  &:hover {
+    opacity: 0.88;
+  }
+}
+
+.hero__ctaPrimary {
+  background-color: $color-accent;
+  color: $color-white;
+}
+
+.hero__ctaSecondary {
+  background-color: $color-white;
+  color: $color-accent;
+}

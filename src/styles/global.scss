@@ -1,0 +1,290 @@
+@use 'tokens' as *;
+@use 'reset';
+@use 'typography';
+@use 'buttons';
+@use 'woocommerce';
+@use 'carrinho';
+
+// ─── Globais ─────────────────────────────────────────────────────────────────
+body {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-normal;
+  color: $color-text;
+  background-color: $color-bg-primary;
+}
+
+// O ScrollSmoother torna #smooth-wrapper "position: fixed; inset: 0", então o
+// padding-top que compensa a altura do header fixo precisa estar no conteúdo
+// que realmente rola (#smooth-content), não mais no body — senão o body não
+// tem efeito visual e o hero fica escondido atrás do header.
+#smooth-content {
+  padding-top: 94px;
+
+  @include respond-to($bp-lg) {
+    padding-top: 99px;
+  }
+}
+
+// A barra de admin do WP (32px desktop / 46px mobile) fica fixa no topo do viewport.
+// O ScrollSmoother aplica "top: 0; height: 100%" via inline style (gsap.set) no
+// wrapper — !important pra vencer o inline. Importante: também precisa reduzir a
+// "height", não só empurrar o "top" — senão a altura continua = 100% da viewport
+// inteira e a base do wrapper fica 32px (ou 46px) ABAIXO do viewport real, presa e
+// inacessível por scroll (o fim da página, ex: rodapé do footer, nunca aparece).
+body.admin-bar #smooth-wrapper {
+  top: 32px !important;
+  height: calc(100% - 32px) !important;
+
+  @media (max-width: 782px) {
+    top: 46px !important;
+    height: calc(100% - 46px) !important;
+  }
+}
+
+// O WP core dá "padding-top: 32px/46px" no <html> (classe .wp-toolbar) pra abrir
+// espaço pra admin bar no fluxo normal do documento. Só que #smooth-wrapper é
+// "position: fixed" — não é empurrado por esse padding (fixed ignora padding de
+// ancestral) — e o ScrollSmoother mede/reserva a altura de scroll nativo com base
+// só em #smooth-content. Esse padding vira então uma sobra "fantasma" no topo do
+// documento que o ScrollSmoother não conta: a barra de rolagem nativa fica maior
+// do que o necessário, e o progresso do scroll bate 100% antes de chegar no fim
+// real — cortando os últimos ~32/46px de conteúdo (ex: rodapé do footer). Como já
+// compensamos o espaço da admin bar manualmente no `.header`/`#smooth-wrapper`,
+// esse padding do WP é só descartado.
+html.wp-toolbar {
+  padding-top: 0 !important;
+}
+
+// ─── Página — Single Carro ────────────────────────────────────────────────────
+.page-single-carro {
+  background-color: $color-bg-secondary;
+}
+
+// ─── Página de Conteúdo (Política, Termos, etc.) ─────────────────────────────
+.content-page__hero {
+  background-color: $color-dark;
+  position: relative;
+  overflow: hidden;
+}
+
+.content-page__hero-inner {
+  @include container;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  min-height: 220px;
+  padding-top: $space-16;
+  padding-bottom: $space-10;
+
+  @include respond-to($bp-lg) {
+    min-height: 280px;
+    padding-bottom: $space-12;
+  }
+}
+
+.content-page__hero-bg {
+  position: absolute;
+  inset: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    opacity: 0.25;
+  }
+}
+
+.content-page__hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, alpha($color-dark, 0.85) 0%, alpha($color-dark, 0.4) 100%);
+}
+
+.content-page__hero-title {
+  position: relative;
+  font-size: clamp($font-size-3xl, 5vw, $font-size-5xl);
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  color: $color-white;
+  margin: 0;
+}
+
+.content-page__body {
+  padding: $space-16 $space-4 $space-20;
+
+  @include respond-to($bp-lg) {
+    padding: $space-20 $space-8 $space-24;
+  }
+}
+
+.content-page__body-inner {
+  @include container;
+}
+
+.content-page__content {
+  max-width: 800px;
+  color: $color-neutral-600;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-lg;
+  }
+
+  h2, h3, h4, h5, h6 {
+    color: $color-text;
+    font-weight: $font-weight-semibold;
+    line-height: $line-height-snug;
+    margin: $space-10 0 $space-4;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  h2 { font-size: clamp($font-size-2xl, 3vw, $font-size-3xl); }
+  h3 { font-size: clamp($font-size-xl, 2.5vw, $font-size-2xl); }
+  h4 { font-size: $font-size-xl; }
+
+  p {
+    margin: 0 0 $space-5;
+    &:last-child { margin-bottom: 0; }
+  }
+
+  ul, ol {
+    margin: 0 0 $space-5;
+    padding-left: $space-6;
+
+    li {
+      margin-bottom: $space-2;
+    }
+  }
+
+  ul li { list-style: disc; }
+  ol li { list-style: decimal; }
+
+  a {
+    color: $color-primary;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 150ms ease;
+
+    &:hover { opacity: 0.75; }
+  }
+
+  strong { font-weight: $font-weight-semibold; color: $color-text; }
+  em     { font-style: italic; }
+
+  blockquote {
+    border-left: 4px solid $color-primary;
+    margin: $space-8 0;
+    padding: $space-4 $space-6;
+    background-color: $color-neutral-100;
+    border-radius: 0 8px 8px 0;
+    color: $color-neutral-700;
+    font-style: italic;
+
+    p:last-child { margin-bottom: 0; }
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid $color-neutral-200;
+    margin: $space-10 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: $space-8 0;
+    font-size: $font-size-sm;
+
+    th, td {
+      text-align: left;
+      padding: $space-3 $space-4;
+      border-bottom: 1px solid $color-neutral-200;
+    }
+
+    th {
+      font-weight: $font-weight-semibold;
+      color: $color-text;
+      background-color: $color-neutral-100;
+    }
+
+    tr:last-child td { border-bottom: none; }
+  }
+}
+
+// ─── Página 404 ──────────────────────────────────────────────────────────────
+.not-found {
+  background-color: #1d1d1d;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-20 $space-4;
+  overflow: hidden;
+  position: relative;
+}
+
+.not-found__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: $space-6;
+  max-width: 560px;
+  width: 100%;
+}
+
+.not-found__code {
+  display: block;
+  font-size: clamp(6rem, 20vw, 10rem);
+  font-weight: $font-weight-bold;
+  line-height: 1;
+  background: linear-gradient(135deg, $color-primary 0%, #7a0000 60%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.04em;
+  user-select: none;
+}
+
+.not-found__title {
+  font-size: clamp($font-size-2xl, 5vw, $font-size-4xl);
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  color: $color-primary;
+  margin: 0;
+}
+
+.not-found__description {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-relaxed;
+  color: #a9a9a9;
+  margin: 0;
+}
+
+.not-found__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: $space-2;
+  padding: $space-4 $space-10;
+  background-color: $color-primary;
+  color: $color-white;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: opacity 150ms ease, transform 150ms ease;
+
+  &:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+  }
+}

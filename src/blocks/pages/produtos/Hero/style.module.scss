@@ -1,0 +1,133 @@
+@use '../../../../styles/tokens' as *;
+
+.hero {
+  position: relative;
+  padding: $space-16 0 $space-24;
+  overflow: hidden;
+  background: linear-gradient(47deg, #e2feff -93.71%, #ecf5f5 91.49%);
+
+  @include respond-to($bp-lg) {
+    padding: $space-24 0 $space-24 * 1.5;
+  }
+}
+
+.hero__shapeLeft,
+.hero__shapeRight {
+  position: absolute;
+  top: 50%;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.hero__shapeLeft {
+  left: -130px;
+  background-color: alpha($color-accent, 0.08);
+}
+
+.hero__shapeRight {
+  right: -130px;
+  background-color: alpha($color-laranja-100, 0.6);
+}
+
+.hero__container {
+  @include container;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-14;
+  text-align: center;
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-4;
+  max-width: 735px;
+}
+
+.hero__eyebrow {
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-primary;
+}
+
+.hero__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h2;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: 2.875rem; // 46px
+  }
+}
+
+.hero__description {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-lg;
+  }
+}
+
+.hero__search {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  width: 100%;
+  max-width: 899px;
+  padding: $space-2 $space-2 $space-2 $space-6;
+  background-color: $color-bg-primary;
+  border-radius: $radius-md;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.hero__searchInput {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: none;
+  font-family: $font-body;
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+
+  &::placeholder {
+    color: $color-text-secondary;
+  }
+}
+
+.hero__searchBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  border-radius: $radius-sm;
+  background-color: $color-bg-secondary;
+  color: $color-text-secondary;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+
+  &:hover {
+    background-color: $color-verde-200;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}

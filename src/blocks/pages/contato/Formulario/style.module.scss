@@ -1,0 +1,187 @@
+@use '../../../../styles/tokens' as *;
+
+.formulario {
+  padding: $space-12 0;
+
+  @include respond-to($bp-lg) {
+    padding: $space-16 0;
+  }
+}
+
+.formulario__container {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  gap: $space-9;
+
+  @include respond-to($bp-lg) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: $space-16;
+  }
+}
+
+.formulario__info {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+
+  @include respond-to($bp-lg) {
+    flex: 1;
+    max-width: 472px;
+  }
+}
+
+.formulario__title {
+  font-family: $font-heading;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-snug;
+  color: $color-text-primary;
+}
+
+.formulario__description {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+}
+
+.formulario__canais {
+  display: flex;
+  flex-direction: column;
+  margin-top: $space-6;
+  border-top: 1px solid $color-divider;
+}
+
+.formulario__canal {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-4;
+  padding: $space-6 0;
+  border-bottom: 1px solid $color-divider;
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+}
+
+.formulario__canalIcon {
+  display: flex;
+  flex-shrink: 0;
+  color: $color-text-secondary;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.formulario__card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+  padding: $space-8;
+  background-color: $color-bg-primary;
+  border: 1px solid alpha($color-verde-700, 0.2);
+  border-radius: $radius-lg;
+
+  @include respond-to($bp-lg) {
+    flex: 1;
+    max-width: 542px;
+    padding: $space-14;
+  }
+}
+
+.formulario__cardTitle {
+  font-family: $font-heading;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.formulario__cf7Empty {
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+}
+
+// ─── Estilização do formulário do Contact Form 7 ───────────────────────────────
+// O HTML é gerado pelo plugin (fora do nosso controle de markup), então
+// estilizamos as classes padrão do CF7 (.wpcf7-form-control etc).
+.formulario__cf7 {
+  :global(.wpcf7-form) {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+
+  :global(.wpcf7-form-control-wrap) {
+    display: block;
+  }
+
+  :global(.wpcf7-form-control) {
+    width: 100%;
+    padding: $space-2 $space-4;
+    background-color: $color-bg-primary;
+    border: 1px solid $color-neutral-300;
+    border-radius: $radius-sm;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+
+    &::placeholder {
+      color: $color-text-muted;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $color-accent;
+    }
+  }
+
+  :global(textarea.wpcf7-form-control) {
+    min-height: 111px;
+    resize: vertical;
+  }
+
+  :global(.wpcf7-submit) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $space-btn-y $space-btn-x;
+    margin-top: $space-2;
+    background-color: $color-primary;
+    border: none;
+    border-radius: $radius-lg;
+    color: $color-white;
+    font-family: $font-heading;
+    font-size: $font-size-md;
+    font-weight: $font-weight-semibold;
+    cursor: pointer;
+    transition: opacity 150ms ease;
+
+    &:hover {
+      opacity: 0.88;
+    }
+  }
+
+  :global(.wpcf7-response-output) {
+    margin-top: $space-2;
+    padding: $space-3 $space-4;
+    border-radius: $radius-sm;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+  }
+
+  :global(.wpcf7-not-valid-tip) {
+    display: block;
+    margin-top: $space-1;
+    color: $color-error;
+    font-size: $font-size-xs;
+  }
+
+  :global(.wpcf7-spinner) {
+    margin-left: $space-2;
+  }
+}

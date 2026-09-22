@@ -1,0 +1,70 @@
+@use 'tokens' as *;
+
+// ─── Títulos ──────────────────────────────────────────────────────────────────
+// u-title__super — título grande (hero, seções de destaque)
+.u-title__super {
+  font-family: $font-base;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-tight;
+  font-size: $font-size-super-mobile;
+  color: $color-neutral-800;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-heading-1;
+  }
+}
+
+// u-title__normal — título de seção (h2/h3)
+.u-title__normal {
+  font-family: $font-base;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-tight;
+  font-size: $font-size-2xl;
+  color: $color-neutral-800;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-heading-3;
+  }
+}
+
+// ─── Texto ────────────────────────────────────────────────────────────────────
+// u-text — parágrafo padrão
+.u-text {
+  font-family: $font-base;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-relaxed;
+  font-size: $font-size-md;
+  color: $color-neutral-700;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-lg;
+  }
+}
+
+// u-text__eyebrow — pré-título pequeno em uppercase
+.u-text__eyebrow {
+  font-family: $font-base;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-tight;
+  font-size: $font-size-md;
+  letter-spacing: $letter-spacing-wide;
+  text-transform: uppercase;
+  color: $color-primary;
+}
+
+// ─── Link ─────────────────────────────────────────────────────────────────────
+// u-link — link de texto (não botão)
+.u-link {
+  font-family: $font-base;
+  font-weight: $font-weight-medium;
+  font-size: $font-size-md;
+  line-height: $line-height-normal;
+  color: $color-primary;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 150ms ease;
+
+  &:hover {
+    opacity: 0.75;
+  }
+}

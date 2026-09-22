@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/hero-estatico",
+  "title": "Hero estático",
+  "category": "theme",
+  "description": "Hero sem slider, mesmo tamanho do hero da Home — 1 imagem de fundo (par desktop/mobile), texto centralizado + 2 CTAs. Global (Quem Somos, Trabalhe Conosco), campos no post/página atual.",
+  "keywords": ["hero", "banner"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../build/index.js",
+  "editorStyle": "file:../../build/index.css",
+  "style": "file:../../build/index.css"
+}

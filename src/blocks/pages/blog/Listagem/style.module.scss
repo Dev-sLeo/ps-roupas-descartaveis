@@ -1,0 +1,121 @@
+@use '../../../../styles/tokens' as *;
+
+.listagem {
+  padding: $space-12 0;
+  background-color: $color-bg-primary;
+
+  @include respond-to($bp-lg) {
+    padding: $space-16 0;
+  }
+}
+
+.listagem__container {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-9;
+}
+
+// `width: 100% !important` porque `.pillTabs` (componente compartilhado) já
+// define `width: fit-content` na própria classe — mesma especificidade (uma
+// classe cada), então sem isso o vencedor dependeria da ordem de bundling dos
+// dois arquivos CSS. Pelo mesmo motivo `background-color`/`border-radius`
+// entram como `.listagem__container .listagem__tabs` (não como propriedade
+// direta de `.listagem__tabs`): as classes do PillTabs (`.pillTabs`,
+// `.pillTabs__item`, `.pillTabs__item--active`) são módulos CSS com nomes
+// tão hasheados quanto os deste arquivo — **não literais** — então
+// `:global(.pillTabs)` nunca bate com a classe real renderizada (era dead
+// code). Prefixar com o ancestral real `.listagem__container` (mesmo
+// arquivo, nome garantido) dá especificidade (0,2,0), sempre maior que a
+// regra de 1 classe do PillTabs, sem depender da ordem de bundling.
+//
+// `margin-top` negativo puxa o filtro pra cima, sobrepondo a metade dele em
+// cima do hero (que termina no fim da section anterior, min-height 477px) —
+// bg branco (em vez do verde-200 padrão do PillTabs) + radius 16px (Figma
+// node 45:3353), pra ficar visível sobre o hero e o fundo branco da
+// listagem ao mesmo tempo.
+.listagem__tabs {
+  width: 100% !important;
+  overflow-x: auto;
+  justify-content: flex-start;
+  gap: $space-4;
+  padding: $space-3;
+  margin-top: -102px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.listagem__container .listagem__tabs {
+  background-color: $color-bg-primary;
+  border-radius: $radius-lg;
+}
+
+// Aplicados via `itemClassName`/`activeItemClassName` do PillTabs — mesmo
+// motivo do bloco acima: nada de `:global()` pra classe do PillTabs, e sim
+// prefixo com o ancestral real pra especificidade garantida.
+// Cores/radius exatos do Figma (node 45:3353): inativo = pill branca, ativo
+// (e hover) = fundo verde-200 + borda verde-500 + radius 12px (não pill).
+.listagem__tabItem {
+  background-color: $color-bg-primary;
+  color: $color-text-secondary;
+  border: 1px solid transparent;
+  border-radius: $radius-pill;
+}
+
+.listagem__tabs .listagem__tabItem:hover,
+.listagem__tabs .listagem__tabItemActive {
+  background-color: $color-verde-200;
+  border-color: $color-accent;
+  color: $color-text-primary;
+  border-radius: 12px;
+}
+
+.listagem__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-6;
+  width: 100%;
+
+  @include respond-to($bp-lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.listagem__empty {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+}
+
+.listagem__pagination {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+}
+
+.listagem__pageLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid $color-verde-200;
+  border-radius: $radius-pill;
+  font-family: $font-body;
+  font-size: $font-size-lg;
+  letter-spacing: 0.18px;
+  color: $color-verde-700;
+  text-decoration: none;
+  transition: opacity 150ms ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &--active {
+    border-color: $color-primary;
+    color: $color-primary;
+  }
+}

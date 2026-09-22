@@ -1,0 +1,52 @@
+@use '../../styles/tokens' as *;
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  padding: $space-2 $space-5;
+  backdrop-filter: blur(10px);
+  border: 1px solid alpha($color-white, 0.1);
+  border-radius: $radius-pill;
+
+  @include respond-to($bp-lg) {
+    max-width: max-content;
+  }
+}
+
+.eyebrow__text {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-normal;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: normal;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-md;
+    letter-spacing: 1.6px;
+    white-space: nowrap;
+  }
+}
+
+// ── Dark — sobre fundo escuro/imagem ───────────────────────────────────────────
+
+.eyebrow--dark {
+  background-color: alpha($color-white, 0.05);
+
+  .eyebrow__text {
+    color: $color-white;
+  }
+}
+
+// ── Light — sobre fundo claro ──────────────────────────────────────────────────
+
+.eyebrow--light {
+  background-color: alpha($color-primary, 0.05);
+
+  .eyebrow__text {
+    color: $color-primary;
+  }
+}

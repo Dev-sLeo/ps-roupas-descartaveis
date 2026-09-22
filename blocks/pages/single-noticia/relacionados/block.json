@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/single-relacionados",
+  "title": "Single — Artigos relacionados",
+  "category": "theme",
+  "description": "Título + grid de 3 posts recentes (exclui o post atual).",
+  "keywords": ["post", "blog", "relacionados"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}

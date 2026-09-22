@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/fale-conosco",
+  "title": "Fale conosco",
+  "category": "theme",
+  "description": "CTA final com título, descrição e 2 botões — global, dados na options page \"Tema\".",
+  "keywords": ["cta", "contato"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../build/index.js",
+  "editorStyle": "file:../../build/index.css",
+  "style": "file:../../build/index.css"
+}

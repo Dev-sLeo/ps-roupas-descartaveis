@@ -1,0 +1,91 @@
+@use '../../../../styles/tokens' as *;
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(47deg, #e2feff -93.71%, #ecf5f5 91.49%);
+  padding: $space-12 0;
+
+  @include respond-to($bp-lg) {
+    padding: $space-24 0 $space-16;
+  }
+}
+
+.hero__shapeLeft,
+.hero__shapeRight {
+  position: absolute;
+  top: 50%;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background-color: alpha($color-accent, 0.08);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.hero__shapeLeft {
+  left: -130px;
+}
+
+.hero__shapeRight {
+  right: -130px;
+  background-color: alpha($color-laranja-100, 0.6);
+}
+
+.hero__container {
+  @include container;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-9;
+  text-align: center;
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-4;
+  max-width: 735px;
+
+  @include respond-to($bp-lg) {
+    gap: $space-6;
+  }
+}
+
+.hero__eyebrow {
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-primary;
+}
+
+.hero__title {
+  font-family: $font-heading;
+  font-size: 28px;
+  font-weight: $font-weight-bold;
+  line-height: 1.2;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: 46px;
+    font-weight: $font-weight-semibold;
+  }
+}
+
+.hero__description {
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-lg;
+    letter-spacing: 0.18px;
+  }
+}
+
+.hero__tabs {
+  margin: 0 auto;
+}

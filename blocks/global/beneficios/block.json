@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/beneficios",
+  "title": "Benefícios",
+  "category": "theme",
+  "description": "Grid de cards ícone + título + texto — global, campos no post/página atual.",
+  "keywords": ["beneficios", "cards", "segmentos"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../build/index.js",
+  "editorStyle": "file:../../build/index.css",
+  "style": "file:../../build/index.css"
+}

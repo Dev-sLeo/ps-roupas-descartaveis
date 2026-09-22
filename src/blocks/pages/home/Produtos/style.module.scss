@@ -1,0 +1,96 @@
+@use '../../../../styles/tokens' as *;
+
+.produtos {
+  padding: $space-12 0;
+
+  @include respond-to($bp-lg) {
+    padding: $space-16 0;
+  }
+}
+
+.produtos__container {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-9;
+}
+
+.produtos__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-6;
+  width: 100%;
+
+  @include respond-to($bp-lg) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.produtos__heading {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  text-align: left;
+}
+
+.produtos__eyebrow {
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-laranja-400;
+}
+
+.produtos__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h2;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-heading-h1;
+  }
+}
+
+.produtos__description {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+  max-width: 538px;
+}
+
+.produtos__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-8;
+  width: 100%;
+
+  @include respond-to($bp-lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.produtos__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: $space-4 $space-6;
+  background-color: $color-primary;
+  border-radius: $radius-md;
+  color: $color-white;
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: opacity 150ms ease;
+
+  &:hover {
+    opacity: 0.88;
+  }
+}

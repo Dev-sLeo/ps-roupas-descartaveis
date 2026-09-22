@@ -1,0 +1,35 @@
+@use '../../styles/tokens' as *;
+
+.pillTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  padding: $space-2;
+  background-color: $color-verde-200;
+  border-radius: $radius-pill-btn;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.pillTabs__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-btn-y $space-btn-x;
+  background-color: $color-bg-primary;
+  border: none;
+  border-radius: $radius-lg;
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-accent;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+
+  &--active {
+    background-color: $color-accent;
+    color: $color-white;
+  }
+}

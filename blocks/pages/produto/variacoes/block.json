@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/produto-variacoes",
+  "title": "Produto — Variações",
+  "category": "theme",
+  "description": "Seleção de variações (swatches de cor + selects customizados) + quantidade de pacotes (com cálculo de peças) + botões \"Adicionar ao orçamento\"/\"Falar com nossa equipe\". Substitui o formulário nativo de variações do WooCommerce no hook woocommerce_single_product_summary (produtos do tipo variável).",
+  "keywords": ["produto", "variacoes", "woocommerce", "add-to-cart"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}

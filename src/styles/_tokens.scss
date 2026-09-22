@@ -1,0 +1,276 @@
+// ─── Cores — Proseg (Figma) ─────────────────────────────────────────────────────
+// Tema único (claro) — sem alternância dark/light.
+$color-bg-primary: #ffffff;
+$color-bg-secondary: #f5f5f5;
+$color-bg-tertiary: #ececec;
+$color-bg-card: #ffffff;
+$color-bg-overlay: #001d1e; // fundo escuro da top strip do header/footer
+
+// ─── Marca (Figma — Proseg) ─────────────────────────────────────────────────────
+$color-brand-primary: #f36911; // laranja — CTA primário
+$color-brand-dark: #612a07; // laranja escuro — texto sobre laranja claro / hover
+$color-brand-green: #029195; // verde — destaques
+
+$color-verde-900: #001d1e; // texto principal / headings
+$color-verde-800: #013a3c; // texto secundário / menu
+$color-verde-200: #cce9ea; // texto sobre fundo escuro (top strip)
+$color-verde-100: #eaf4f4; // fundo dos cards de produto
+$color-verde-700: #015759; // borda de cards de destaque (usar com alpha())
+$color-laranja-100: #fde1cf; // fundo do CTA secundário / badge
+$color-laranja-200: #fac3a0; // borda do CTA secundário / badge
+$color-laranja-300: #ff8853; // seta/destaque do card de produto
+$color-laranja-400: #f58741; // eyebrow da seção de produtos
+
+// ─── Texto ──────────────────────────────────────────────────────────────────────
+$color-text-primary: $color-verde-900;
+$color-text-secondary: $color-verde-800;
+$color-text-muted: #6b7280;
+
+// ─── Divisor (linhas 1px entre seções) ──────────────────────────────────────────
+$color-divider: #e5e7eb;
+
+// ─── Brand (legado — mantido para compatibilidade com componentes existentes) ──
+$color-brand-100: #00051b;
+$color-brand-200: #051e6b;
+$color-brand-300: #0674ed;
+$color-brand-400: #56a57f;
+$color-brand-500: #cfd1d3;
+$color-brand-600: #f7f7f7;
+
+// ─── Neutral (legado — mantido para compatibilidade com componentes existentes) ─
+$color-neutral-100: #f5f5f5;
+$color-neutral-200: #e5e5e5;
+$color-neutral-300: #cccccc;
+$color-neutral-400: #999999;
+$color-neutral-500: #737373;
+$color-neutral-600: #4d4d4d;
+$color-neutral-700: #333333;
+$color-neutral-800: #1a1a1a;
+
+// ─── Atalhos semânticos ───────────────────────────────────────────────────────
+$color-white: #ffffff; // texto sobre fundo escuro (ex: CTAs, top strip)
+$color-primary: $color-brand-primary; // laranja — cor principal, CTAs
+$color-accent: $color-brand-green; // verde — destaques
+$color-dark: $color-bg-overlay; // fundo escuro (top strip, footer)
+$color-text: $color-text-primary;
+$color-border: rgba(0, 0, 0, 0.12);
+$color-bg: $color-bg-primary;
+$color-error: #e53e3e; // mensagens de validação de formulário (CF7)
+
+// ─── Tipografia ───────────────────────────────────────────────────────────────
+$font-heading: 'Montserrat', sans-serif; // Display, Heading, Botões, Nav
+$font-body: 'Manrope', sans-serif; // Body, Label
+$font-base: $font-heading; // fonte padrão do tema
+
+$font-size-xs: 0.75rem; //  12px
+$font-size-sm: 0.875rem; //  14px
+$font-size-md: 1rem; //  16px
+$font-size-lg: 1.125rem; //  18px
+$font-size-xl: 1.25rem; //  20px
+$font-size-2xl: 1.5rem; //  24px
+$font-size-3xl: 1.875rem; //  30px
+$font-size-4xl: 2.25rem; //  36px
+$font-size-5xl: 3rem; //  48px
+$font-size-super-mobile: 1.75rem; //  28px — título super (hero) no mobile
+$font-size-heading-1: 3.5rem; //  56px — título super (hero) no desktop
+$font-size-heading-2: 2rem; //  32px — título grande (CTA final) no mobile
+$font-size-heading-3: 2.5rem; //  40px — título do hero no mobile / normal (h2/h3) no desktop
+
+// ─── Tipografia — Escala (Figma Type System) ───────────────────────────────────
+// Display/Hero — Poppins SemiBold 100px/100px
+$font-size-display-hero: 6.25rem;
+$line-height-display-hero: 6.25rem;
+
+// Display/Title — Poppins Medium 64px/72px
+$font-size-display-title: 4rem;
+$line-height-display-title: 4.5rem;
+
+// Heading/H1 — Poppins Medium 36px/44px
+$font-size-heading-h1: 2.25rem;
+$line-height-heading-h1: 2.75rem;
+
+// Heading/H2 — Poppins Medium 28px/36px
+$font-size-heading-h2: 1.75rem;
+$line-height-heading-h2: 2.25rem;
+
+// Heading/H3 — Poppins Medium 20px/28px
+$font-size-heading-h3: 1.25rem;
+$line-height-heading-h3: 1.75rem;
+
+// Body/Large — Archivo Light 18px/28px
+$font-size-body-lg: 1.125rem;
+$line-height-body-lg: 1.75rem;
+
+// Body/Medium — Archivo Regular 15px/22px
+$font-size-body-md: 0.9375rem;
+$line-height-body-md: 1.375rem;
+
+// Body/Small — Archivo Light 15px/22px
+$font-size-body-sm: 0.9375rem;
+$line-height-body-sm: 1.375rem;
+
+// Label/Tag — Archivo SemiBold 12px/16px
+$font-size-label-tag: 0.75rem;
+$line-height-label-tag: 1rem;
+
+// Label/Button — Archivo SemiBold 14px/20px
+$font-size-label-button: 0.875rem;
+$line-height-label-button: 1.25rem;
+
+// Label/Nav — Archivo Bold 16px/22px
+$font-size-label-nav: 1rem;
+$line-height-label-nav: 1.375rem;
+
+// Numbers/Stat — Poppins Medium 36px/44px
+$font-size-number-stat: 2.25rem;
+$line-height-number-stat: 2.75rem;
+
+// Numbers/Price — Poppins Medium 28px/36px
+$font-size-number-price: 1.75rem;
+$line-height-number-price: 2.25rem;
+
+$letter-spacing-wide: 0.1em; // eyebrow / uppercase
+
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+$line-height-tight: 1.2;
+$line-height-snug: 1.4;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.6;
+
+// ─── Espaçamento (escala de 4px) ──────────────────────────────────────────────
+$space-1: 0.25rem; //  4px
+$space-2: 0.5rem; //  8px
+$space-3: 0.75rem; // 12px
+$space-4: 1rem; // 16px
+$space-5: 1.25rem; // 20px
+$space-6: 1.5rem; // 24px
+$space-8: 2rem; // 32px
+$space-9: 2.25rem; // 36px
+$space-10: 2.5rem; // 40px
+$space-12: 3rem; // 48px
+$space-14: 3.5rem; // 56px
+$space-16: 4rem; // 64px
+$space-20: 5rem; // 80px
+$space-24: 6rem; // 96px
+
+// ─── Radius ───────────────────────────────────────────────────────────────────
+$radius-sm: 6px; // cards, ícones, inputs
+$radius-md: 10px; // botões (CTA primário/secundário)
+$radius-lg: 16px; // cards de destaque (ex: box de contato)
+$radius-pill: 100px; // badges / eyebrow
+$radius-pill-btn: 22px; // pílula de segmentação/toggle (ex: Contato — "Fale Conosco"/"Ouvidoria")
+
+// ─── Espaçamento — botões grandes (Figma "Button" style, página Contato) ───────
+$space-btn-x: 22px;
+$space-btn-y: 18px;
+
+// ─── Breakpoints ──────────────────────────────────────────────────────────────
+$bp-sm: 640px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
+$bp-2xl: 1536px;
+
+// ─── Container ────────────────────────────────────────────────────────────────
+$container-width: 1234px;
+$container-padding: 1.5rem;
+
+@mixin container {
+  width: 100%;
+  max-width: $container-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 $container-padding;
+
+  @media (min-width: $bp-lg) {
+    padding: 0;
+  }
+}
+
+// ─── Funções ──────────────────────────────────────────────────────────────────
+@function rem($px) {
+  @return #{$px / 16}rem;
+}
+
+// Aplica opacidade a um token de cor baseado em CSS Custom Property (var(--x)).
+// `rgba($color-text-primary, .2)` não funciona mais: como a cor agora é uma
+// var() (para suportar tema dark/light), o rgba() do Sass não consegue extrair
+// os canais em tempo de build e emite `rgba(var(--x), .2)` — CSS inválido.
+// Use sempre esta função no lugar de rgba() para cores de $color-*.
+@function alpha($color, $opacity) {
+  @return color-mix(in srgb, #{$color} #{$opacity * 100%}, transparent);
+}
+
+// ─── Mixins ───────────────────────────────────────────────────────────────────
+@mixin respond-to($bp) {
+  @media (min-width: #{$bp}) {
+    @content;
+  }
+}
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Título com gradiente azul — usado nas seções da Home (Estrutura, Cards, Segurança, Propósito)
+@mixin gradient-text {
+  background: linear-gradient(90deg, $color-brand-200, $color-brand-300);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+// Botão pill azul — CTA primário repetido nas seções da Home
+@mixin btn-pill-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-4 $space-8;
+  background-color: $color-primary;
+  border: 1px solid $color-primary;
+  border-radius: $radius-md;
+  color: $color-white;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-normal;
+  text-decoration: none;
+  transition: opacity 150ms ease;
+
+  &:hover {
+    opacity: 0.88;
+  }
+}
+
+// Botão pill outline branco — CTA secundário sobre fundos escuros
+@mixin btn-pill-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-4 $space-8;
+  background-color: transparent;
+  border: 1px solid $color-white;
+  border-radius: $radius-md;
+  color: $color-white;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-normal;
+  text-decoration: none;
+  transition: opacity 150ms ease;
+
+  &:hover {
+    opacity: 0.88;
+  }
+}

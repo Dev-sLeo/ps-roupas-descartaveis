@@ -1,0 +1,173 @@
+@use '../../../styles/tokens' as *;
+
+.quemSomos {
+  padding: $space-12 0;
+
+  @include respond-to($bp-lg) {
+    padding: $space-16 0;
+  }
+}
+
+.quemSomos__container {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  gap: $space-9;
+
+  @include respond-to($bp-lg) {
+    flex-direction: row;
+    align-items: stretch;
+    gap: $space-12;
+  }
+}
+
+.quemSomos__content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-9;
+
+  @include respond-to($bp-lg) {
+    flex: 1;
+    max-width: 536px;
+  }
+}
+
+.quemSomos__eyebrow {
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-primary;
+  margin-bottom: $space-2;
+}
+
+.quemSomos__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h2;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-4xl;
+  }
+}
+
+.quemSomos__description {
+  font-family: $font-body;
+  font-size: $font-size-body-sm;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-lg;
+  }
+}
+
+.quemSomos__badges {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+
+  @include respond-to($bp-lg) {
+    flex-direction: row;
+    gap: $space-4;
+  }
+}
+
+.quemSomos__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  padding: $space-4 $space-6;
+  background-color: $color-primary;
+  border-radius: $radius-md;
+  color: $color-white;
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+  transition: opacity 150ms ease;
+
+  &:hover {
+    opacity: 0.88;
+  }
+}
+
+.quemSomos__media {
+  position: relative;
+
+  @include respond-to($bp-lg) {
+    flex: 1;
+    align-self: stretch;
+  }
+}
+
+.quemSomos__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  border-radius: $radius-lg;
+  object-fit: cover;
+}
+
+// Card "Assistir vídeo" — no mobile empilha normal abaixo da imagem; no desktop
+// flutua sobreposto no canto inferior direito da foto, como no Figma.
+.quemSomos__videoTeaser {
+  display: flex;
+  align-items: center;
+  gap: $space-6;
+  margin-top: $space-4;
+  padding: $space-6;
+  background-color: $color-bg-primary;
+  border-radius: $radius-lg;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  text-decoration: none;
+
+  @include respond-to($bp-lg) {
+    position: absolute;
+    right: 30px;
+    bottom: $space-6;
+    margin-top: 0;
+    max-width: 351px;
+  }
+}
+
+.quemSomos__videoIcon {
+  display: flex;
+  flex-shrink: 0;
+  color: $color-accent;
+
+  svg {
+    width: 56px;
+    height: 56px;
+
+    @include respond-to($bp-lg) {
+      width: 77px;
+      height: 77px;
+    }
+  }
+}
+
+.quemSomos__videoInfo {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+
+  strong {
+    font-family: $font-heading;
+    font-size: $font-size-body-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+
+    @include respond-to($bp-lg) {
+      font-size: $font-size-lg;
+    }
+  }
+
+  span {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+}

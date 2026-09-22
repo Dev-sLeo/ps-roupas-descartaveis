@@ -1,0 +1,232 @@
+@use '../../../../styles/tokens' as *;
+
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__swiper {
+  width: 100%;
+}
+
+.hero__slide {
+  position: relative;
+  overflow: hidden;
+}
+
+// Especificidade composta (2 classes) de propósito: cada bloco que usa Swiper
+// importa 'swiper/css' no próprio bundle, então o `.swiper-slide{height:100%}`
+// global de OUTRO bloco (ex: Clientes) pode acabar carregando depois do Hero.css
+// no <head> e, com a mesma especificidade de uma classe só, vencer esta altura.
+:global(.swiper-slide).hero__slide {
+  height: min(701px, 100dvh);
+
+  @include respond-to($bp-lg) {
+    height: 567px;
+  }
+}
+
+.hero__bgDesktop,
+.hero__bgMobile {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.hero__bgDesktop {
+  display: none;
+
+  @include respond-to($bp-lg) {
+    display: block;
+  }
+}
+
+.hero__bgMobile {
+  display: block;
+
+  @include respond-to($bp-lg) {
+    display: none;
+  }
+}
+
+.hero__container {
+  @include container;
+  padding-top: 44px;
+  padding-bottom: $space-16;
+
+  @include respond-to($bp-lg) {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  max-width: 483px;
+
+  @include respond-to($bp-lg) {
+    gap: $space-6;
+  }
+}
+
+.hero__title {
+  font-family: $font-heading;
+  font-size: 28px;
+  font-weight: $font-weight-bold;
+  line-height: 1.25;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: 46px;
+    font-weight: $font-weight-semibold;
+    line-height: 1.2;
+  }
+}
+
+.hero__description {
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  line-height: $line-height-normal;
+  color: $color-text-secondary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-md;
+    line-height: $line-height-relaxed;
+    letter-spacing: 0.16px;
+  }
+}
+
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+
+  @include respond-to($bp-lg) {
+    flex-direction: row;
+    align-items: center;
+    gap: $space-4;
+  }
+}
+
+.hero__ctaPrimary,
+.hero__ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-4 $space-6;
+  border-radius: $radius-lg;
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 150ms ease;
+
+  &:hover {
+    opacity: 0.88;
+  }
+}
+
+.hero__ctaPrimary {
+  background-color: $color-primary;
+  color: $color-white;
+}
+
+.hero__ctaSecondary {
+  background-color: $color-laranja-100;
+  border: 1px solid $color-laranja-200;
+  color: $color-brand-dark;
+}
+
+.hero__pagination {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2.313rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+
+  @include respond-to($bp-lg) {
+    bottom: 3.75rem;
+  }
+
+  :global(.swiper-pagination-bullet) {
+    width: 8px;
+    height: 8px;
+    border-radius: $radius-pill;
+    background-color: $color-verde-200;
+    opacity: 1;
+    margin: 0;
+    transition: background-color 150ms ease, width 150ms ease;
+  }
+
+  :global(.swiper-pagination-bullet-active) {
+    width: 20px;
+    background-color: $color-primary;
+  }
+}
+
+// O SVG (IconArrowCircleLeft/Right) já vem completo do Figma — círculo branco +
+// seta laranja. O botão só posiciona/dimensiona, sem bg/cor/sombra própria.
+// Setas só aparecem no desktop — no mobile a navegação é só pelas bullets.
+.hero__nav {
+  display: none;
+
+  @include respond-to($bp-lg) {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: opacity 150ms ease;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    &:hover {
+      opacity: 0.88;
+    }
+
+    &:global(.swiper-button-disabled) {
+      opacity: 0.4;
+      cursor: default;
+    }
+  }
+}
+
+.hero__navPrev {
+  left: $space-4;
+
+  @include respond-to($bp-lg) {
+    left: $space-24;
+  }
+}
+
+.hero__navNext {
+  right: $space-4;
+
+  @include respond-to($bp-lg) {
+    right: $space-24;
+  }
+}

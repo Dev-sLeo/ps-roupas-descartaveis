@@ -1,0 +1,44 @@
+{
+    "key": "group_7a10000000001",
+    "title": "Produto — Embalagem",
+    "fields": [
+        {
+            "key": "field_7a10000000010",
+            "label": "Peças por pacote",
+            "name": "pecas_por_pacote",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Usado no cálculo \"Total de peças\" exibido abaixo do campo \"Quantidade de Pacotes\" na página do produto (Qtd. por Pacote × Quantidade de Pacotes). Deixe vazio para produtos vendidos por unidade (sem esse campo/cálculo).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "default_value": "",
+            "min": 1,
+            "max": "",
+            "placeholder": "Ex: 20",
+            "step": 1,
+            "prepend": "",
+            "append": "peças",
+            "allow_in_bindings": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "product"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1789669143
+}

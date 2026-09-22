@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/produtos-catalogo",
+  "title": "Produtos (arquivo) — Catálogo",
+  "category": "theme",
+  "description": "Sidebar de categorias (checkbox, multi) + grid de produtos + paginação. Filtro via AJAX com estado refletido na URL (querystring).",
+  "keywords": ["produtos", "catalogo", "filtro", "ajax", "woocommerce"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}

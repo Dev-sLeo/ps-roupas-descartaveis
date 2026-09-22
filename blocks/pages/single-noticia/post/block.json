@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/single-post",
+  "title": "Single — Post",
+  "category": "theme",
+  "description": "Cabeçalho do post (data/categoria/título/compartilhar), imagem destacada e conteúdo (the_content nativo do WP).",
+  "keywords": ["post", "blog", "single"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}

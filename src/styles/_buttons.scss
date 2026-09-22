@@ -1,0 +1,60 @@
+@use 'tokens' as *;
+
+// u-button — base
+.u-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  padding: $space-4 $space-8;
+  border-radius: $radius-pill;
+  border: 1px solid transparent;
+  font-family: $font-base;
+  font-weight: $font-weight-medium;
+  font-size: $font-size-md;
+  line-height: $line-height-normal;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 150ms ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+// u-button--primary — CTA principal (fundo azul sólido)
+.u-button--primary {
+  background-color: $color-primary;
+  border-color: $color-primary;
+  color: $color-white;
+}
+
+// u-button--secondary — CTA sobre imagem/hero (vidro fosco)
+.u-button--secondary {
+  background-color: alpha($color-white, 0.1);
+  border-color: alpha($color-white, 0.5);
+  color: $color-white;
+  backdrop-filter: blur(20px);
+}
+
+// u-button--outline — CTA sobre fundo escuro sólido (sem blur)
+.u-button--outline {
+  background-color: transparent;
+  border-color: $color-white;
+  color: $color-white;
+}
+
+// u-button--sm — CTA compacto (navbar / menu mobile)
+.u-button--sm {
+  padding: $space-2 $space-5;
+}
+
+// u-button--block — ocupa 100% da largura no mobile, largura automática no desktop
+.u-button--block {
+  width: 100%;
+
+  @include respond-to($bp-lg) {
+    width: auto;
+  }
+}

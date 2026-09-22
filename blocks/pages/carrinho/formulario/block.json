@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/carrinho-formulario",
+  "title": "Carrinho — Formulário de cotação",
+  "category": "theme",
+  "description": "Card \"Dados para Contato & Faturamento\" com o formulário CF7 de solicitação de cotação. Preenche um campo oculto (carrinho-resumo) com o resumo dos itens do carrinho antes do envio.",
+  "keywords": ["carrinho", "cotacao", "cf7", "formulario"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}

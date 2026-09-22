@@ -1,0 +1,114 @@
+@use '../../../../styles/tokens' as *;
+
+.documentos {
+  padding: $space-12 0;
+  background-color: $color-bg-primary;
+
+  @include respond-to($bp-lg) {
+    padding: 0 0 $space-16;
+  }
+}
+
+.documentos__container {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-8;
+}
+
+.documentos__heading {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  max-width: 564px;
+}
+
+.documentos__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h2;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-4xl;
+  }
+}
+
+.documentos__description {
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-md;
+    letter-spacing: 0.16px;
+  }
+}
+
+.documentos__tabs {
+  max-width: 100%;
+  overflow-x: auto;
+
+  @include respond-to($bp-lg) {
+    width: 100%;
+  }
+}
+
+.documentos__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-4;
+  width: 100%;
+
+  @include respond-to($bp-lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.documentos__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-6;
+  padding: $space-8;
+  background-color: $color-bg-primary;
+  border: 1px solid alpha($color-verde-700, 0.2);
+  border-radius: $radius-lg;
+
+  svg {
+    width: 32px;
+    height: 32px;
+    color: $color-accent;
+    flex-shrink: 0;
+  }
+}
+
+.documentos__cardTitle {
+  font-family: $font-heading;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.documentos__cardText {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+  letter-spacing: 0.16px;
+}
+
+.documentos__cardDownload {
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-primary;
+  text-decoration: none;
+  transition: opacity 150ms ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

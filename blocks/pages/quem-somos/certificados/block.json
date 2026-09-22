@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/quem-somos-certificados",
+  "title": "Quem Somos — Certificados",
+  "category": "theme",
+  "description": "Eyebrow + título + descrição + fotos de certificados.",
+  "keywords": ["certificados", "qualidade", "quem somos"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}

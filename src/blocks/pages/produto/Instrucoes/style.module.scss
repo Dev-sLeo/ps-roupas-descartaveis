@@ -1,0 +1,98 @@
+@use '../../../../styles/tokens' as *;
+
+.instrucoes {
+  padding: $space-9 0;
+  background-color: $color-bg-primary;
+}
+
+.instrucoes__container {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  gap: $space-8;
+}
+
+.instrucoes__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+}
+
+.instrucoes__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h2;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-3xl;
+  }
+}
+
+.instrucoes__share {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  flex-shrink: 0;
+  padding: $space-3 $space-4;
+  background-color: $color-verde-100;
+  border: none;
+  border-radius: $radius-lg;
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-accent;
+  cursor: pointer;
+  transition: opacity 150ms ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.instrucoes__player {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1220 / 624;
+  padding: 0;
+  border: none;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  background-color: $color-verde-100;
+  cursor: pointer;
+}
+
+.instrucoes__thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.instrucoes__playIcon {
+  position: relative;
+  display: flex;
+  width: 78px;
+  height: 78px;
+  color: $color-accent;
+  transition: opacity 150ms ease;
+
+  .instrucoes__player:hover & {
+    opacity: 0.85;
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}

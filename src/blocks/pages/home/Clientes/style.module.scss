@@ -1,0 +1,189 @@
+@use '../../../../styles/tokens' as *;
+
+.clientes {
+  padding: $space-12 0;
+  background: linear-gradient(47deg, #e2feff -93.71%, #ecf5f5 91.49%);
+
+  @include respond-to($bp-lg) {
+    padding: $space-16 0;
+  }
+}
+
+// Layout via flexbox `order` + `flex-basis` — heading, botões de navegação,
+// bullets e o carrossel são todos irmãos diretos do container, sempre em
+// `flex-direction: row; flex-wrap: wrap` (não alterna pra column no mobile).
+// Cada item força ou não uma quebra de linha via `flex-basis: 100%`, o que dá
+// controle total da posição por breakpoint sem duplicar nenhum elemento: no
+// mobile os dois botões de seta ficam lado a lado (nenhum dos dois força
+// 100%) e as bullets vão pro final, abaixo do carrossel; no desktop o heading
+// cresce empurrando os botões pra direita, com as bullets entre os dois.
+.clientes__container {
+  @include container;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  row-gap: $space-6;
+  column-gap: $space-3;
+
+  @include respond-to($bp-lg) {
+    align-items: center;
+    row-gap: $space-9;
+  }
+}
+
+.clientes__heading {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  max-width: 542px;
+  order: 1;
+  flex: 0 0 100%;
+
+  @include respond-to($bp-lg) {
+    flex: 0 1 auto;
+  }
+}
+
+.clientes__eyebrow {
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-primary;
+}
+
+.clientes__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h2;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-heading-h1;
+  }
+}
+
+.clientes__description {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+}
+
+// Setas só existem no desktop — no mobile a navegação é só pelas bullets.
+.clientes__navBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: $color-primary;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 150ms ease;
+
+  @include respond-to($bp-lg) {
+    display: flex;
+  }
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:global(.swiper-button-disabled) {
+    opacity: 0.35;
+    cursor: default;
+  }
+}
+
+// Precisam de pelo menos uma declaração real além do `display` do .clientes__navBtn,
+// senão o minificador de CSS remove a regra "vazia" e a classe nunca é exportada
+// pelo CSS Modules (o selector do Swiper vira ".undefined" e a navegação para).
+// `margin-left: auto` no primeiro item do grupo (seta esquerda) empurra as duas
+// setas + bullets pro canto direito do header (flex-end), sem grudar no texto —
+// o heading não usa mais flex-grow (ficaria preso no `max-width`, sem esse
+// espaço extra sobrar de verdade pro grupo de navegação).
+.clientes__navPrev {
+  order: 2;
+
+  @include respond-to($bp-lg) {
+    order: 2;
+    margin-left: auto;
+  }
+}
+
+.clientes__navNext {
+  order: 3;
+
+  @include respond-to($bp-lg) {
+    order: 4;
+  }
+}
+
+// O CSS padrão do Swiper (`.swiper-pagination-bullets.swiper-pagination-horizontal`,
+// duas classes) tem mais especificidade que uma única classe de CSS Modules e
+// vence o nosso `width` mesmo com a media query depois no arquivo — por isso o
+// !important aqui, só para essa propriedade que colide.
+.clientes__pagination {
+  order: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  width: 100% !important;
+
+  @include respond-to($bp-lg) {
+    order: 3;
+    width: auto !important;
+    margin: 0 $space-4;
+  }
+
+  :global(.swiper-pagination-bullet) {
+    width: 8px;
+    height: 8px;
+    border-radius: $radius-pill;
+    background-color: $color-verde-200;
+    opacity: 1;
+    margin: 0;
+    transition: background-color 150ms ease, width 150ms ease;
+  }
+
+  :global(.swiper-pagination-bullet-active) {
+    width: 20px;
+    background-color: $color-primary;
+  }
+}
+
+.clientes__swiper {
+  order: 4;
+  flex: 0 0 100%;
+
+  @include respond-to($bp-lg) {
+    order: 5;
+  }
+}
+
+.clientes__logoBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 230 / 124;
+  background-color: $color-bg-primary;
+  border-radius: $radius-md;
+}
+
+.clientes__logo {
+  max-width: 70%;
+  max-height: 60%;
+  object-fit: contain;
+}
+
+.clientes__logoPlaceholder {
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-muted;
+}

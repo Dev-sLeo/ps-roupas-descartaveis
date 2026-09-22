@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/home-projetos-especiais",
+  "title": "Home — Projetos Especiais",
+  "category": "theme",
+  "description": "Texto + galeria de imagens (produção sob medida).",
+  "keywords": ["projetos especiais", "galeria", "home"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}

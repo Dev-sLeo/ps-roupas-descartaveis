@@ -1,0 +1,172 @@
+@use '../../../../styles/tokens' as *;
+
+.formulario {
+  width: 100%;
+}
+
+// Sem `@include container` aqui — já vive dentro de `.carrinho__container`
+// (ver src/styles/_carrinho.scss), que já aplica o max-width/padding.
+.formulario__container {
+  width: 100%;
+}
+
+// Padding 40px/radius 16px exatos do Figma (node 64:979) — sem breakpoint
+// próprio (o card já reduz o padding automaticamente no mobile via $space-6
+// abaixo, mas o valor "oficial" pixel-perfect é o do desktop, 40px).
+.formulario__card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-8;
+  padding: $space-6;
+  background-color: $color-bg-primary;
+  border: 1px solid $color-divider;
+  border-radius: $radius-lg;
+
+  @include respond-to($bp-lg) {
+    padding: 40px;
+  }
+}
+
+.formulario__header {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.formulario__title {
+  font-family: $font-heading;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.formulario__description {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: #5e5e5e;
+}
+
+// ─── Formulário do Contact Form 7 ───────────────────────────────────────────────
+// Markup customizado no conteúdo do form (wp-admin): pares de campo lado a lado
+// (Nome+E-mail, Telefone+Empresa) ficam dentro de `<div class="form-row">`, os
+// demais campos (Regime, Notas) são `<p>` soltos, largura cheia — mesma
+// estrutura de rótulo `<label>Rótulo<br />[tag]</label>` em ambos os casos.
+.formulario__form {
+  :global(.wpcf7-form) {
+    display: flex;
+    flex-direction: column;
+    gap: $space-5;
+  }
+
+  :global(.wpcf7-form) > p,
+  :global(.form-row) > p {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    margin: 0;
+  }
+
+  :global(.form-row) {
+    display: flex;
+    gap: $space-6;
+    width: 100%;
+
+    > p {
+      flex: 1 0 0;
+      min-width: 0;
+    }
+  }
+
+  label {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.14px;
+    color: $color-text-secondary;
+  }
+
+  :global(.wpcf7-form-control-wrap) {
+    display: block;
+  }
+
+  :global(.wpcf7-form-control) {
+    width: 100%;
+    padding: $space-3 $space-4;
+    background-color: #f9fbfb;
+    border: 1px solid $color-verde-200;
+    border-radius: 8px;
+    font-family: $font-body;
+    font-size: $font-size-md;
+    letter-spacing: 0.16px;
+    color: $color-text-primary;
+
+    &::placeholder {
+      color: #5e5e5e;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $color-accent;
+    }
+  }
+
+  :global(select.wpcf7-form-control) {
+    cursor: pointer;
+  }
+
+  :global(textarea.wpcf7-form-control) {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  // Padding 18px/32px e radius 12px exatos do Figma (node 64:1007) — não
+  // batem com nenhum token de espaçamento/radius do tema, por isso em raw px.
+  :global(.wpcf7-submit) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    padding: 18px 32px;
+    margin-top: 12px;
+    background-color: $color-primary;
+    border: none;
+    border-radius: 12px;
+    color: $color-white;
+    font-family: $font-heading;
+    font-size: $font-size-md;
+    font-weight: $font-weight-semibold;
+    cursor: pointer;
+    transition: opacity 150ms ease;
+
+    &:hover {
+      opacity: 0.88;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+  }
+
+  :global(.wpcf7-response-output) {
+    margin: 0;
+    padding: $space-3 $space-4;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+  }
+
+  :global(.wpcf7-not-valid-tip) {
+    display: block;
+    margin-top: $space-1;
+    color: $color-error;
+    font-family: $font-body;
+    font-size: $font-size-xs;
+  }
+
+  :global(.wpcf7-spinner) {
+    margin-left: $space-2;
+  }
+}

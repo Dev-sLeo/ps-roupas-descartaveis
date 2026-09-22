@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/trabalhe-conosco-candidatura",
+  "title": "Trabalhe Conosco — Candidatura",
+  "category": "theme",
+  "description": "Texto + imagem à esquerda, formulário Contact Form 7 (campo ACF cf7_form) à direita.",
+  "keywords": ["candidatura", "formulario", "cf7", "trabalhe conosco"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}

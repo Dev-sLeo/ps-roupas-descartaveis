@@ -1,0 +1,122 @@
+@use '../../../styles/tokens' as *;
+
+.faleConosco {
+  position: relative;
+  overflow: hidden;
+  padding: $space-12 0;
+  background-color: $color-accent;
+
+  @include respond-to($bp-lg) {
+    padding: 8rem 0 6.125rem;
+  }
+}
+
+// Decorativos — só aparecem no desktop, grudados no rodapé da section
+// (bottom:0), cada um na sua ponta. `pointer-events:none` pra nunca atrapalhar
+// clique nos CTAs, mesmo se a imagem tiver área transparente sobreposta.
+.faleConosco__pattern {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  z-index: 0;
+  width: auto;
+  max-width: 40%;
+  height: auto;
+  pointer-events: none;
+
+  @include respond-to($bp-lg) {
+    display: block;
+  }
+}
+
+.faleConosco__pattern--left {
+  left: 0;
+}
+
+.faleConosco__pattern--right {
+  right: 0;
+}
+
+.faleConosco__container {
+  @include container;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-9;
+  text-align: center;
+}
+
+.faleConosco__eyebrow {
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-white;
+}
+
+.faleConosco__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h2;
+  font-weight: $font-weight-semibold;
+  color: $color-white;
+  max-width: 732px;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-3xl;
+  }
+}
+
+.faleConosco__description {
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: $color-verde-200;
+  max-width: 784px;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-lg;
+  }
+}
+
+.faleConosco__actions {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  width: 100%;
+
+  @include respond-to($bp-lg) {
+    flex-direction: row;
+    width: auto;
+    gap: $space-4;
+  }
+}
+
+.faleConosco__ctaPrimary,
+.faleConosco__ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-4 $space-6;
+  border-radius: $radius-lg;
+  font-family: $font-heading;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+  transition: opacity 150ms ease;
+
+  &:hover {
+    opacity: 0.88;
+  }
+}
+
+.faleConosco__ctaPrimary {
+  background-color: $color-primary;
+  color: $color-white;
+}
+
+.faleConosco__ctaSecondary {
+  background-color: $color-laranja-100;
+  border: 1px solid $color-laranja-200;
+  color: $color-brand-dark;
+}

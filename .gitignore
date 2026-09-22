@@ -1,0 +1,7 @@
+node_modules
+.claude
+.mcp
+.mcp.json
+CLAUDE.md
+.playwright-mcp
+.agents

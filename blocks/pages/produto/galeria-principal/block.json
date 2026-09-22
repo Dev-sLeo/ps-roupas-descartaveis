@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/produto-galeria-principal",
+  "title": "Produto — Galeria principal",
+  "category": "theme",
+  "description": "Slider (Swiper) da imagem principal + galeria do produto, com miniaturas clicáveis. Substitui a galeria nativa do WooCommerce no hook woocommerce_before_single_product_summary.",
+  "keywords": ["produto", "galeria", "slider", "woocommerce"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}
