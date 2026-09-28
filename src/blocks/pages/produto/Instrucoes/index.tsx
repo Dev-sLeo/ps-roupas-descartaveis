@@ -12,7 +12,10 @@ export default function Instrucoes({ videoUrl, capa }: InstrucoesProps) {
   if (!videoUrl) return null;
 
   async function compartilhar() {
-    const url = window.location.href;
+    // Âncora pro módulo de especificações — quem abre o link compartilhado
+    // cai direto lá (ver id="produto-especificacoes" em Especificacoes/index.tsx
+    // e scrollToHash() em src/index.ts, que já trata #hash no load da página).
+    const url = `${window.location.href.split('#')[0]}#produto-especificacoes`;
 
     // Share nativo (mobile/Safari) — se o usuário cancelar o dialog, o próprio
     // navigator.share rejeita a Promise; não é erro, só não faz nada depois.

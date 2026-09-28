@@ -15,7 +15,7 @@ export default function Especificacoes({ especificacoes, caracteristicas, fichaT
   const conteudo = aba === 'especificacoes' ? especificacoes : caracteristicas;
 
   return (
-    <section className={styles.especificacoes}>
+    <section id="produto-especificacoes" className={styles.especificacoes}>
       <div className={styles.especificacoes__container}>
         <div className={styles.especificacoes__tabs} role="tablist">
           {especificacoes && (
