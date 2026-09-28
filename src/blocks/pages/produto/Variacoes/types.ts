@@ -23,7 +23,6 @@ export interface VariacoesProps {
   attributes?: VariationAttribute[];
   variations?: ProductVariation[];
   pecasPorPacote?: number;
-  addToCartUrl?: string;
   ctaLabel?: string;
   whatsappHref?: string;
 }

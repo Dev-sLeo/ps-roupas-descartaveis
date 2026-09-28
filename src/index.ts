@@ -3,6 +3,7 @@ import { createElement } from 'react';
 
 import './styles/global.scss';
 import { initAnimations, bindAnchorScroll, scrollToTarget } from './animations';
+import { initAjaxAddToCart } from './utils/ajaxAddToCart';
 
 /**
  * Contrato de um bloco registrável.
@@ -158,6 +159,7 @@ function scrollToHash(): void {
 async function boot(): Promise<void> {
   await mountBlocks();
   bindAnchorScroll();
+  initAjaxAddToCart();
   scrollToHash();
   observer.observe( document.body, { childList: true, subtree: true } );
   // Aguarda todas as imagens carregarem para o layout estabilizar antes do GSAP medir posições

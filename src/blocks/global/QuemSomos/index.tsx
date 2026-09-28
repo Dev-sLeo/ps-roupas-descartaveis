@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import styles from './style.module.scss';
 import SmartImage from '../../../components/SmartImage';
 import DestaqueCard from '../../../components/DestaqueCard';
+import VideoLightbox from '../../../components/VideoLightbox';
 import { IconFavourite, IconUserGroup03, IconPlaySquare } from '../../../icons';
 import { linkProps, htmlContent } from '../../../utils';
 import { QuemSomosProps } from './types';
@@ -18,6 +20,7 @@ export default function QuemSomos({
   videoUrl,
   videoTeaserEmpilhado,
 }: QuemSomosProps) {
+  const [videoAberto, setVideoAberto] = useState(false);
   const cta = linkProps(botao);
   const hasMedia = Boolean(imagem || videoTitulo || videoDescricao);
 
@@ -54,10 +57,10 @@ export default function QuemSomos({
             {imagem && <SmartImage image={imagem} className={styles.quemSomos__image} />}
 
             {(videoTitulo || videoDescricao) && (
-              <a
-                href={videoUrl || '#'}
-                target={videoUrl ? '_blank' : undefined}
-                rel={videoUrl ? 'noopener noreferrer' : undefined}
+              <button
+                type="button"
+                onClick={() => setVideoAberto(true)}
+                disabled={!videoUrl}
                 className={
                   videoTeaserEmpilhado
                     ? `${styles.quemSomos__videoTeaser} ${styles['quemSomos__videoTeaser--empilhado']}`
@@ -71,11 +74,13 @@ export default function QuemSomos({
                   {videoTitulo && <strong>{videoTitulo}</strong>}
                   {videoDescricao && <span>{videoDescricao}</span>}
                 </span>
-              </a>
+              </button>
             )}
           </div>
         )}
       </div>
+
+      {videoAberto && videoUrl && <VideoLightbox url={videoUrl} onClose={() => setVideoAberto(false)} />}
     </section>
   );
 }

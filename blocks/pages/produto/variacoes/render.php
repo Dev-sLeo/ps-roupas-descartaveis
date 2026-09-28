@@ -88,7 +88,6 @@ block_render('produto-variacoes', [
     'attributes'     => $attributes,
     'variations'     => $variations,
     'pecasPorPacote' => $pecasPorPacote,
-    'addToCartUrl'   => esc_url(get_permalink($product->get_id())),
     'ctaLabel'       => apply_filters('woocommerce_product_single_add_to_cart_text', __('Add to cart', 'woocommerce'), $product),
     'whatsappHref'   => $whatsappHref,
 ]);

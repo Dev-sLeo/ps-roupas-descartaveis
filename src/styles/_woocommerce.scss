@@ -208,6 +208,75 @@
   }
 }
 
+// ─── Mensagens do WooCommerce (carrinho, add to cart, checkout, etc.) ─────────
+// Aparecem em várias páginas fora do controle do tema (template `notice.php`
+// nativo) — força os tokens do tema por cima do CSS padrão do plugin
+// (mesma especificidade/ordem de carregamento imprevisível, por isso !important
+// em tudo aqui, a pedido).
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: $space-4 !important;
+  list-style: none !important;
+  padding: $space-4 $space-6 !important;
+  margin: 0 0 $space-6 !important;
+  background-color: $color-laranja-100 !important;
+  border: 1px solid $color-laranja-200 !important;
+  border-left: 1px solid $color-laranja-200 !important;
+  border-radius: $radius-md !important;
+  font-family: $font-body !important;
+  font-size: $font-size-md !important;
+  font-weight: $font-weight-regular !important;
+  line-height: $line-height-relaxed !important;
+  color: $color-text-primary !important;
+
+  &::before {
+    display: none !important;
+  }
+
+  li {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: none !important;
+    font-family: $font-body !important;
+    font-size: $font-size-md !important;
+    color: $color-text-primary !important;
+
+    &::before {
+      display: none !important;
+    }
+  }
+
+  a.button,
+  a.wc-forward,
+  .button.wc-forward {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    order: 2 !important;
+    padding: $space-3 $space-6 !important;
+    background-color: $color-primary !important;
+    border: 1px solid $color-primary !important;
+    border-radius: $radius-md !important;
+    font-family: $font-heading !important;
+    font-size: $font-size-sm !important;
+    font-weight: $font-weight-semibold !important;
+    color: $color-white !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+    transition: opacity 150ms ease !important;
+
+    &:hover {
+      opacity: 0.88 !important;
+      color: $color-white !important;
+    }
+  }
+}
+
 // ─── Produtos relacionados (nativo do WC) ──────────────────────────────────────
 .related.products {
   @include container;

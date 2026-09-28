@@ -35,6 +35,56 @@ add_action('wp_ajax_filtrar_blog', 'proseg_ajax_filtrar_blog');
 add_action('wp_ajax_nopriv_filtrar_blog', 'proseg_ajax_filtrar_blog');
 
 /**
+ * Adiciona um produto ao carrinho via AJAX, sem reload — usado tanto pelo
+ * form.cart nativo do WooCommerce (produto simples, interceptado por
+ * src/utils/ajaxAddToCart.ts) quanto pelo form do bloco React
+ * `produto-variacoes` (produto variável). Os nomes de campo batem com o
+ * padrão nativo do WC: product_id/add-to-cart, quantity, variation_id e
+ * attribute_* (ver blocks/pages/produto/variacoes/render.php, que já monta
+ * `attr.key` como `attribute_{slug}`).
+ */
+function proseg_ajax_adicionar_carrinho(): void {
+    check_ajax_referer('proseg_ajax', 'nonce');
+
+    if (!function_exists('WC') || !WC()->cart) {
+        wp_send_json_error(['message' => 'Carrinho indisponível.']);
+    }
+
+    $product_id   = absint($_POST['product_id'] ?? ($_POST['add-to-cart'] ?? 0));
+    $quantity     = max(1, (int) ($_POST['quantity'] ?? 1));
+    $variation_id = absint($_POST['variation_id'] ?? 0);
+
+    if (!$product_id) {
+        wp_send_json_error(['message' => 'Produto inválido.']);
+    }
+
+    $variation = [];
+    foreach ($_POST as $key => $value) {
+        if (strpos((string) $key, 'attribute_') === 0 && is_string($value)) {
+            $variation[$key] = wc_clean(wp_unslash($value));
+        }
+    }
+
+    $added = WC()->cart->add_to_cart($product_id, $quantity, $variation_id, $variation);
+
+    if (!$added) {
+        $notices = wc_get_notices('error');
+        wc_clear_notices();
+        $message = $notices ? wp_strip_all_tags($notices[0]['notice']) : 'Não foi possível adicionar o produto ao orçamento.';
+        wp_send_json_error(['message' => $message]);
+    }
+
+    wc_clear_notices();
+
+    wp_send_json_success([
+        'count'   => WC()->cart->get_cart_contents_count(),
+        'message' => sprintf('%s adicionado ao orçamento.', wp_strip_all_tags(get_the_title($product_id))),
+    ]);
+}
+add_action('wp_ajax_adicionar_carrinho', 'proseg_ajax_adicionar_carrinho');
+add_action('wp_ajax_nopriv_adicionar_carrinho', 'proseg_ajax_adicionar_carrinho');
+
+/**
  * Altera a quantidade de um item do carrinho (página "Carrinho de Compras" —
  * ver blocks/pages/carrinho/itens). Carrinho de cotação, sem preço — só
  * atualiza a quantidade na sessão do WC mesmo, nada de totais.

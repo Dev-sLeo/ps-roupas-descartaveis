@@ -332,6 +332,20 @@ function proseg_blog_query(array $filtros): array {
 }
 
 /**
+ * Extrai a URL da thumbnail de um vídeo do YouTube. Usa `hqdefault` (sempre
+ * gerada pelo YouTube pra qualquer vídeo) em vez de `maxresdefault` (só
+ * existe pra vídeos enviados em alta resolução — senão quebra a imagem).
+ * Retorna null se a URL não for do YouTube.
+ */
+function youtube_thumbnail_url(string $url): ?string {
+    if (!preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([\w-]+)/', $url, $match)) {
+        return null;
+    }
+
+    return "https://i.ytimg.com/vi/{$match[1]}/hqdefault.jpg";
+}
+
+/**
  * Monta um link wa.me com número e mensagem pré-preenchida.
  * Assume Brasil (+55) quando o telefone não tem código de país.
  *

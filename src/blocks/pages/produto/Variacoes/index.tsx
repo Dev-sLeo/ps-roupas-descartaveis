@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import styles from './style.module.scss';
 import { IconChevronDown } from '../../../../icons';
 import { hasItems } from '../../../../utils';
+import { adicionarAoCarrinho } from '../../../../utils/addToCart';
 import { VariacoesProps } from './types';
 
 export default function Variacoes({
@@ -9,12 +10,12 @@ export default function Variacoes({
   attributes = [],
   variations = [],
   pecasPorPacote = 0,
-  addToCartUrl,
   ctaLabel = 'Adicionar ao orçamento',
   whatsappHref,
 }: VariacoesProps) {
   const [selections, setSelections] = useState<Record<string, string>>({});
   const [quantidade, setQuantidade] = useState(1);
+  const [enviando, setEnviando] = useState(false);
 
   const matched = useMemo(() => {
     if (!hasItems(attributes) || attributes.some((attr) => !selections[attr.key])) return null;
@@ -29,10 +30,31 @@ export default function Variacoes({
     );
   }, [attributes, variations, selections]);
 
-  if (!hasItems(attributes) || !productId || !addToCartUrl) return null;
+  if (!hasItems(attributes) || !productId) return null;
 
   const totalPecas = pecasPorPacote > 0 ? quantidade * pecasPorPacote : null;
-  const podeAdicionar = !!matched && matched.inStock;
+  const podeAdicionar = !!matched && matched.inStock && !enviando;
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!matched || !productId) return;
+
+    setEnviando(true);
+    try {
+      await adicionarAoCarrinho({
+        product_id: productId,
+        'add-to-cart': productId,
+        quantity: quantidade,
+        variation_id: matched.id,
+        ...attributes.reduce<Record<string, string>>((acc, attr) => {
+          acc[attr.key] = selections[attr.key] ?? '';
+          return acc;
+        }, {}),
+      });
+    } finally {
+      setEnviando(false);
+    }
+  };
 
   return (
     <div className={styles.variacoes}>
@@ -112,17 +134,9 @@ export default function Variacoes({
         </div>
       </div>
 
-      <form method="post" action={addToCartUrl} className={styles.variacoes__acoes}>
-        <input type="hidden" name="add-to-cart" value={productId} />
-        <input type="hidden" name="product_id" value={productId} />
-        <input type="hidden" name="quantity" value={quantidade} />
-        {matched && <input type="hidden" name="variation_id" value={matched.id} />}
-        {attributes.map((attr) => (
-          <input key={attr.key} type="hidden" name={attr.key} value={selections[attr.key] ?? ''} />
-        ))}
-
+      <form onSubmit={onSubmit} className={styles.variacoes__acoes}>
         <button type="submit" className={styles.variacoes__ctaPrimary} disabled={!podeAdicionar}>
-          {matched && !matched.inStock ? 'Sem estoque' : ctaLabel}
+          {matched && !matched.inStock ? 'Sem estoque' : enviando ? 'Adicionando...' : ctaLabel}
         </button>
 
         {whatsappHref && (

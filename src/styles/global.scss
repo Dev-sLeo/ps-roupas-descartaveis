@@ -219,7 +219,7 @@ html.wp-toolbar {
 
 // ─── Página 404 ──────────────────────────────────────────────────────────────
 .not-found {
-  background-color: #1d1d1d;
+  background-color: $color-bg-primary;
   min-height: calc(100vh - 80px);
   display: flex;
   align-items: center;
@@ -243,48 +243,79 @@ html.wp-toolbar {
 
 .not-found__code {
   display: block;
+  font-family: $font-heading;
   font-size: clamp(6rem, 20vw, 10rem);
   font-weight: $font-weight-bold;
   line-height: 1;
-  background: linear-gradient(135deg, $color-primary 0%, #7a0000 60%);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: $color-primary;
   letter-spacing: -0.04em;
   user-select: none;
 }
 
 .not-found__title {
+  font-family: $font-heading;
   font-size: clamp($font-size-2xl, 5vw, $font-size-4xl);
-  font-weight: $font-weight-semibold;
+  font-weight: $font-weight-medium;
   line-height: $line-height-tight;
-  color: $color-primary;
+  color: $color-text-primary;
   margin: 0;
 }
 
 .not-found__description {
+  font-family: $font-body;
   font-size: $font-size-lg;
   font-weight: $font-weight-regular;
   line-height: $line-height-relaxed;
-  color: #a9a9a9;
+  color: $color-text-secondary;
   margin: 0;
 }
 
 .not-found__btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  @include btn-pill-primary;
   margin-top: $space-2;
   padding: $space-4 $space-10;
-  background-color: $color-primary;
-  color: $color-white;
-  font-size: $font-size-md;
-  font-weight: $font-weight-semibold;
-  text-decoration: none;
-  border-radius: 10px;
-  transition: opacity 150ms ease, transform 150ms ease;
+  border-radius: $radius-md;
+}
 
-  &:hover {
-    opacity: 0.88;
-    transform: translateY(-1px);
+// ─── Toast genérico (src/utils/toast.ts) ──────────────────────────────────────
+// Feedback rápido de ações sem reload (ex: adicionar ao orçamento na single
+// product — ver src/utils/addToCart.ts). Elemento único criado direto no
+// `body` via JS, fora de qualquer root React.
+.proseg-toast {
+  position: fixed;
+  z-index: 9999;
+  right: $space-4;
+  bottom: $space-4;
+  left: $space-4;
+  max-width: 360px;
+  margin-left: auto;
+  padding: $space-4 $space-6;
+  background-color: $color-laranja-100;
+  border: 1px solid $color-laranja-200;
+  border-radius: $radius-md;
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 200ms ease, transform 200ms ease;
+
+  @include respond-to($bp-md) {
+    left: auto;
   }
+}
+
+.proseg-toast--visivel {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.proseg-toast--erro {
+  background-color: #fdeaea;
+  border-color: #f5b5b5;
+  color: $color-error;
 }

@@ -15,6 +15,16 @@ if (!$capa_imagem) {
     ] : null;
 }
 
+// Sem capa no painel nem imagem destacada: usa a thumbnail do próprio vídeo
+// do YouTube em vez de deixar o player sem capa nenhuma.
+if (!$capa_imagem && $video_url) {
+    $youtube_thumb = youtube_thumbnail_url($video_url);
+    $capa_imagem   = $youtube_thumb ? [
+        'url' => $youtube_thumb,
+        'alt' => get_the_title($product_id),
+    ] : null;
+}
+
 block_render('produto-instrucoes', [
     'videoUrl' => $video_url,
     'capa'     => $capa_imagem,
