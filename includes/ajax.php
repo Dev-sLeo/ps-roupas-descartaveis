@@ -39,9 +39,16 @@ add_action('wp_ajax_nopriv_filtrar_blog', 'proseg_ajax_filtrar_blog');
  * form.cart nativo do WooCommerce (produto simples, interceptado por
  * src/utils/ajaxAddToCart.ts) quanto pelo form do bloco React
  * `produto-variacoes` (produto variável). Os nomes de campo batem com o
- * padrão nativo do WC: product_id/add-to-cart, quantity, variation_id e
- * attribute_* (ver blocks/pages/produto/variacoes/render.php, que já monta
- * `attr.key` como `attribute_{slug}`).
+ * padrão nativo do WC: product_id, quantity, variation_id e attribute_*
+ * (ver blocks/pages/produto/variacoes/render.php, que já monta `attr.key`
+ * como `attribute_{slug}`).
+ *
+ * IMPORTANTE: nunca ler/aceitar uma chave "add-to-cart" aqui (nem no JS que
+ * chama este endpoint) — `WC_Form_Handler::add_to_cart_action()` fica de olho
+ * em `$_REQUEST['add-to-cart']` em QUALQUER request, inclusive admin-ajax.php
+ * (o hook `wp_loaded` roda antes da própria action `wp_ajax_*` disparar). Se
+ * essa chave vier preenchida, o WooCommerce adiciona o produto pelo fluxo
+ * nativo E este handler adiciona de novo — 2 itens no carrinho por 1 clique.
  */
 function proseg_ajax_adicionar_carrinho(): void {
     check_ajax_referer('proseg_ajax', 'nonce');
@@ -50,7 +57,7 @@ function proseg_ajax_adicionar_carrinho(): void {
         wp_send_json_error(['message' => 'Carrinho indisponível.']);
     }
 
-    $product_id   = absint($_POST['product_id'] ?? ($_POST['add-to-cart'] ?? 0));
+    $product_id   = absint($_POST['product_id'] ?? 0);
     $quantity     = max(1, (int) ($_POST['quantity'] ?? 1));
     $variation_id = absint($_POST['variation_id'] ?? 0);
 

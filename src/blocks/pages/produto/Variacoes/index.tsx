@@ -60,9 +60,13 @@ export default function Variacoes({
 
     setEnviando(true);
     try {
+      // NUNCA mandar uma chave "add-to-cart" pro AJAX: WC_Form_Handler::add_to_cart_action()
+      // fica de olho em $_REQUEST['add-to-cart'] em QUALQUER request (inclusive
+      // admin-ajax.php, via wp_loaded) — se ela vier preenchida, o WooCommerce
+      // adiciona o produto pelo fluxo nativo E o nosso handler (includes/ajax.php)
+      // adiciona de novo, resultando em 2 itens no carrinho por 1 clique.
       await adicionarAoCarrinho({
         product_id: productId,
-        'add-to-cart': productId,
         quantity: quantidade,
         variation_id: matched.id,
         ...attributes.reduce<Record<string, string>>((acc, attr) => {
