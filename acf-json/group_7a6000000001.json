@@ -97,23 +97,6 @@
                     "placeholder": "",
                     "new_lines": "",
                     "allow_in_bindings": 0
-                },
-                {
-                    "key": "field_7a600000015",
-                    "label": "Link — Ouvidoria",
-                    "name": "ouvidoria_url",
-                    "aria-label": "",
-                    "type": "link",
-                    "instructions": "Aba do switcher que leva pra página Ouvidoria.",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "allow_in_bindings": 0
                 }
             ]
         },
@@ -271,6 +254,83 @@
                     },
                     "allow_null": 1,
                     "return": "shortcode"
+                }
+            ]
+        },
+        {
+            "key": "field_7a600000050",
+            "label": "Ouvidoria",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_7a600000051",
+            "label": "Ouvidoria",
+            "name": "ouvidoria_secao",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Conteúdo da aba \"Ouvidoria\" do switcher do hero (troca de conteúdo na mesma página, ver blocks/pages/contato/ouvidoria) — telefone/whatsapp/e-mail vêm do rodapé (options page \"tema\") e horário vem da aba \"Formulário\" acima, sem duplicar.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_7a600000052",
+                    "label": "Título",
+                    "name": "titulo",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "allow_in_bindings": 0
+                },
+                {
+                    "key": "field_7a600000053",
+                    "label": "Descrição",
+                    "name": "descricao",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "placeholder": "",
+                    "new_lines": "",
+                    "allow_in_bindings": 0
                 }
             ]
         },

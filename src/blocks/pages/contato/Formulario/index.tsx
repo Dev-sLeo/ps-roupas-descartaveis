@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import clsx from 'clsx';
 import styles from './style.module.scss';
 import { IconPhone, IconWhatsapp, IconMapPin, IconClock, IconMail } from '../../../../icons';
 import { htmlContent, whatsappHref } from '../../../../utils';
@@ -14,6 +16,20 @@ export default function Formulario({
   formTitulo,
   formHtml,
 }: ContatoFormularioProps) {
+  // Aba padrão do switcher do hero é "Fale Conosco" (ver blocks/pages/contato/hero) —
+  // este módulo começa visível e só esconde se o usuário trocar pra "Ouvidoria".
+  // Esconder via CSS (não desmontar) preserva o que já foi digitado no form ao
+  // voltar pra esta aba.
+  const [visivel, setVisivel] = useState(true);
+
+  useEffect(() => {
+    const aoTrocarAba = (e: Event) => {
+      setVisivel((e as CustomEvent<{ tab?: string }>).detail?.tab !== 'ouvidoria');
+    };
+    window.addEventListener('contato:tab', aoTrocarAba);
+    return () => window.removeEventListener('contato:tab', aoTrocarAba);
+  }, []);
+
   interface Canal {
     icon: JSX.Element;
     texto: string;
@@ -32,7 +48,7 @@ export default function Formulario({
   const canaisAtivos = canais.filter((canal): canal is Canal => canal !== null);
 
   return (
-    <section className={styles.formulario}>
+    <section className={clsx(styles.formulario, !visivel && 'proseg-hidden')}>
       <div className={styles.formulario__container}>
         <div className={styles.formulario__info} data-animate="fade-right">
           {titulo && <h2 className={styles.formulario__title}>{titulo}</h2>}

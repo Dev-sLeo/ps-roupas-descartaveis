@@ -280,12 +280,16 @@ html.wp-toolbar {
 // ─── Toast genérico (src/utils/toast.ts) ──────────────────────────────────────
 // Feedback rápido de ações sem reload (ex: adicionar ao orçamento na single
 // product — ver src/utils/addToCart.ts). Elemento único criado direto no
-// `body` via JS, fora de qualquer root React.
+// `body` via JS, fora de qualquer root React. Fica no topo (abaixo do header
+// fixo) em vez do rodapé — no bottom ficava fora do campo de visão comum
+// (usuário olhando pro topo da página/pro header, não pro rodapé da viewport).
 .proseg-toast {
   position: fixed;
   z-index: 9999;
+  // Mesma altura reservada pro header fixo em #smooth-content (ver acima) +
+  // uma folga — sem isso o toast nasce colado atrás/sobre o header.
+  top: calc(94px + #{$space-4});
   right: $space-4;
-  bottom: $space-4;
   left: $space-4;
   max-width: 360px;
   margin-left: auto;
@@ -300,8 +304,12 @@ html.wp-toolbar {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
   opacity: 0;
   pointer-events: none;
-  transform: translateY(8px);
+  transform: translateY(-8px);
   transition: opacity 200ms ease, transform 200ms ease;
+
+  @include respond-to($bp-lg) {
+    top: calc(99px + #{$space-4});
+  }
 
   @include respond-to($bp-md) {
     left: auto;
@@ -312,6 +320,13 @@ html.wp-toolbar {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
+}
+
+// Utilitário genérico pra esconder um módulo sem desmontar o root React (ver
+// src/blocks/pages/contato/Formulario e .../Ouvidoria — troca de aba do hero
+// que preserva o que o usuário já digitou no formulário).
+.proseg-hidden {
+  display: none !important;
 }
 
 .proseg-toast--erro {

@@ -1,0 +1,140 @@
+@use '../../../../styles/tokens' as *;
+
+.contato {
+  // Espaço até o hero (fixo, não editar) — 100px no Figma entre o fim do hero
+  // e o início deste bloco.
+  padding: $space-10 0 $space-12;
+  background-color: $color-bg-primary;
+
+  @include respond-to($bp-lg) {
+    padding: 6.25rem 0 $space-16; // 100px
+  }
+}
+
+.contato__container {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-9;
+  padding-bottom: $space-9;
+  border-bottom: 1px solid $color-divider;
+
+  @include respond-to($bp-lg) {
+    gap: $space-14;
+    padding-bottom: 7.5rem; // 120px — gap até a linha divisória, valor do Figma
+  }
+}
+
+.contato__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-4;
+  max-width: 550px;
+  text-align: center;
+
+  @include respond-to($bp-lg) {
+    gap: $space-8; // 32px no Figma
+  }
+}
+
+.contato__title {
+  font-family: $font-heading;
+  font-size: $font-size-heading-h2;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-4xl;
+  }
+}
+
+.contato__description {
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  line-height: $line-height-relaxed;
+  color: $color-text-secondary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-md;
+    letter-spacing: 0.16px;
+  }
+}
+
+.contato__cards {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  width: 100%;
+
+  @include respond-to($bp-lg) {
+    flex-direction: row;
+    gap: 2.4375rem; // 39px no Figma
+  }
+}
+
+.contato__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $space-6;
+  flex: 1;
+  padding: $space-8;
+  background-color: $color-bg-primary;
+  border: 1px solid alpha($color-verde-700, 0.2);
+  border-radius: $radius-lg;
+  color: $color-text-primary;
+  text-decoration: none;
+  transition: opacity 150ms ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  svg {
+    width: 32px;
+    height: 32px;
+    color: $color-primary;
+  }
+
+  span {
+    font-family: $font-heading;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    text-align: center;
+    word-break: break-word;
+
+    @include respond-to($bp-lg) {
+      font-size: $font-size-2xl;
+    }
+  }
+}
+
+.contato__card .contato__cardText--compact {
+  @include respond-to($bp-lg) {
+    font-size: $font-size-lg;
+  }
+}
+
+.contato__horario {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+
+  @include respond-to($bp-lg) {
+    font-size: $font-size-md;
+    letter-spacing: 0.16px;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+    color: $color-primary;
+    flex-shrink: 0;
+  }
+}

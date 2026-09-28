@@ -49,6 +49,7 @@ const blockRegistry: Record<string, () => Promise<BlockModule>> = {
   // Contato (página)
   'contato-hero': () => import(/* webpackChunkName: "blocks/global/HeroToggle" */ './blocks/global/HeroToggle'),
   'contato-formulario': () => import(/* webpackChunkName: "blocks/contato/Formulario" */ './blocks/pages/contato/Formulario'),
+  'contato-ouvidoria': () => import(/* webpackChunkName: "blocks/contato/Ouvidoria" */ './blocks/pages/contato/Ouvidoria'),
   'contato-certificados': () => import(/* webpackChunkName: "blocks/contato/Certificados" */ './blocks/pages/contato/Certificados'),
   // Ouvidoria (página)
   'ouvidoria-hero': () => import(/* webpackChunkName: "blocks/global/HeroToggle" */ './blocks/global/HeroToggle'),

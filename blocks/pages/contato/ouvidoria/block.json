@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/contato-ouvidoria",
+  "title": "Contato — Ouvidoria",
+  "category": "theme",
+  "description": "Título + descrição, 3 cards de contato (telefone/whatsapp/e-mail) e horário — conteúdo da aba \"Ouvidoria\" do switcher do hero (troca de conteúdo na mesma página, a página Ouvidoria separada não é mais usada).",
+  "keywords": ["contato", "ouvidoria"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../../../build/index.js",
+  "editorStyle": "file:../../../../build/index.css",
+  "style": "file:../../../../build/index.css"
+}
