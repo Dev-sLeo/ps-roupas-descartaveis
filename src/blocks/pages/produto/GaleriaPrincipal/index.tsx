@@ -1,4 +1,6 @@
+import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import type { Swiper as SwiperClass } from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -6,10 +8,33 @@ import 'swiper/css/pagination';
 import styles from './style.module.scss';
 import SmartImage from '../../../../components/SmartImage';
 import { IconArrowLeft, IconArrowRight } from '../../../../icons';
-import { hasItems } from '../../../../utils';
+import { hasItems, type AcfImage } from '../../../../utils';
 import { GaleriaPrincipalProps } from './types';
 
-export default function GaleriaPrincipal({ imagens = [] }: GaleriaPrincipalProps) {
+export default function GaleriaPrincipal({ imagens: imagensIniciais = [] }: GaleriaPrincipalProps) {
+  const [imagens, setImagens] = useState(imagensIniciais);
+  const swiperRef = useRef<SwiperClass | null>(null);
+
+  // Troca a imagem principal quando o bloco `produto-variacoes` (root React
+  // separado) avisa que a cor selecionada tem uma foto própria — substitui
+  // sempre o 1º slide (a "imagem principal") em vez de inserir mais um item,
+  // e leva o slider de volta pra ela.
+  useEffect(() => {
+    const aoTrocarImagem = (e: Event) => {
+      const imagem = (e as CustomEvent<{ imagem?: AcfImage }>).detail?.imagem;
+      if (!imagem?.url) return;
+
+      setImagens((atual) => {
+        if (atual[0]?.url === imagem.url) return atual;
+        return [imagem, ...atual.slice(1)];
+      });
+      swiperRef.current?.slideTo(0);
+    };
+
+    window.addEventListener('produto:variacao-imagem', aoTrocarImagem);
+    return () => window.removeEventListener('produto:variacao-imagem', aoTrocarImagem);
+  }, []);
+
   if (!hasItems(imagens)) return null;
 
   const temMultiplas = imagens.length > 1;
@@ -18,6 +43,9 @@ export default function GaleriaPrincipal({ imagens = [] }: GaleriaPrincipalProps
     <div className={styles.galeriaPrincipal}>
       <Swiper
         modules={[Navigation, Pagination]}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+        }}
         navigation={
           temMultiplas
             ? { prevEl: `.${styles.galeriaPrincipal__navPrev}`, nextEl: `.${styles.galeriaPrincipal__navNext}` }

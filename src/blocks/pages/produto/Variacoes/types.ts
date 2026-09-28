@@ -1,3 +1,5 @@
+import type { AcfImage } from '../../../../utils';
+
 export interface VariationAttributeOption {
   value: string;
   label: string;
@@ -16,6 +18,7 @@ export interface ProductVariation {
   attributes: Record<string, string>;
   priceHtml: string;
   inStock: boolean;
+  imagem: AcfImage | null;
 }
 
 export interface VariacoesProps {

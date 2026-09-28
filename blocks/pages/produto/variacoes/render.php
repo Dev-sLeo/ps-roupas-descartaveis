@@ -75,11 +75,25 @@ foreach ($product->get_variation_attributes() as $rawName => $options) {
 
 $variations = [];
 foreach ($product->get_available_variations() as $variation) {
+    // Imagem própria da variação (cadastrada em Atributos > Variações no admin do
+    // produto) — get_image_id() só retorna algo aqui se a variação TEM uma imagem
+    // própria definida (sem fallback pra imagem do produto pai), então o swap na
+    // troca de cor só acontece pras variações que realmente têm foto cadastrada.
+    $variation_obj = wc_get_product($variation['variation_id']);
+    $image_id      = $variation_obj instanceof WC_Product_Variation ? $variation_obj->get_image_id() : 0;
+    $image_src     = $image_id ? wp_get_attachment_image_src($image_id, 'large') : false;
+
     $variations[] = [
         'id'         => $variation['variation_id'],
         'attributes' => $variation['attributes'],
         'priceHtml'  => $variation['price_html'],
         'inStock'    => (bool) $variation['is_in_stock'],
+        'imagem'     => $image_src ? [
+            'url'    => $image_src[0],
+            'alt'    => get_post_meta($image_id, '_wp_attachment_image_alt', true) ?: get_the_title($product->get_id()),
+            'width'  => (int) $image_src[1],
+            'height' => (int) $image_src[2],
+        ] : null,
     ];
 }
 

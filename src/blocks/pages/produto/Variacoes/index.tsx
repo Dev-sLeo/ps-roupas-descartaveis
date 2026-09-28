@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import styles from './style.module.scss';
 import { IconChevronDown } from '../../../../icons';
 import { hasItems } from '../../../../utils';
@@ -28,6 +28,25 @@ export default function Variacoes({
         })
       ) ?? null
     );
+  }, [attributes, variations, selections]);
+
+  // Troca a imagem principal (GaleriaPrincipal, root React separado) assim que
+  // a cor é selecionada — não espera as outras variações (tamanho/gramatura)
+  // serem escolhidas, igual ao comportamento nativo do WooCommerce. Só dispara
+  // se a variação daquela cor tiver uma imagem própria cadastrada (ver
+  // render.php — sem fallback pra imagem do produto pai).
+  useEffect(() => {
+    const corAttr = attributes.find((attr) => attr.isCores);
+    const corSelecionada = corAttr ? selections[corAttr.key] : undefined;
+    if (!corAttr || !corSelecionada) return;
+
+    const variacaoComImagem = variations.find(
+      (variation) => (variation.attributes[corAttr.key] ?? '') === corSelecionada && variation.imagem
+    );
+
+    if (variacaoComImagem?.imagem) {
+      window.dispatchEvent(new CustomEvent('produto:variacao-imagem', { detail: { imagem: variacaoComImagem.imagem } }));
+    }
   }, [attributes, variations, selections]);
 
   if (!hasItems(attributes) || !productId) return null;
