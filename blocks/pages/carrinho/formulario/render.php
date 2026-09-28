@@ -9,7 +9,8 @@ $group = get_field('cotacao_secao') ?: [];
 $formHtml = !empty($group['formulario']) ? do_shortcode($group['formulario']) : '';
 
 block_render('carrinho-formulario', [
-    'titulo'    => $group['titulo'] ?? '',
-    'descricao' => $group['descricao'] ?? '',
-    'formHtml'  => $formHtml,
+    'titulo'      => $group['titulo'] ?? '',
+    'descricao'   => $group['descricao'] ?? '',
+    'formHtml'    => $formHtml,
+    'produtosUrl' => function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/produtos/'),
 ]);

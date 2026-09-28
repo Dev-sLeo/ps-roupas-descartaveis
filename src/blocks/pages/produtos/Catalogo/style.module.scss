@@ -36,11 +36,33 @@
   border-radius: $radius-md;
 }
 
+.catalogo__filterHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+}
+
 .catalogo__filterTitle {
   font-family: $font-heading;
   font-size: $font-size-md;
   font-weight: $font-weight-medium;
   color: $color-text-primary;
+}
+
+.catalogo__resetLink {
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  color: $color-primary;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 .catalogo__checkboxList {
@@ -106,23 +128,10 @@
   gap: $space-6;
 }
 
-.catalogo__loading {
-  height: 3px;
-  background: linear-gradient(90deg, transparent, $color-primary, transparent);
-  background-size: 200% 100%;
-  animation: catalogoLoading 1s ease-in-out infinite;
-}
-
-@keyframes catalogoLoading {
-  from { background-position: 200% 0; }
-  to { background-position: -200% 0; }
-}
-
 .catalogo__grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: $space-4;
-  transition: opacity 150ms ease;
 
   @include respond-to($bp-md) {
     grid-template-columns: repeat(2, 1fr);
@@ -131,17 +140,23 @@
   @include respond-to($bp-lg) {
     grid-template-columns: repeat(3, 1fr);
   }
+}
 
-  &--loading {
-    opacity: 0.5;
-    pointer-events: none;
-  }
+.catalogo__emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-6;
 }
 
 .catalogo__empty {
   font-family: $font-body;
   font-size: $font-size-md;
   color: $color-text-secondary;
+}
+
+.catalogo__emptyReset {
+  @include btn-pill-primary;
 }
 
 .catalogo__pagination {

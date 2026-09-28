@@ -54,6 +54,7 @@ export default function ImageLightbox({ images, initialIndex = 0, onClose }: Ima
           navigation={{ prevEl: `.${prevClass}`, nextEl: `.${nextClass}` }}
           pagination={{ type: 'fraction', el: `.${paginationClass}` }}
           zoom={{ maxRatio: 3, minRatio: 1 }}
+          loop={validas.length > 1}
           initialSlide={initialIndex}
           autoHeight
           onSwiper={(swiper) => {

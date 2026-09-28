@@ -24,6 +24,7 @@ export default function GaleriaPrincipal({ imagens = [] }: GaleriaPrincipalProps
             : false
         }
         pagination={temMultiplas ? { el: `.${styles.galeriaPrincipal__pagination}`, clickable: true } : false}
+        loop={temMultiplas}
         className={styles.galeriaPrincipal__swiper}
       >
         {imagens.map((imagem, i) => (

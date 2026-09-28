@@ -26,7 +26,7 @@ export default function Produtos({ eyebrow, titulo, descricao, produtos = [], bo
         {hasItems(produtos) && (
           <div className={styles.produtos__grid}>
             {produtos.map((produto, i) => (
-              <ProductCard key={produto.id ?? i} produto={produto} animateDelay={String((i % 3) * 0.1)} />
+              <ProductCard key={produto.id ?? i} produto={produto} animateDelay={String((i % 3) * 0.1)} variant="home" />
             ))}
           </div>
         )}

@@ -20,6 +20,21 @@ add_action('wp_ajax_filtrar_produtos', 'proseg_ajax_filtrar_produtos');
 add_action('wp_ajax_nopriv_filtrar_produtos', 'proseg_ajax_filtrar_produtos');
 
 /**
+ * Filtro/busca/paginação AJAX do blog (Posts Page + resultados de busca).
+ * Mesmo padrão de proseg_ajax_filtrar_produtos() — espelha o SSR
+ * (proseg_blog_query() em includes/helpers.php) a partir do próprio $_GET.
+ */
+function proseg_ajax_filtrar_blog(): void {
+    check_ajax_referer('proseg_ajax', 'nonce');
+
+    $filtros = proseg_blog_filtros($_GET);
+
+    wp_send_json_success(proseg_blog_query($filtros));
+}
+add_action('wp_ajax_filtrar_blog', 'proseg_ajax_filtrar_blog');
+add_action('wp_ajax_nopriv_filtrar_blog', 'proseg_ajax_filtrar_blog');
+
+/**
  * Altera a quantidade de um item do carrinho (página "Carrinho de Compras" —
  * ver blocks/pages/carrinho/itens). Carrinho de cotação, sem preço — só
  * atualiza a quantidade na sessão do WC mesmo, nada de totais.

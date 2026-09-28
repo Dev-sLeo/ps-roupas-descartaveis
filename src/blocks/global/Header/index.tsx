@@ -10,9 +10,10 @@ function SocialIcon({ network }: { network: string }) {
   return network === 'linkedin' ? <IconLinkedinOutline /> : <IconInstagramOutline />;
 }
 
-export default function Header({ logo, homeUrl = '/', phone = '', whatsapp = '', email = '', cartUrl, cartCount = 0, social = [], menu = [] }: HeaderProps) {
+export default function Header({ logo, homeUrl = '/', phone = '', whatsapp = '', email = '', cartUrl, cartCount: cartCountInicial = 0, social = [], menu = [] }: HeaderProps) {
   const [open, setOpen] = useState(false);
   const [topStripHidden, setTopStripHidden] = useState(false);
+  const [cartCount, setCartCount] = useState(cartCountInicial);
   const cart = linkProps(cartUrl);
 
   useEffect(() => {
@@ -21,6 +22,19 @@ export default function Header({ logo, homeUrl = '/', phone = '', whatsapp = '',
       document.body.style.overflow = '';
     };
   }, [open]);
+
+  // O bloco `Itens` da página /carrinho/ (root React separado) dispara este evento
+  // sempre que a quantidade/lista muda, ou quando o carrinho é esvaziado após o
+  // envio da cotação — mantém o badge do header em sincronia sem precisar recarregar
+  // a página. `cartCount` reflete `get_cart_contents_count()` (soma de quantidades).
+  useEffect(() => {
+    const aoAtualizarCarrinho = (e: Event) => {
+      const itens = (e as CustomEvent<{ itens?: Array<{ quantidade: number }> }>).detail?.itens ?? [];
+      setCartCount(itens.reduce((total, item) => total + item.quantidade, 0));
+    };
+    window.addEventListener('carrinho:atualizado', aoAtualizarCarrinho);
+    return () => window.removeEventListener('carrinho:atualizado', aoAtualizarCarrinho);
+  }, []);
 
   // Esconde o top strip ao rolar pra baixo, mostra de novo ao rolar pra cima —
   // some só depois de passar da própria altura dele (evita "tremer" no topo).
@@ -139,10 +153,12 @@ export default function Header({ logo, homeUrl = '/', phone = '', whatsapp = '',
         </div>
 
         <div className={styles.header__actionsMobile}>
-          <button type="button" className={styles.header__cartMobile} aria-label="Carrinho">
-            <IconShoppingCart />
-            {cartCount > 0 && <span className={styles.header__cartCount}>{cartCount}</span>}
-          </button>
+          {cart && (
+            <a {...cart} className={styles.header__cartMobile} aria-label="Carrinho">
+              <IconShoppingCart />
+              {cartCount > 0 && <span className={styles.header__cartCount}>{cartCount}</span>}
+            </a>
+          )}
 
           <button
             type="button"

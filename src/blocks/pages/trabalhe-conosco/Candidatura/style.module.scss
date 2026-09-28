@@ -155,27 +155,14 @@
     }
   }
 
-  // Select nativo — remove a seta padrão do navegador (o CF7 não usa placeholder
-  // real em select, o rótulo "Qual vaga deseja?" vem de `first_as_label`).
-  :global(.select-wrap select.wpcf7-form-control) {
-    appearance: none;
-    padding-right: $space-6;
-    cursor: pointer;
-  }
-
+  // `.select-wrap` aqui é só o placeholder vazio (`.js-vaga-select`) onde o
+  // formulário reserva o lugar do campo "vaga" — o menu customizado é montado
+  // via portal (ver Candidatura/index.tsx) dentro dele, por isso o padding/border
+  // padrão do `.field-wrap` precisa ser zerado: quem desenha a caixa é o
+  // `.candidatura__vagaTrigger` logo abaixo.
   :global(.select-wrap) {
-    &::after {
-      content: '';
-      position: absolute;
-      right: $space-4;
-      top: 50%;
-      width: 8px;
-      height: 8px;
-      border-right: 1.5px solid $color-text-muted;
-      border-bottom: 1.5px solid $color-text-muted;
-      transform: translateY(-70%) rotate(45deg);
-      pointer-events: none;
-    }
+    padding: 0;
+    border: none;
   }
 
   // Upload de arquivo — [file ...] fica dentro de <label class="custom-file-upload">;
@@ -194,10 +181,23 @@
     cursor: pointer;
   }
 
+  // Texto sobrescrito via JS pro nome do arquivo selecionado (ver
+  // Candidatura/index.tsx) — trunca em vez de quebrar a caixa quando o nome é longo.
   :global(.file-label-text) {
+    overflow: hidden;
     font-family: $font-body;
     font-size: $font-size-sm;
     color: $color-text-muted;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    &:not(:global(.is-filled)) {
+      color: $color-text-muted;
+    }
+
+    &:global(.is-filled) {
+      color: $color-text-primary;
+    }
   }
 
   :global(.file-btn) {
@@ -274,5 +274,91 @@
     border: 1px solid $color-border;
     font-family: $font-body;
     font-size: $font-size-sm;
+  }
+}
+
+// ─── Menu customizado do campo "vaga" ───────────────────────────────────────────
+// Montado via createPortal dentro do placeholder `.js-vaga-select` do formulário
+// (ver Candidatura/index.tsx) — substitui o <select> nativo, que tem bug de
+// renderização no CF7 quando populado via script.
+.candidatura__vagaMenu {
+  position: relative;
+  width: 100%;
+}
+
+.candidatura__vagaTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-2;
+  width: 100%;
+  padding: $space-3 $space-2 $space-3 $space-4;
+  background-color: $color-bg-primary;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 150ms ease;
+
+  &:focus-visible,
+  &[aria-expanded='true'] {
+    outline: none;
+    border-color: $color-primary;
+  }
+}
+
+.candidatura__vagaPlaceholder {
+  color: $color-text-muted;
+}
+
+.candidatura__vagaIcon {
+  display: flex;
+  flex-shrink: 0;
+  color: $color-text-muted;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.candidatura__vagaList {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + #{$space-1});
+  left: 0;
+  right: 0;
+  max-height: 240px;
+  overflow-y: auto;
+  padding: $space-1;
+  background-color: $color-bg-primary;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  box-shadow: 0 4px 12px alpha($color-text-primary, 0.12);
+
+  button {
+    display: block;
+    width: 100%;
+    padding: $space-2 $space-3;
+    background: none;
+    border: none;
+    border-radius: $radius-sm;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $color-bg-secondary;
+    }
+  }
+
+  li[aria-selected='true'] button {
+    color: $color-primary;
+    font-weight: $font-weight-semibold;
   }
 }

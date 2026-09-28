@@ -1,6 +1,6 @@
 import styles from './style.module.scss';
 import { IconPhone, IconWhatsapp, IconMapPin, IconClock, IconMail } from '../../../../icons';
-import { htmlContent } from '../../../../utils';
+import { htmlContent, whatsappHref } from '../../../../utils';
 import { ContatoFormularioProps } from './types';
 
 export default function Formulario({
@@ -14,13 +14,22 @@ export default function Formulario({
   formTitulo,
   formHtml,
 }: ContatoFormularioProps) {
-  const canais = [
-    telefone && { icon: <IconPhone />, texto: telefone },
-    whatsapp && { icon: <IconWhatsapp />, texto: whatsapp },
-    endereco && { icon: <IconMapPin />, texto: endereco },
-    horario && { icon: <IconClock />, texto: horario },
-    email && { icon: <IconMail />, texto: email },
-  ].filter((item): item is { icon: JSX.Element; texto: string } => Boolean(item));
+  interface Canal {
+    icon: JSX.Element;
+    texto: string;
+    href?: string;
+    external?: boolean;
+  }
+
+  const canais: Array<Canal | null> = [
+    telefone ? { icon: <IconPhone />, texto: telefone, href: `tel:+55${telefone.replace(/\D/g, '')}`, external: false } : null,
+    whatsapp ? { icon: <IconWhatsapp />, texto: whatsapp, href: whatsappHref(whatsapp), external: true } : null,
+    endereco ? { icon: <IconMapPin />, texto: endereco, href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(endereco)}`, external: true } : null,
+    horario ? { icon: <IconClock />, texto: horario } : null,
+    email ? { icon: <IconMail />, texto: email, href: `mailto:${email}`, external: false } : null,
+  ];
+
+  const canaisAtivos = canais.filter((canal): canal is Canal => canal !== null);
 
   return (
     <section className={styles.formulario}>
@@ -29,12 +38,18 @@ export default function Formulario({
           {titulo && <h2 className={styles.formulario__title}>{titulo}</h2>}
           {descricao && <p className={styles.formulario__description}>{descricao}</p>}
 
-          {canais.length > 0 && (
+          {canaisAtivos.length > 0 && (
             <ul className={styles.formulario__canais}>
-              {canais.map((canal, i) => (
+              {canaisAtivos.map((canal, i) => (
                 <li key={i} className={styles.formulario__canal}>
                   <span className={styles.formulario__canalIcon}>{canal.icon}</span>
-                  <span>{canal.texto}</span>
+                  {canal.href ? (
+                    <a href={canal.href} {...(canal.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+                      {canal.texto}
+                    </a>
+                  ) : (
+                    <span>{canal.texto}</span>
+                  )}
                 </li>
               ))}
             </ul>

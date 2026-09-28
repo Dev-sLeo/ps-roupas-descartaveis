@@ -60,7 +60,8 @@
   font-size: $font-size-md;
   line-height: $line-height-relaxed;
   color: $color-text-secondary;
-  max-width: 538px;
+  max-width: 440px;
+  text-wrap: pretty;
 }
 
 .produtos__grid {

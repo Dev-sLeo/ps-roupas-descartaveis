@@ -11,4 +11,5 @@ export interface QuemSomosProps {
   videoTitulo?: string;
   videoDescricao?: string;
   videoUrl?: string;
+  videoTeaserEmpilhado?: boolean;
 }

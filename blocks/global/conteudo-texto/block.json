@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "theme/conteudo-texto",
+  "title": "Conteúdo (Texto)",
+  "category": "theme",
+  "description": "Título + texto longo, para páginas só de conteúdo (Política de Privacidade, Termos de Uso, etc.).",
+  "keywords": ["texto", "conteudo", "wysiwyg", "politica", "termos"],
+  "supports": { "html": false, "align": ["full", "wide"] },
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "editorScript": "file:../../build/index.js",
+  "editorStyle": "file:../../build/index.css",
+  "style": "file:../../build/index.css"
+}

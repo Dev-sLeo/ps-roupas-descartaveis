@@ -285,65 +285,6 @@
                     "delay": 0
                 },
                 {
-                    "key": "field_7a4000000025",
-                    "label": "Badge 1",
-                    "name": "badge_1",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "Opcional — deixe vazio para não exibir os badges.",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "allow_in_bindings": 0
-                },
-                {
-                    "key": "field_7a4000000026",
-                    "label": "Badge 2",
-                    "name": "badge_2",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "allow_in_bindings": 0
-                },
-                {
-                    "key": "field_7a4000000027",
-                    "label": "Botão",
-                    "name": "botao",
-                    "aria-label": "",
-                    "type": "link",
-                    "instructions": "Opcional — deixe vazio para não exibir.",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "allow_in_bindings": 0
-                },
-                {
                     "key": "field_7a4000000028",
                     "label": "Imagem",
                     "name": "imagem",
@@ -979,5 +920,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790084995
+    "modified": 1790183258
 }

@@ -10,4 +10,5 @@ export interface Produto {
 export interface ProductCardProps {
   produto: Produto;
   animateDelay?: string;
+  variant?: 'default' | 'home';
 }

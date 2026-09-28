@@ -280,6 +280,58 @@ function proseg_produtos_query(array $filtros): array {
 }
 
 /**
+ * Lê e sanitiza os filtros do blog a partir de um array bruto (normalmente
+ * $_GET) — usado pelo AJAX (includes/ajax.php) e pelo `render.php` do bloco
+ * de listagem, mesmo padrão de proseg_produtos_filtros().
+ *
+ * @param array $get Array bruto (ex: $_GET)
+ */
+function proseg_blog_filtros(array $get): array {
+    return [
+        'categoria' => sanitize_title((string) ($get['blog_categoria'] ?? '')),
+        'busca'     => sanitize_text_field((string) ($get['s'] ?? '')),
+        'pagina'    => max(1, (int) ($get['paged'] ?? 1)),
+    ];
+}
+
+/**
+ * Roda a query do blog (Posts Page + busca) com os filtros já sanitizados
+ * (ver proseg_blog_filtros()) e devolve o payload pronto pro React
+ * (posts[] + paginacao[]) — mesmo shape usado no SSR e na resposta AJAX.
+ *
+ * @param array{categoria: string, busca: string, pagina: int} $filtros
+ */
+function proseg_blog_query(array $filtros): array {
+    $args = [
+        'post_type'      => 'post',
+        'post_status'    => 'publish',
+        'posts_per_page' => 9,
+        'paged'          => $filtros['pagina'],
+        's'              => $filtros['busca'],
+    ];
+
+    if ($filtros['categoria'] !== '') {
+        $args['category_name'] = $filtros['categoria'];
+    }
+
+    $query = new WP_Query($args);
+
+    $posts = array_map(
+        fn(WP_Post $post) => blog_post_card($post, 90),
+        $query->posts
+    );
+
+    $paginacao = [];
+    for ($i = 1; $i <= (int) $query->max_num_pages; $i++) {
+        $paginacao[] = ['numero' => $i, 'ativa' => $i === $filtros['pagina']];
+    }
+
+    wp_reset_postdata();
+
+    return ['posts' => $posts, 'paginacao' => $paginacao, 'total' => (int) $query->found_posts];
+}
+
+/**
  * Monta um link wa.me com número e mensagem pré-preenchida.
  * Assume Brasil (+55) quando o telefone não tem código de país.
  *

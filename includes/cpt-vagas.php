@@ -2,9 +2,12 @@
 defined('ABSPATH') || exit;
 
 /**
- * CPT "Vaga" — sem URL pública, usado apenas para cadastrar vagas
- * e popular dinamicamente o select "Vaga" do formulário CF7
- * de candidatura em Trabalhe Conosco.
+ * CPT "Vaga" — sem URL pública, usado apenas para cadastrar vagas exibidas
+ * em `pages/trabalhe-conosco/vagas`. Ao clicar em "Candidatar a vaga" o título
+ * é escrito direto no campo de texto `sua-vaga` do formulário CF7 de
+ * candidatura (ver `src/blocks/pages/trabalhe-conosco/Vagas/index.tsx`) — não
+ * populamos mais um <select> do CF7 via `wpcf7_form_tag`, porque um <select>
+ * com opções geradas/alteradas via script tem bug de renderização no CF7.
  */
 add_action('init', function () {
     register_post_type('vaga', [
@@ -37,51 +40,3 @@ add_action('init', function () {
         'menu_position'       => 26,
     ]);
 });
-
-/**
- * Popula dinamicamente as opções do select "vaga" no formulário CF7
- * de candidatura com as vagas cadastradas (CPT "vaga", publicadas).
- */
-add_filter('wpcf7_form_tag', function ($tag) {
-    if (!is_object($tag) || $tag->name !== 'vaga' || !in_array($tag->basetype, ['select', 'checkbox', 'radio'], true)) {
-        return $tag;
-    }
-
-    $vagas = get_posts([
-        'post_type'      => 'vaga',
-        'post_status'    => 'publish',
-        'posts_per_page' => -1,
-        'orderby'        => 'title',
-        'order'          => 'ASC',
-        'meta_query'     => [
-            'relation' => 'OR',
-            [
-                'key'     => 'ativa',
-                'value'   => '1',
-                'compare' => '=',
-            ],
-            [
-                'key'     => 'ativa',
-                'compare' => 'NOT EXISTS',
-            ],
-        ],
-    ]);
-
-    if (empty($vagas)) {
-        return $tag;
-    }
-
-    $values  = [];
-    $labels  = [];
-
-    foreach ($vagas as $vaga) {
-        $values[]  = $vaga->post_title;
-        $labels[]  = $vaga->post_title;
-    }
-
-    $tag->raw_values = $values;
-    $tag->values      = $values;
-    $tag->labels      = $labels;
-
-    return $tag;
-}, 10, 1);

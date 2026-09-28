@@ -47,6 +47,113 @@
   color: #5e5e5e;
 }
 
+.formulario__formWrap {
+  position: relative;
+}
+
+.formulario__loading,
+.formulario__success {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: $space-3;
+  padding: $space-6;
+  border-radius: $radius-lg;
+}
+
+.formulario__loading {
+  background-color: alpha($color-bg-primary, 0.85);
+  font-family: $font-body;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+}
+
+.formulario__spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid $color-verde-200;
+  border-top-color: $color-primary;
+  border-radius: $radius-pill;
+  animation: formulario-spin 700ms linear infinite;
+}
+
+@keyframes formulario-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.formulario__success {
+  min-height: 320px;
+  background-color: $color-bg-primary;
+  animation: formulario-fade-in 300ms ease;
+}
+
+@keyframes formulario-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.formulario__successIcon {
+  display: flex;
+  color: $color-accent;
+
+  svg {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+.formulario__successTitle {
+  font-family: $font-heading;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.formulario__successText {
+  max-width: 420px;
+  font-family: $font-body;
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  color: #5e5e5e;
+}
+
+.formulario__successCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: $space-3;
+  padding: $space-3 $space-6;
+  background-color: transparent;
+  border: 1px solid $color-primary;
+  border-radius: $radius-md;
+  font-family: $font-heading;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-primary;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+
+  &:hover {
+    background-color: $color-primary;
+    color: $color-white;
+  }
+}
+
 // ─── Formulário do Contact Form 7 ───────────────────────────────────────────────
 // Markup customizado no conteúdo do form (wp-admin): pares de campo lado a lado
 // (Nome+E-mail, Telefone+Empresa) ficam dentro de `<div class="cotacao-row">`

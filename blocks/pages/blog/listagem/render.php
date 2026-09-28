@@ -1,16 +1,14 @@
 <?php
 defined('ABSPATH') || exit;
 
-global $wp_query;
-
-$categoria_ativa = sanitize_title(get_query_var('blog_categoria'));
+$filtros = proseg_blog_filtros($_GET);
+$dados   = proseg_blog_query($filtros);
 
 $categorias = [
     [
-        'nome'   => 'Em destaque',
-        'slug'   => '',
-        'url'    => remove_query_arg(['blog_categoria', 'paged']),
-        'ativa'  => $categoria_ativa === '',
+        'nome'  => 'Em destaque',
+        'slug'  => '',
+        'ativa' => $filtros['categoria'] === '',
     ],
 ];
 
@@ -18,32 +16,21 @@ foreach (get_categories(['hide_empty' => false]) as $termo) {
     $categorias[] = [
         'nome'  => $termo->name,
         'slug'  => $termo->slug,
-        'url'   => add_query_arg('blog_categoria', $termo->slug, remove_query_arg('paged')),
-        'ativa' => $categoria_ativa === $termo->slug,
+        'ativa' => $filtros['categoria'] === $termo->slug,
     ];
 }
 
-$posts = acf_repeater($wp_query->posts, fn($post) => blog_post_card($post, 90));
+$posts_page_id = (int) get_option('page_for_posts');
 
-$pagina_atual = max(1, (int) get_query_var('paged'));
-$total_paginas = (int) $wp_query->max_num_pages;
-
-$paginacao = [];
-for ($i = 1; $i <= $total_paginas; $i++) {
-    $link = get_pagenum_link($i);
-    if ($categoria_ativa !== '') {
-        $link = add_query_arg('blog_categoria', $categoria_ativa, $link);
-    }
-
-    $paginacao[] = [
-        'numero' => $i,
-        'url'    => $link,
-        'ativa'  => $i === $pagina_atual,
-    ];
-}
+// Mesma lógica de blocks/pages/blog/hero/render.php: se a Posts Page não for
+// a home, o link precisa manter a slug dela (ex: /blog/) — senão o filtro/
+// paginação leva pra home num F5.
+$arquivo_url = $posts_page_id ? get_permalink($posts_page_id) : home_url('/');
 
 block_render('blog-listagem', [
     'categorias' => $categorias,
-    'posts'      => $posts,
-    'paginacao'  => $paginacao,
+    'posts'      => $dados['posts'],
+    'paginacao'  => $dados['paginacao'],
+    'total'      => $dados['total'],
+    'arquivoUrl' => $arquivo_url,
 ]);

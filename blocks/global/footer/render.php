@@ -29,5 +29,5 @@ block_render('footer', [
     ]),
     'copy'            => $footer['copy'] ?? '',
     'privacyLink'     => acf_link($footer['link_privacidade'] ?? null, 'Política de privacidade'),
-    'agencyUrl'       => $footer['upsites_url'] ?? 'https://upsites.digital',
+    'agencyUrl'       => $footer['upsites_url'] ?? 'https://upsites.digital/?origin=proseg',
 ]);

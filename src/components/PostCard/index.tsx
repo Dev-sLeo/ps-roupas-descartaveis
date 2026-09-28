@@ -1,6 +1,24 @@
 import styles from './style.module.scss';
 import SmartImage from '../SmartImage';
+import Skeleton from '../Skeleton';
 import { PostCardProps } from './types';
+
+/**
+ * Placeholder de loading com a mesma proporção/estrutura do `PostCard` —
+ * padrão do tema pra skeleton de listagens (ver `ProductCardSkeleton`).
+ */
+export function PostCardSkeleton() {
+  return (
+    <div className={styles.postCard}>
+      <Skeleton className={styles.postCard__imageSkeleton} />
+      <div className={styles.postCard__body}>
+        <Skeleton className={styles.postCard__titleSkeleton} />
+        <Skeleton className={styles.postCard__excerptSkeleton} />
+      </div>
+      <Skeleton className={styles.postCard__ctaSkeleton} />
+    </div>
+  );
+}
 
 export default function PostCard({ post, animateDelay }: PostCardProps) {
   return (

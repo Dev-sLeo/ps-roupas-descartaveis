@@ -521,8 +521,8 @@
             ]
         },
         {
-            "key": "field_7a1000000180",
-            "label": "Produtos (arquivo)",
+            "key": "field_7a1000000190",
+            "label": "Certificados",
             "name": "",
             "aria-label": "",
             "type": "tab",
@@ -539,12 +539,12 @@
             "selected": 0
         },
         {
-            "key": "field_7a1000000181",
-            "label": "Produtos (arquivo)",
-            "name": "produtos_arquivo",
+            "key": "field_7a1000000191",
+            "label": "Certificados",
+            "name": "certificados_secao",
             "aria-label": "",
             "type": "group",
-            "instructions": "Cabeçalho do arquivo de produtos do WooCommerce (/produto/) — o grid de produtos em si vem direto do WooCommerce, não é campo ACF.",
+            "instructions": "Compartilhado entre as páginas Contato e Ouvidoria — mesmos certificados/documentos exibidos nas duas.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -555,28 +555,7 @@
             "layout": "block",
             "sub_fields": [
                 {
-                    "key": "field_7a1000000182",
-                    "label": "Eyebrow",
-                    "name": "eyebrow",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "Produtos",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "allow_in_bindings": 0
-                },
-                {
-                    "key": "field_7a1000000183",
+                    "key": "field_7a1000000192",
                     "label": "Título",
                     "name": "titulo",
                     "aria-label": "",
@@ -589,7 +568,7 @@
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "Conheça nossos produtos",
+                    "default_value": "Certificados e documentações",
                     "maxlength": "",
                     "placeholder": "",
                     "prepend": "",
@@ -597,7 +576,7 @@
                     "allow_in_bindings": 0
                 },
                 {
-                    "key": "field_7a1000000184",
+                    "key": "field_7a1000000193",
                     "label": "Descrição",
                     "name": "descricao",
                     "aria-label": "",
@@ -610,7 +589,7 @@
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "Soluções para proteger pessoas, processos e ambientes em diferentes operações.",
+                    "default_value": "Acesse fichas técnicas, certificados e documentos importantes da Pro Seg de forma rápida e organizada.",
                     "maxlength": "",
                     "rows": 2,
                     "placeholder": "",
@@ -618,12 +597,12 @@
                     "allow_in_bindings": 0
                 },
                 {
-                    "key": "field_7a1000000185",
-                    "label": "Placeholder da busca",
-                    "name": "busca_placeholder",
+                    "key": "field_7a1000000194",
+                    "label": "Categorias",
+                    "name": "categorias",
                     "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
+                    "type": "repeater",
+                    "instructions": "Define a ordem das abas de filtro. Os nomes devem casar com o campo Categoria de cada documento abaixo.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -631,12 +610,149 @@
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "Encontre seu produto",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "allow_in_bindings": 0
+                    "layout": "table",
+                    "pagination": 0,
+                    "min": 0,
+                    "max": 0,
+                    "collapsed": "",
+                    "button_label": "Adicionar categoria",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_7a1000000195",
+                            "label": "Nome",
+                            "name": "nome",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "allow_in_bindings": 0,
+                            "parent_repeater": "field_7a1000000194"
+                        }
+                    ]
+                },
+                {
+                    "key": "field_7a1000000196",
+                    "label": "Documentos",
+                    "name": "documentos",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "A categoria define em qual aba de filtro o documento aparece — documentos com a mesma categoria (mesmo texto) caem na mesma aba.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "block",
+                    "pagination": 0,
+                    "min": 0,
+                    "max": 0,
+                    "collapsed": "field_7a1000000198",
+                    "button_label": "Adicionar documento",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_7a1000000197",
+                            "label": "Categoria",
+                            "name": "categoria",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Ex: Fichas Técnicas, Certificados ANVISA...",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "allow_in_bindings": 0,
+                            "parent_repeater": "field_7a1000000196"
+                        },
+                        {
+                            "key": "field_7a1000000198",
+                            "label": "Título",
+                            "name": "titulo",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "allow_in_bindings": 0,
+                            "parent_repeater": "field_7a1000000196"
+                        },
+                        {
+                            "key": "field_7a1000000199",
+                            "label": "Descrição",
+                            "name": "descricao",
+                            "aria-label": "",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "rows": 2,
+                            "placeholder": "",
+                            "new_lines": "",
+                            "allow_in_bindings": 0,
+                            "parent_repeater": "field_7a1000000196"
+                        },
+                        {
+                            "key": "field_7a1000000200",
+                            "label": "Arquivo",
+                            "name": "arquivo",
+                            "aria-label": "",
+                            "type": "file",
+                            "instructions": "PDF pra download.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "library": "all",
+                            "min_size": "",
+                            "max_size": "",
+                            "mime_types": "pdf",
+                            "allow_in_bindings": 0,
+                            "parent_repeater": "field_7a1000000196"
+                        }
+                    ]
                 }
             ]
         }

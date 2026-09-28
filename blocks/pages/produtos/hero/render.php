@@ -1,7 +1,8 @@
 <?php
 defined('ABSPATH') || exit;
 
-$group = get_field('produtos_arquivo', 'tema') ?: [];
+$produtos_page = get_page_by_path('produtos');
+$group = $produtos_page ? (get_field('produtos_arquivo', $produtos_page->ID) ?: []) : [];
 
 block_render('produtos-hero', [
     'eyebrow'         => $group['eyebrow'] ?? '',

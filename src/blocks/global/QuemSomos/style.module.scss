@@ -30,6 +30,12 @@
     flex: 1;
     max-width: 536px;
   }
+
+  .quemSomos__container--full & {
+    @include respond-to($bp-lg) {
+      max-width: none;
+    }
+  }
 }
 
 .quemSomos__heading {
@@ -61,6 +67,7 @@
   font-size: $font-size-body-sm;
   line-height: $line-height-relaxed;
   color: $color-text-secondary;
+  text-wrap: balance;
 
   @include respond-to($bp-lg) {
     font-size: $font-size-lg;
@@ -118,14 +125,15 @@
 .quemSomos__image {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
   min-height: 320px;
   border-radius: $radius-lg;
   object-fit: cover;
 }
 
 // Card "Assistir vídeo" — no mobile empilha normal abaixo da imagem; no desktop
-// flutua sobreposto no canto inferior direito da foto, como no Figma.
+// flutua sobreposto no canto inferior direito da foto (Home) ou fica empilhado
+// abaixo da imagem com fundo gradiente (Quem Somos, ver modificador --empilhado).
 .quemSomos__videoTeaser {
   display: flex;
   align-items: center;
@@ -143,6 +151,21 @@
     bottom: $space-6;
     margin-top: 0;
     max-width: 351px;
+  }
+}
+
+// Página Quem Somos: card fica empilhado abaixo da thumbnail (não sobreposto)
+// e com fundo em gradiente, em vez do overlay branco flutuante da Home.
+.quemSomos__videoTeaser--empilhado {
+  background: linear-gradient(47deg, #e2feff -93.71%, #ecf5f5 91.49%);
+  box-shadow: none;
+
+  @include respond-to($bp-lg) {
+    position: static;
+    right: auto;
+    bottom: auto;
+    margin-top: $space-14;
+    max-width: none;
   }
 }
 

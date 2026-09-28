@@ -48,6 +48,23 @@
   color: $color-text-primary;
 }
 
+// Só na Home (`pages/home/Produtos`, onde o card puxa categorias, não produtos) —
+// título com peso/tamanho maiores, conforme especificação à parte do Figma.
+.productCard__title--home {
+  font-family: $font-heading;
+  font-size: 18px;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-snug;
+  letter-spacing: normal;
+  color: #000;
+}
+
+.productCard__titleSkeleton {
+  width: 60%;
+  height: 16px;
+  border-radius: $radius-sm;
+}
+
 .productCard:hover {
   .productCard__footer {
     background-color: $color-verde-200;

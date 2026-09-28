@@ -83,6 +83,7 @@
   font-weight: $font-weight-bold;
   line-height: 1.25;
   color: $color-text-primary;
+  text-wrap: balance;
 
   @include respond-to($bp-lg) {
     font-size: 46px;
@@ -96,6 +97,7 @@
   font-size: $font-size-sm;
   line-height: $line-height-normal;
   color: $color-text-secondary;
+  text-wrap: pretty;
 
   @include respond-to($bp-lg) {
     font-size: $font-size-md;
@@ -162,24 +164,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: $space-2;
+  gap: 13px;
 
   @include respond-to($bp-lg) {
     bottom: 3.75rem !important;
   }
 
   :global(.swiper-pagination-bullet) {
-    width: 8px;
-    height: 8px;
+    width: 16px;
+    height: 16px;
     border-radius: $radius-pill;
     background-color: $color-verde-200;
     opacity: 1;
     margin: 0;
-    transition: background-color 150ms ease, width 150ms ease;
+    transition: background-color 150ms ease;
   }
 
   :global(.swiper-pagination-bullet-active) {
-    width: 20px;
     background-color: $color-primary;
   }
 }

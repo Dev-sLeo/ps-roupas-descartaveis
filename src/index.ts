@@ -28,6 +28,7 @@ const blockRegistry: Record<string, () => Promise<BlockModule>> = {
   'beneficios': () => import(/* webpackChunkName: "blocks/global/Beneficios" */ './blocks/global/Beneficios'),
   'quem-somos': () => import(/* webpackChunkName: "blocks/global/QuemSomos" */ './blocks/global/QuemSomos'),
   'hero-estatico': () => import(/* webpackChunkName: "blocks/global/HeroEstatico" */ './blocks/global/HeroEstatico'),
+  'conteudo-texto': () => import(/* webpackChunkName: "blocks/global/ConteudoTexto" */ './blocks/global/ConteudoTexto'),
   // Home
   'home-hero': () => import(/* webpackChunkName: "blocks/home/Hero" */ './blocks/pages/home/Hero'),
   'home-clientes': () => import(/* webpackChunkName: "blocks/home/Clientes" */ './blocks/pages/home/Clientes'),

@@ -98,7 +98,22 @@ add_action('wpcf7_mail_sent', function (WPCF7_ContactForm $form): void {
         return; // Não é o form de cotação do carrinho — nada a fazer.
     }
 
-    if (!function_exists('WC') || !WC()->cart || WC()->cart->is_empty()) {
+    if (!function_exists('WC')) {
+        return;
+    }
+
+    // O envio do carrinho agora acontece via AJAX (endpoint REST do próprio CF7,
+    // `wp-json/contact-form-7/...`), e o WooCommerce só carrega carrinho/sessão
+    // automaticamente pra requisições de frontend — `is_request('frontend')` exclui
+    // explicitamente requisições REST (`WC_Woocommerce::is_request()`), então
+    // `WC()->cart`/`WC()->session` nunca existiam aqui, e o pedido nunca era criado.
+    // `wc_load_cart()` inicializa os dois sob demanda, lendo a mesma sessão salva
+    // no cookie do carrinho.
+    if (function_exists('wc_load_cart') && (!WC()->cart || !WC()->session)) {
+        wc_load_cart();
+    }
+
+    if (!WC()->cart || WC()->cart->is_empty()) {
         return;
     }
 

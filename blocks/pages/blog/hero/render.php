@@ -11,6 +11,10 @@ block_render('blog-hero', [
     'eyebrow'     => $hero['eyebrow'] ?? '',
     'titulo'      => $hero['titulo'] ?? '',
     'searchValue' => get_search_query(),
+    // Ponto de entrada canônico da busca nativa do WP (?s=, resolvido via
+    // is_search()) — não é a slug do blog (/blog/), que é só onde a
+    // listagem/paginação por categoria (AJAX) fica ancorada (ver
+    // blocks/pages/blog/listagem/render.php).
     'searchUrl'   => home_url('/'),
     // Decorativos fixos do tema (não são campo ACF) — mesmos de Contato/Ouvidoria.
     'patternLeft'  => THEME_URI . '/images/pattern-left-header-alternative.webp',

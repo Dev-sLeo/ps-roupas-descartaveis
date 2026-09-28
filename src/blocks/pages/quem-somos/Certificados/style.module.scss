@@ -50,6 +50,59 @@
   max-width: 440px;
 }
 
+// Navegação (setas + bullets) do slider, sempre abaixo do texto.
+.certificados__nav {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  margin-top: $space-4;
+  max-width: fit-content;
+}
+
+.certificados__navBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: $color-primary;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 150ms ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:global(.swiper-button-disabled) {
+    opacity: 0.35;
+    cursor: default;
+  }
+}
+
+.certificados__pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  :global(.swiper-pagination-bullet) {
+    width: 10px;
+    height: 10px;
+    border-radius: $radius-pill;
+    background-color: $color-verde-200;
+    opacity: 1;
+    margin: 0;
+    transition: background-color 150ms ease;
+  }
+
+  :global(.swiper-pagination-bullet-active) {
+    background-color: $color-primary;
+  }
+}
+
 .certificados__eyebrow {
   font-family: $font-heading;
   font-size: $font-size-md;
@@ -79,10 +132,25 @@
   }
 }
 
+// Largura fixa pra mostrar exatamente 1 card no mobile / 2 no desktop (slides
+// com `slidesPerView: 'auto'` — cada `.certificados__item` mantém sua própria
+// largura fixa, o Swiper só soma as larguras + gaps).
 .certificados__gallery {
-  display: flex;
-  gap: $space-5;
   flex-shrink: 0;
+  width: 152px;
+  overflow: hidden;
+
+  @include respond-to($bp-lg) {
+    width: calc(304px * 2 + #{$space-5});
+  }
+
+  :global(.swiper-wrapper) {
+    align-items: stretch;
+  }
+
+  :global(.swiper-slide) {
+    width: auto;
+  }
 }
 
 .certificados__item {

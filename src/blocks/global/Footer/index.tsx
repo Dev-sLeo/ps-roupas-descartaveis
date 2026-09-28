@@ -24,7 +24,7 @@ export default function Footer({
   social = [],
   copy,
   privacyLink,
-  agencyUrl = 'https://upsites.digital',
+  agencyUrl = 'https://upsites.digital/?origin=proseg',
 }: FooterProps) {
   return (
     <footer className={styles.footer}>

@@ -134,17 +134,16 @@
   }
 
   :global(.swiper-pagination-bullet) {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: $radius-pill;
     background-color: $color-verde-200;
     opacity: 1;
     margin: 0;
-    transition: background-color 150ms ease, width 150ms ease;
+    transition: background-color 150ms ease;
   }
 
   :global(.swiper-pagination-bullet-active) {
-    width: 20px;
     background-color: $color-primary;
   }
 }

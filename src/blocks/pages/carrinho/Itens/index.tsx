@@ -35,6 +35,15 @@ export default function Itens({ itens: itensIniciais = [] }: ItensProps) {
     window.dispatchEvent(new CustomEvent('carrinho:atualizado', { detail: { itens } }));
   }, [itens]);
 
+  // Disparado pelo bloco `Formulario` quando o CF7 confirma o envio da solicitação
+  // (`wpcf7_mail_sent`) — o carrinho (sessão WC) já foi esvaziado no servidor nesse
+  // momento, então só precisamos refletir isso na lista sem esperar reload de página.
+  useEffect(() => {
+    const aoEnviar = () => setItens([]);
+    window.addEventListener('carrinho:enviado', aoEnviar);
+    return () => window.removeEventListener('carrinho:enviado', aoEnviar);
+  }, []);
+
   async function alterarQuantidade(item: CarrinhoItem, novaQuantidade: number): Promise<void> {
     const quantidade = Math.max(1, novaQuantidade);
     if (quantidade === item.quantidade) return;

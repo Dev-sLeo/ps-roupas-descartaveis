@@ -16,12 +16,18 @@ export default function QuemSomos({
   videoTitulo,
   videoDescricao,
   videoUrl,
+  videoTeaserEmpilhado,
 }: QuemSomosProps) {
   const cta = linkProps(botao);
+  const hasMedia = Boolean(imagem || videoTitulo || videoDescricao);
 
   return (
     <section className={styles.quemSomos}>
-      <div className={styles.quemSomos__container}>
+      <div
+        className={[styles.quemSomos__container, !hasMedia && styles['quemSomos__container--full']]
+          .filter(Boolean)
+          .join(' ')}
+      >
         <div className={styles.quemSomos__content} data-animate="fade-right">
           <div className={styles.quemSomos__heading}>
             {eyebrow && <p className={styles.quemSomos__eyebrow}>{eyebrow}</p>}
@@ -43,26 +49,32 @@ export default function QuemSomos({
           )}
         </div>
 
-        <div className={styles.quemSomos__media} data-animate="fade-left" data-animate-delay="0.15">
-          {imagem && <SmartImage image={imagem} className={styles.quemSomos__image} />}
+        {hasMedia && (
+          <div className={styles.quemSomos__media} data-animate="fade-left" data-animate-delay="0.15">
+            {imagem && <SmartImage image={imagem} className={styles.quemSomos__image} />}
 
-          {(videoTitulo || videoDescricao) && (
-            <a
-              href={videoUrl || '#'}
-              target={videoUrl ? '_blank' : undefined}
-              rel={videoUrl ? 'noopener noreferrer' : undefined}
-              className={styles.quemSomos__videoTeaser}
-            >
-              <span className={styles.quemSomos__videoIcon}>
-                <IconPlaySquare />
-              </span>
-              <span className={styles.quemSomos__videoInfo}>
-                {videoTitulo && <strong>{videoTitulo}</strong>}
-                {videoDescricao && <span>{videoDescricao}</span>}
-              </span>
-            </a>
-          )}
-        </div>
+            {(videoTitulo || videoDescricao) && (
+              <a
+                href={videoUrl || '#'}
+                target={videoUrl ? '_blank' : undefined}
+                rel={videoUrl ? 'noopener noreferrer' : undefined}
+                className={
+                  videoTeaserEmpilhado
+                    ? `${styles.quemSomos__videoTeaser} ${styles['quemSomos__videoTeaser--empilhado']}`
+                    : styles.quemSomos__videoTeaser
+                }
+              >
+                <span className={styles.quemSomos__videoIcon}>
+                  <IconPlaySquare />
+                </span>
+                <span className={styles.quemSomos__videoInfo}>
+                  {videoTitulo && <strong>{videoTitulo}</strong>}
+                  {videoDescricao && <span>{videoDescricao}</span>}
+                </span>
+              </a>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -40,6 +40,7 @@ export default function Galeria({ titulo, descricao, imagens = [] }: GaleriaProp
               modules={[Navigation, Pagination]}
               navigation={{ prevEl: `.${styles.galeria__navPrev}`, nextEl: `.${styles.galeria__navNext}` }}
               pagination={{ clickable: true, el: `.${styles.galeria__pagination}` }}
+              loop={imagens.length > 1}
               slidesPerView={1}
               spaceBetween={16}
               breakpoints={{

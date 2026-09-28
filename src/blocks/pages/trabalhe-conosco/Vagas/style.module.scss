@@ -95,11 +95,16 @@
 }
 
 .vagas__cardLink {
+  align-self: flex-start;
+  padding: 0;
+  border: none;
+  background: none;
   font-family: $font-heading;
   font-size: $font-size-md;
   font-weight: $font-weight-semibold;
   color: $color-primary;
   text-decoration: none;
+  cursor: pointer;
 
   &:hover {
     text-decoration: underline;

@@ -29,20 +29,39 @@ const REVEAL_VARS: gsap.TweenVars = {
 
 const DESKTOP_MQ = '(min-width: 1024px)';
 
+const ANCHOR_GAP = 32;
+
+/**
+ * Altura do header fixo (`.header`, `position: fixed` — ver `Header/style.module.scss`)
+ * no momento do scroll, pra nenhuma âncora (ex: Trabalhe Conosco, `#vagas`/`#candidatura`)
+ * parar com o título escondido atrás dele. Calculada na hora (não um valor fixo) porque
+ * a altura muda com o breakpoint e com o top strip escondendo/aparecendo.
+ */
+function getHeaderOffset(): number {
+  const header = document.querySelector('header');
+  return (header?.offsetHeight ?? 0) + ANCHOR_GAP;
+}
+
 /**
  * Scrolla até um elemento por id, respeitando o ScrollSmoother quando ativo
  * (scroll nativo/`scrollIntoView` não funciona com ele: o scroll real é
  * simulado via transform no `#smooth-content`, ver `_reset.scss`/`lockScroll`).
+ * Sempre desconta a altura do header fixo + 32px de respiro, pra âncora não
+ * parar colada (ou escondida) atrás dele.
  */
 export function scrollToTarget(id: string): void {
   const target = document.getElementById(id);
   if (!target) return;
 
+  const offset = getHeaderOffset();
   const smoother = ScrollSmoother.get();
+
   if (smoother) {
-    smoother.scrollTo(target, true, 'top top');
+    const y = smoother.offset(target, 'top top') - offset;
+    smoother.scrollTo(Math.max(0, y), true);
   } else {
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
   }
 }
 
@@ -123,6 +142,16 @@ export function initAnimations(): void {
       const ease = type === 'reveal-up' ? 'power3.inOut' : 'power2.out';
       const to = type === 'reveal-up' ? { clipPath: 'inset(0% 0 0% 0)' } : {};
 
+      // Elemento já nasce visível (mesmo que só um pedaço) na primeira dobra, junto
+      // com o hero — o ScrollTrigger com start "top 72%" só dispara quando o elemento
+      // CRUZA esse ponto durante o scroll, o que nunca acontece se ele já nasce acima
+      // dele. Sem isso a section ficava presa em opacity:0 (em branco) até o usuário
+      // rolar. Nesse caso anima direto no load, sem depender do scroll.
+      const isAboveFold = el.getBoundingClientRect().top < window.innerHeight;
+      const scrollTrigger = isAboveFold
+        ? undefined
+        : { trigger: el, start: 'top 72%', once: true, invalidateOnRefresh: true };
+
       if (type === 'reveal-up') {
         gsap.fromTo(el, from, {
           ...to,
@@ -130,7 +159,7 @@ export function initAnimations(): void {
           delay,
           ease,
           clearProps: 'opacity,clipPath',
-          scrollTrigger: { trigger: el, start: 'top 72%', once: true, invalidateOnRefresh: true },
+          scrollTrigger,
         });
       } else {
         gsap.from(el, {
@@ -139,7 +168,7 @@ export function initAnimations(): void {
           delay,
           ease,
           clearProps: 'opacity,transform',
-          scrollTrigger: { trigger: el, start: 'top 72%', once: true, invalidateOnRefresh: true },
+          scrollTrigger,
         });
       }
     });
@@ -309,6 +338,27 @@ export function initAnimations(): void {
 
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
+      // Se o breakpoint mudar (ex: resize cruzando os 1024px) enquanto um elemento
+      // ainda está no estado "from" (opacity/transform aplicados pelo gsap.from,
+      // aguardando o ScrollTrigger disparar), matar o trigger sem isso deixaria o
+      // elemento preso invisível para sempre — força a volta ao estado natural.
+      gsap.set('[data-animate], [data-animate-load], [data-split-reveal]', {
+        clearProps: 'opacity,transform,clipPath',
+      });
     };
   });
+
+  // ── Rede de segurança: se algum elemento ficar preso no estado "from" (trigger
+  // que nunca disparou por qualquer motivo — layout instável, plugin de terceiros
+  // interferindo, etc.), força a revelação depois de um tempo razoável em vez de
+  // deixar a seção em branco permanentemente.
+  window.setTimeout(() => {
+    document
+      .querySelectorAll<HTMLElement>('[data-animate], [data-animate-load], [data-split-reveal]')
+      .forEach((el) => {
+        if (getComputedStyle(el).opacity === '0') {
+          gsap.set(el, { clearProps: 'opacity,transform,clipPath' });
+        }
+      });
+  }, 4000);
 }

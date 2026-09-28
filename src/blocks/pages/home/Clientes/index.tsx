@@ -35,6 +35,7 @@ export default function Clientes({ titulo, descricao, logos = [] }: ClientesProp
               modules={[Navigation, Pagination]}
               navigation={{ prevEl: `.${styles.clientes__navPrev}`, nextEl: `.${styles.clientes__navNext}` }}
               pagination={{ clickable: true, el: `.${styles.clientes__pagination}` }}
+              loop={logos.length > 1}
               slidesPerView={1}
               spaceBetween={14}
               breakpoints={{

@@ -1,7 +1,7 @@
 <?php
 defined('ABSPATH') || exit;
 
-$group = get_field('certificados_secao') ?: [];
+$group = get_field('certificados_secao', 'tema') ?: [];
 
 block_render('contato-certificados', [
     'titulo'     => $group['titulo'] ?? '',
